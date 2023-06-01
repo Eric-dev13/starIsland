@@ -7,17 +7,17 @@ const CONFIG=[
     'db'=>[
         'HOST'=>'localhost',
         'PORT'=>'3306',
-        'NAME'=>'crud',
+        'NAME'=>'star_island',
         'USER'=>'root',
         'PWD'=>''
 
     ],
     'app'=>[
-        'name'=>'CRUD',
-        'projecturl'=>'http://localhost/PHP/03-crud'
+        'name'=>'starIsland',
+        'projecturl'=>'http://localhost/starIsland'
     ]
 
 ];
 
-const BASE_PATH='/PHP/03-crud/';
+const BASE_PATH='/starIsland/';
 
