@@ -7,8 +7,6 @@
                 $_SESSION['messages']['info'][]='A bientôt !!';
                 header('location:./');
                 exit();
-
-
             }
             ?>
 <?php     require_once 'inc/footer.inc.php';          ?>

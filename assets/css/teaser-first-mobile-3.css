@@ -2,11 +2,11 @@
     font-family: 'Iceland';
     src: url('../font/Iceland-Regular.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'Orbitron';
     src: url('../font/orbitron/Orbitron-VariableFont_wght.ttf') format('truetype');
 }
-
 
 body {
     min-height: 100vh;
@@ -19,6 +19,7 @@ body {
     background-position: top 50% right 30%;
 }
 
+
 .gradient {
     z-index:-1;
     position: absolute;
@@ -29,12 +30,13 @@ body {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 1) 90%);
 }
 
+
 h1{
-    font-size: 1.7em;
+    font-size: 1.6em;
 }
 
 p{
-    font-size: 1.3em;
+    font-size: 1.2em;
 }
 
 /* *********************************************** */
@@ -43,8 +45,6 @@ p{
 /* *******                                 ******* */
 /* *********************************************** */
 .reseaux-sociaux {
-    position: absolute;
-    bottom: 10px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -111,11 +111,6 @@ p{
 /* *********************************************** */
 .countdownHolder {
     margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
     white-space: nowrap;
     font: 35px/1.5 'Iceland', cursive;
     letter-spacing: -3px;
@@ -292,10 +287,10 @@ p{
         transform: translate(0);
         font: 55px/1.5 'Iceland', cursive;
     }
-    
-    .infos{
-        width: 50%;
+    p{
+        width: 50vw;
     }
+    
 }
 
 @media (min-width: 1200px) {

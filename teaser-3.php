@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/bootstrap/scss/bootstrap.css">
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="assets/css/teaser-first-mobile-2.css">
+    <link rel="stylesheet" href="assets/css/teaser-first-mobile-3.css">
     <script src="assets/jquery/jquery.min.js"></script>
     <title>Star'island | Teaser</title>
 </head>
@@ -16,48 +16,54 @@
 
     <div class="gradient"></div>
 
-    <main class="d-flex flex-column flex-grow-1 justify-content-between">
-        <div class="infos text-white p-4">
-            <h1 class="pt-lg-5">Bienvenue sur sur star'Island notre futur serveur de jeu GTA 5</h1>
-            <p class="pt-lg-5">Préparez-vous à plonger dans un monde virtuel palpitant, où l'action, l'aventure et la liberté sont les maîtres mots. Notre serveur est conçu pour offrir une expérience de jeu unique à tous les passionnés de GTA 5, qu'ils soient des vétérans chevronnés ou de nouveaux arrivants enthousiastes.</p>
+    <main class="flex-grow-1 d-flex flex-column text-white">
+
+        <div class="flex-grow-1 d-flex align-items-start align-items-lg-center">
+            <h1 class="w-100 text-center pt-4 pl-2">Bienvenue sur star'Island</h1>
         </div>
 
-        <div id="countdown" class="countdownHolder text-center pt-5 pt-md-0">
-            <span class="countDays">
-                <span class="position">
-                    <span class="digit static"></span>
+        <div class="flex-grow-1 d-flex justify-content-center justify-content-lg-start align-items-start align-items-lg-end">
+            <div id="countdown" class="countdownHolder text-center">
+                <span class="countDays">
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
                 </span>
-                <span class="position">
-                    <span class="digit static"></span>
+                <span class="countDiv countDiv0"></span>
+                <span class="countHours">
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
                 </span>
-            </span>
-            <span class="countDiv countDiv0"></span>
-            <span class="countHours">
-                <span class="position">
-                    <span class="digit static"></span>
+                <span class="countDiv countDiv1"></span>
+                <span class="countMinutes">
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
                 </span>
-                <span class="position">
-                    <span class="digit static"></span>
+                <span class="countDiv countDiv2"></span>
+                <span class="countSeconds">
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
                 </span>
-            </span>
-            <span class="countDiv countDiv1"></span>
-            <span class="countMinutes">
-                <span class="position">
-                    <span class="digit static"></span>
-                </span>
-                <span class="position">
-                    <span class="digit static"></span>
-                </span>
-            </span>
-            <span class="countDiv countDiv2"></span>
-            <span class="countSeconds">
-                <span class="position">
-                    <span class="digit static"></span>
-                </span>
-                <span class="position">
-                    <span class="digit static"></span>
-                </span>
-            </span>
+            </div>
+        </div>
+
+        <div class="flex-grow-1 d-flex justify-content-lg-start align-items-end">
+            <p class="p-3">Préparez-vous à plonger dans un monde virtuel palpitant, où l'action, l'aventure et la liberté sont les maîtres mots. Notre serveur est conçu pour offrir une expérience de jeu unique à tous les passionnés de GTA 5, qu'ils soient des vétérans chevronnés ou de nouveaux arrivants enthousiastes.</p>
         </div>
 
         <div class="reseaux-sociaux">
@@ -83,6 +89,7 @@
                 <img src="assets/img/reseaux/icons8-discorde.png" alt="discorde">
             </div>
         </div>
+
     </main>
 
 
