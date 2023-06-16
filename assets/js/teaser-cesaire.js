@@ -22,7 +22,7 @@
         positions = this.find('.position');
 
         (function tick(){
-
+            
             // Time left
             left = Math.floor((options.timestamp - (new Date())) / 1000);
 
@@ -68,8 +68,6 @@
 
     function init(elem, options){
         elem.addClass('countdownHolder');
-
-
     }
 
     // Creates an animated transition between the two numbers

@@ -172,10 +172,15 @@ p{
 
      
     /* COULEUR ARRIERE FOND ET D'OMBRAGES DES CHIFFRES */
-    /* background-color: rgba(255, 0, 0, 0.2);
+    background-color: rgba(255, 0, 0, 0.2);
     color: #ffffff;
     text-shadow: 0 0 10px rgba(255, 255, 255, 1);
-    box-shadow: 3px 3px 4px rgba(255, 255, 255, 0.3); */
+    box-shadow: 3px 3px 4px rgba(255, 255, 255, 0.3);
+
+    /* Original */
+    /* background-color:#444;
+    color:#fff;
+    background-image: linear-gradient(bottom, #3A3A3A 50%, #444444 50%); */
 
     border-radius: 0.2em;
     text-align: center;

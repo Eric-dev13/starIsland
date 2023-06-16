@@ -1,112 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star'island | Teaser</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/bootstrap/scss/bootstrap.css">
-    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="assets/css/teaser-first-mobile-1.css">
+    
+    <link rel="stylesheet" href="assets/css/teaser-first-mobile.css">
+    <script src="assets/jquery/jquery.min.js"></script>
+    <title>Star'island | Teaser</title>
 </head>
 
 <body>
+
     <div class="gradient"></div>
-    <main>
-        <div class="timer mx-2">
-            <div class="digit">
-                <span id="jours"></span>
-                <span class="comment">jours</span>
-            </div>
 
-            <div class="d-flex flex-column justify-content-center px-1">
-                <div class="cercle mb-2"></div>
-                <div class="cercle"></div>
-            </div>
+    <main class="flex-grow-1 d-flex flex-column text-white">
 
-            <div class="digit">
-                <span id="heures"></span>
-                <span class="comment">heures</span>
-            </div>
+        <div class="flex-grow-1 d-flex align-items-start align-items-lg-center">
+            <h1 class="w-100 text-center pt-4 pl-2">Bienvenue sur star'Island</h1>
+        </div>
 
-            <div class="d-flex flex-column justify-content-center px-1">
-                <div class="cercle mb-2"></div>
-                <div class="cercle"></div>
-            </div>
-
-            <div class="digit">
-                <span id="minutes"></span>
-                <span class="comment">minutes</span>
-            </div>
-
-            <div class="d-flex flex-column justify-content-center px-1">
-                <div class="cercle mb-2"></div>
-                <div class="cercle"></div>
-            </div>
-
-            <div class="digit">
-                <span id="secondes"></span>
-                <span class="comment">secondes</span>
+        <div class="flex-grow-1 d-flex justify-content-center justify-content-lg-start align-items-start align-items-lg-end ml-lg-5">
+            <div id="countdown" class="countdownHolder text-center">
+                <span class="countDays">
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                </span>
+                <span class="countDiv countDiv0"></span>
+                <span class="countHours">
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                </span>
+                <span class="countDiv countDiv1"></span>
+                <span class="countMinutes">
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                </span>
+                <span class="countDiv countDiv2"></span>
+                <span class="countSeconds">
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                    <span class="position">
+                        <span class="digit static"></span>
+                    </span>
+                </span>
             </div>
         </div>
-        
+
+        <div class="flex-grow-1 d-flex justify-content-lg-start align-items-end ml-lg-5">
+            <p class="p-3">Découvrez notre serveur GTA 5 gratuit qui réunit une communauté dynamique et passionnée. Plongez dans des événements captivants et profitez d'un mode de jeu freetoplay entièrement en français. Rejoignez-nous dès maintenant pour une expérience immersive et palpitante dans l'univers de GTA 5, sans aucun frais.</p>
+        </div>
+
         <div class="reseaux-sociaux">
-            <a id="facebook" class="reseaux facebook" href="">
+            <a id="facebook" class="reseaux facebook" href="https://www.facebook.com/StarIslandfr-108004258577047">
                 <img src="assets/img/reseaux/logo_facebook.png" alt="facebook">
             </a>
-            <a id="tiktok" class="reseaux" href="">
+            <a id="tiktok" class="reseaux" href="https://www.tiktok.com/@star.island?lang=fr">
                 <img src="assets/img/reseaux/Logo_tiktok.png" alt="tiktok">
             </a>
-            <a id="twitter" class="reseaux" href="">
+            <a id="twitter" class="reseaux" href="https://twitter.com/StarIslandfr">
                 <img src="assets/img/reseaux/logo_twitter.png" alt="twitter">
             </a>
-            <a id="youtube" class="reseaux" href="">
+            <a id="youtube" class="reseaux" href="https://www.youtube.com/channel/UCI7G6fNN-17g1_tOVMKRCpQ">
                 <img src="assets/img/reseaux/logo_youtube.png" alt="youtube">
             </a>
-            <a id="twitch" class="reseaux" href="">
+            <a id="twitch" class="reseaux" href="#">
                 <img src="assets/img/reseaux/logo_twitch.png" alt="logo_twitch">
             </a>
-            <a id="instagram" class="reseaux" href="">
+            <a id="instagram" class="reseaux" href="https://www.instagram.com/starisland.fr/">
                 <img src="assets/img/reseaux/logo_Instagram.png" alt="instagram">
             </a>
             <div id="discorde" class="reseaux">
                 <img src="assets/img/reseaux/icons8-discorde.png" alt="discorde">
             </div>
         </div>
+
+
+
     </main>
 
-    <script src="assets/js/teaser.js"></script>
 
-    <script type="text/javascript">
-        let jours = document.getElementById("jours");
-        let heures = document.getElementById("heures");
-        let minutes = document.getElementById("minutes");
-        let secondes = document.getElementById("secondes");
+    <script src="assets/js/teaser-cesaire.js"></script>
+    <script>
+        $(function() {
 
-        function Rebour() {
-            var date1 = new Date();
-            var date2 = new Date("jun 30, 2023 15:10:00");
-            var sec = (date2 - date1) / 1000;
-            var n = 24 * 3600;
-            if (sec > 0) {
-                j = Math.floor(sec / n);
-                h = Math.floor((sec - (j * n)) / 3600);
-                mn = Math.floor((sec - ((j * n + h * 3600))) / 60);
-                sec = Math.floor(sec - ((j * n + h * 3600 + mn * 60)));
+            var note = $('#note'),
+                ts = new Date(2023, 05, 31),
+                newYear = true;
 
-                jours.innerHTML = j < 10 ? '0' + j : j;
-                heures.innerHTML = h < 10 ? '0' + h : h;
-                minutes.innerHTML = mn < 10 ? '0' + mn : mn;
-                secondes.innerHTML = sec < 10 ? '0' + sec : sec;
-
-                window.status = sec;
-
+            if ((new Date()) > ts) {
+                // The new year is here! Count towards something else.
+                // Notice the *1000 at the end - time must be in milliseconds
+                ts = (new Date()).getTime() + 10 * 24 * 60 * 60 * 1000;
+                newYear = false;
             }
-            tRebour = setTimeout("Rebour();", 1000);
-        }
-        Rebour();
+
+            $('#countdown').countdown({
+                timestamp: ts,
+                callback: function(days, hours, minutes, seconds) {}
+            });
+
+        });
     </script>
+
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
