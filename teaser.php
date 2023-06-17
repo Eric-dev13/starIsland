@@ -1,3 +1,18 @@
+<!-- TEASER -->
+
+<?php
+require_once 'config/function.php';
+
+// $current_date = new \DateTime();
+// $date_limit = new \DateTime('2023-06-30 00:00:00');
+
+// if ($current_date > $date_limit) {
+//     header('location:./home.php');
+//     exit();
+// }
+?>
+
+
 <!doctype html>
 <html lang="fr">
 
@@ -5,8 +20,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="assets/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="assets/bootstrap/scss/bootstrap.css">
-    
     <link rel="stylesheet" href="assets/css/teaser-first-mobile.css">
     <script src="assets/jquery/jquery.min.js"></script>
     <title>Star'island | Teaser</title>
@@ -17,6 +32,9 @@
     <div class="gradient"></div>
 
     <main class="flex-grow-1 d-flex flex-column text-white">
+
+        <audio id="lecteurAudio" src="assets/sounds/audio.mp3"></audio>
+        <div class="audio-island pl-2 pt-2"><i class="fas fa-volume-up fa-2x ml-5 mt-5"></i></div>
 
         <div class="flex-grow-1 d-flex align-items-start align-items-lg-center">
             <h1 class="w-100 text-center pt-4 pl-2">Bienvenue sur star'Island</h1>
@@ -89,25 +107,41 @@
                 <img src="assets/img/reseaux/icons8-discorde.png" alt="discorde">
             </div>
         </div>
-
-
-
     </main>
 
 
     <script src="assets/js/teaser-cesaire.js"></script>
     <script>
+        const audio = document.querySelector("#lecteurAudio");
+        const btnAudio = document.querySelector('.audio-island');
+
+        btnAudio.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                btnAudio.innerHTML='<i class="fas fa-volume-mute fa-2x ml-5 mt-5"></i>';
+            } else {
+                audio.pause();
+                btnAudio.innerHTML='<i class="fas fa-volume-up fa-2x ml-5 mt-5"></i>';
+            }
+        });
+
+
+        const redirectToHomePage = () => {
+            document.location.href = "http://localhost/starIsland/home.php";
+        }
+
         $(function() {
 
             var note = $('#note'),
-                ts = new Date(2023, 05, 31),
+                ts = new Date(2023, 05, 17, 13, 14, 00),
                 newYear = true;
 
             if ((new Date()) > ts) {
                 // The new year is here! Count towards something else.
                 // Notice the *1000 at the end - time must be in milliseconds
-                ts = (new Date()).getTime() + 10 * 24 * 60 * 60 * 1000;
-                newYear = false;
+                redirectToHomePage();
+                // ts = (new Date()).getTime() + 10 * 24 * 60 * 60 * 1000;
+                // newYear = false;
             }
 
             $('#countdown').countdown({

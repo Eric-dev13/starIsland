@@ -28,6 +28,8 @@
 
             if(left < 0){
                 left = 0;
+                redirectToHomePage(); 
+                return;
             }
 
             // Number of days left

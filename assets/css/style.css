@@ -4,7 +4,6 @@ body {
 }
 
 section.bloc-1{
-    position: relative;
     height: 90vh;
     background-image: url('../img/fond6.jpg');
     background-repeat: no-repeat;
@@ -12,7 +11,6 @@ section.bloc-1{
 }
 
 section.bloc-2{
-    position: relative;
     height: 100vh;
     background-image: url('../img/fond7.jpg');
     background-repeat: no-repeat;
