@@ -1,0 +1,116 @@
+// main.scss
+
+/*******************************************************************************************************************/
+/************************************************  BOOTSTRAP  ******************************************************/
+/*******************************************************************************************************************/
+// Inclure Bootstrap 
+
+// 1. Incluez d'abord les fonctions (afin que vous puissiez manipuler les couleurs, les SVG, le calcul, etc.) 
+@import "../../node_modules/bootstrap/scss/functions";
+
+
+// 2. Inclure tous les remplacements de variable par défaut ici 
+//$primary: #bedefa; // modifier une couleur de bootstrap
+$island: #EA4C6F; // Ajouter des couleurs dans bootstrap / theme de bootstrap
+
+
+// 3. Inclure le reste des feuilles de style Bootstrap requises
+@import "./bootwatch/variables"; // variables bootwatch
+@import "../../node_modules/bootstrap/scss/variables"; // variables bootstrap (dont theme-color)
+
+
+// Ajoute un nom pour la nouvelle couleur 
+$custom-colors: ("island": $island);
+// Ajoute la nouvelle couleur au theme existant.
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+
+// IMPORTATION de BOOTSTRAP ET DU THEME BOOTWATCH
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "./bootwatch/bootswatch";
+
+/*******************************************************************************************************************/
+
+
+body {
+    min-height: 100vh;
+    /* border: 1px solid red; */
+}
+
+section.homePage {
+    &.bloc-1 {
+        height: 90vh;
+        background-image: url('../img/fond7.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    &.bloc-2 {
+        height: 100vh;
+        background-image: url('../img/fond6.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        /* border: 1px solid blue; */
+        .avis {
+            background-color: rgba(255, 255, 255, 0.7);
+            height: 110px;
+            width: 300px;
+        }
+
+        .left {
+            border-radius: 30px 30px 0 30px;
+        }
+
+        .right {
+            border-radius: 30px 30px 30px 0;
+        }
+    }
+}
+
+// Utils
+.text-shadow {
+    color: #ffffff;
+    text-shadow: #000000 1px 1px 0;
+}
+
+.circle {
+    z-index: 500;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: 5px solid white;
+    margin-right: 5px;
+    transition: ease-in-out 0.2s;
+}
+
+.circle:hover {
+    border-color: $island;
+}
+
+// box and effects shadows
+.strecth-layer-transparent {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.shadow-2 {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(234, 76, 110, 1) 0%, rgba(234, 76, 110, 0.5) 10%, rgba(234, 76, 110, 0.1)20%, rgba(234, 76, 110, 0) 80%, rgba(234, 76, 110, 0) 90%, rgba(0, 0, 0, 1) 100%);
+}
+
+.shadow-1 {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(180deg, rgba(234, 76, 110, 1) 0%, rgba(234, 76, 110, 0.5) 10%, rgba(234, 76, 110, 0.1)20%, rgba(234, 76, 110, 0) 80%, rgba(234, 76, 110, 0) 90%, rgba(0, 0, 0, 1) 100%);
+}
+
+section.galeriePage {
+    height: 90vh;
+    background-image: url('../img/fond7.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
