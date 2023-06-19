@@ -6,6 +6,7 @@
 // Inclure Bootstrap 
 
 // 1. Incluez d'abord les fonctions (afin que vous puissiez manipuler les couleurs, les SVG, le calcul, etc.) 
+// @import "../bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/functions";
 
 
@@ -16,6 +17,7 @@ $island: #EA4C6F; // Ajouter des couleurs dans bootstrap / theme de bootstrap
 
 // 3. Inclure le reste des feuilles de style Bootstrap requises
 @import "./bootwatch/variables"; // variables bootwatch
+// @import "../bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/variables"; // variables bootstrap (dont theme-color)
 
 
@@ -26,11 +28,13 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 
 // IMPORTATION de BOOTSTRAP ET DU THEME BOOTWATCH
+// @import "../bootstrap/scss/bootstrap.scss";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "./bootwatch/bootswatch";
 
 /*******************************************************************************************************************/
-
+/*******************************************************************************************************************/
+/*******************************************************************************************************************/
 
 body {
     min-height: 100vh;
@@ -114,3 +118,95 @@ section.galeriePage {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******         RESAUX SOCIAUX          ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+.reseaux-sociaux {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+}
+
+.reseaux-sociaux a.reseaux img {
+    width: 100%;
+    height: 100%;
+}
+
+#discorde {
+    z-index: 500;
+    cursor: pointer;
+}
+
+#discorde img {
+ width: 70px;
+}
+/* *********************************************** */
+/* *********************************************** */
+/* *********************************************** */
+
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******          MEDIA QUERIES          ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+@media (min-width: 576px) {
+
+    /* ******* RESAUX SOCIAUX ******* */
+    .reseaux-sociaux {
+        justify-content:center;
+    }
+
+    .reseaux-sociaux a {
+        position:absolute;
+        transition: ease-in-out .9s;
+        opacity: 0;
+    }
+
+    .reseaux-sociaux:hover a {
+        opacity: 1;
+    }
+
+    .reseaux-sociaux:hover #facebook {
+        transform: translateX(4em);
+    }
+
+    .reseaux-sociaux:hover #tiktok {
+        transform: translateX(7em);
+    }
+
+    .reseaux-sociaux:hover #twitter {
+        transform: translateX(-4em);
+    }
+
+    .reseaux-sociaux:hover #youtube {
+        transform: translateX(-7em);
+    }
+
+    .reseaux-sociaux:hover #instagram {
+        transform: translateX(10em);
+    }
+
+    .reseaux-sociaux:hover #twitch {
+        transform: translateX(-10em);
+    }
+    /* **************************** */
+}
+
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {}
+
+@media (min-width: 1200px) {}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {}
+
+

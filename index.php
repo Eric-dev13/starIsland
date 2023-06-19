@@ -27,7 +27,16 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             </div>
 
             <div class="row d-none justify-content-center page-2">
-                <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-3">
+                <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-3 position-relative">
+
+                    <img src="<?= BASE_PATH . 'assets/img/carrousel/c.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="40%" style="left:-100px;">
+                    <img src="<?= BASE_PATH . 'assets/img/carrousel/d.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="60%" style="left:100px">
+                    <img src="<?= BASE_PATH . 'assets/img/carrousel/e.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="80%" style="left:300px;">
+
+                    <img src="<?= BASE_PATH . 'assets/img/carrousel/c.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="40%" style="right:-500px;">
+                    <img src="<?= BASE_PATH . 'assets/img/carrousel/d.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="60%" style="right:-430px;">
+                    <img src="<?= BASE_PATH . 'assets/img/carrousel/e.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="80%" style="right:-420px;">
+
                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -36,7 +45,7 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 4"></button>
                         </div>
-                        <div class="carousel-inner">
+                        <div class="carousel-inner rounded">
                             <div class="carousel-item active">
                                 <img src="<?= BASE_PATH . 'assets/img/carrousel/b.jpg' ?>" class="d-block w-100" alt="...">
                             </div>
@@ -66,20 +75,20 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             </div>
 
             <div class="row d-none justify-content-center w-100 page-3">
-            <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-3">
-                <div class="d-flex flex-column bg-white bg-opacity-25 mt-4 px-5 rounded">
-                    <h4 class="fw-bold text-center py-3">Star'Island</h4>
-                    <div class="d-flex justify-content-around mb-3 px-5">
-                        <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/etoile.png' ?>" alt="">
+                <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-3">
+                    <div class="d-flex flex-column bg-white bg-opacity-25 mt-4 px-5 rounded">
+                        <h4 class="fw-bold text-center py-3">Star'Island</h4>
+                        <div class="d-flex justify-content-around mb-3 px-5">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile.png' ?>" alt="">
+                        </div>
+                        <textarea name="" id="" cols="10" rows="5" class="mb-3 bg-white bg-opacity-25">Commentaires</textarea>
+                        <a href="#" class="btn btn-light mb-3">Publier</a>
                     </div>
-                    <textarea name="" id="" cols="10" rows="5" class="mb-3 bg-white bg-opacity-25">Commentaires</textarea>
-                    <a href="#" class="btn btn-light mb-3">Publier</a>
                 </div>
-            </div>
             </div>
 
             <div class="d-flex justify-content-center mb-3">
@@ -88,8 +97,28 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
                 <div class="circle circle-3"></div>
             </div>
 
-            <div class="text-center">
-                <img src="<?= BASE_PATH . 'assets/img/logo_discord.png' ?>" alt="">
+            <div class="reseaux-sociaux">
+                <a id="facebook" class="reseaux" href="https://www.facebook.com/StarIslandfr-108004258577047">
+                    <img src="assets/img/reseaux/logo_facebook.png" alt="facebook">
+                </a>
+                <a id="tiktok" class="reseaux" href="https://www.tiktok.com/@star.island?lang=fr">
+                    <img src="assets/img/reseaux/Logo_tiktok.png" alt="tiktok">
+                </a>
+                <a id="twitter" class="reseaux" href="https://twitter.com/StarIslandfr">
+                    <img src="assets/img/reseaux/logo_twitter.png" alt="twitter">
+                </a>
+                <div id="discorde" class="reseaux">
+                    <img src="assets/img/reseaux/icons8-discorde.png" alt="discorde">
+                </div>
+                <a id="youtube" class="reseaux" href="https://www.youtube.com/channel/UCI7G6fNN-17g1_tOVMKRCpQ">
+                    <img src="assets/img/reseaux/logo_youtube.png" alt="youtube">
+                </a>
+                <a id="twitch" class="reseaux" href="#">
+                    <img src="assets/img/reseaux/logo_twitch.png" alt="logo_twitch">
+                </a>
+                <a id="instagram" class="reseaux" href="https://www.instagram.com/starisland.fr/">
+                    <img src="assets/img/reseaux/logo_Instagram.png" alt="instagram">
+                </a>
             </div>
         </div>
     </div>
