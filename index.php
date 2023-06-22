@@ -19,6 +19,8 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
     <div class="position-absolute w-100 h-100">
         <div class="container d-flex flex-column justify-content-evenly align-items-center h-100">
             <h1 class="text-center text-shadow">BIENVENUE SUR<br>STAR’ISLAND</h1>
+
+            <!-- bloc 1 - Présentation  -->
             <div class="container-md page-1">
                 <p class="text-shadow my-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, cum culpa? Nisi unde
                     quasi culpa. Vitae, molestiae quisquam ea quo repellat eveniet consequuntur enim totam, deserunt ab
@@ -26,6 +28,7 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
                 </p>
             </div>
 
+            <!-- bloc 2 - Carrousel  -->
             <div class="row d-none justify-content-center page-2">
                 <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-3 position-relative">
                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -65,6 +68,7 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
                 </div>
             </div>
 
+            <!-- bloc 3 - Bloc note et commentaires  -->
             <div class="row d-none justify-content-center w-100 page-3">
                 <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-3">
                     <div class="d-flex flex-column bg-white bg-opacity-25 mt-4 px-5 rounded">
@@ -82,12 +86,14 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
                 </div>
             </div>
 
+            <!-- Bouton de navigation pour les 3 blocs -->
             <div class="d-flex justify-content-center mb-3">
                 <div class="circle circle-1"></div>
                 <div class="circle circle-2"></div>
                 <div class="circle circle-3"></div>
             </div>
 
+            <!-- Affiche le bouton dépliant des reseaux sociaux -->
             <div class="reseaux-sociaux">
                 <a id="facebook" class="reseaux" href="https://www.facebook.com/StarIslandfr-108004258577047">
                     <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_facebook.png' ?>" alt="facebook">
@@ -114,6 +120,7 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
         </div>
     </div>
 </section>
+
 
 <section class="position-relative homePage bloc-2">
     <div class="strecth-layer-transparent shadow-2"></div>

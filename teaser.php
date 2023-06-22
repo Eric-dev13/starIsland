@@ -1,15 +1,18 @@
 <!-- TEASER -->
 
+<?php
+require_once 'config/function.php';
+?>
+
 <!doctype html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="assets/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="assets/bootstrap/scss/bootstrap.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/teaser-first-mobile.css">
     <script src="assets/jquery/jquery.min.js"></script>
     <title>Star'island | Teaser</title>
@@ -73,33 +76,35 @@
                 aucun frais.</p>
         </div>
 
+        <!-- Affiche le bouton dépliant des reseaux sociaux -->
         <div class="reseaux-sociaux">
             <a id="facebook" class="reseaux" href="https://www.facebook.com/StarIslandfr-108004258577047">
-                <img src="assets/img/reseaux/logo_facebook.png" alt="facebook">
+                <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_facebook.png' ?>" alt="facebook">
             </a>
             <a id="tiktok" class="reseaux" href="https://www.tiktok.com/@star.island?lang=fr">
-                <img src="assets/img/reseaux/Logo_tiktok.png" alt="tiktok">
+                <img src="<?= BASE_PATH . 'assets/img/reseaux/Logo_tiktok.png' ?>" alt="tiktok">
             </a>
             <a id="twitter" class="reseaux" href="https://twitter.com/StarIslandfr">
-                <img src="assets/img/reseaux/logo_twitter.png" alt="twitter">
+                <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_twitter.png' ?>" alt="twitter">
             </a>
             <div id="discorde" class="reseaux">
-                <img src="assets/img/reseaux/icons8-discorde.png" alt="discorde">
+                <img src="<?= BASE_PATH . 'assets/img/reseaux/icons8-discorde.png' ?>" alt="discorde">
             </div>
             <a id="youtube" class="reseaux" href="https://www.youtube.com/channel/UCI7G6fNN-17g1_tOVMKRCpQ">
-                <img src="assets/img/reseaux/logo_youtube.png" alt="youtube">
+                <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_youtube.png' ?>" alt="youtube">
             </a>
             <a id="twitch" class="reseaux" href="#">
-                <img src="assets/img/reseaux/logo_twitch.png" alt="logo_twitch">
+                <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_twitch.png' ?>" alt="logo_twitch">
             </a>
             <a id="instagram" class="reseaux" href="https://www.instagram.com/starisland.fr/">
-                <img src="assets/img/reseaux/logo_Instagram.png" alt="instagram">
+                <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_Instagram.png' ?>" alt="instagram">
             </a>
         </div>
+
     </main>
 
 
-    <script src="assets/js/teaser-cesaire.js"></script>
+    <script src="assets/js/compte-a-rebours.js"></script>
     <script>
         const audio = document.querySelector("#lecteurAudio");
         const btnAudio = document.querySelector('.audio-island');
@@ -119,7 +124,7 @@
             document.location.href = "http://localhost/starIsland/home.php";
         }
 
-        $(function () {
+        $(function() {
 
             var note = $('#note'),
                 ts = new Date(2023, 05, 30, 00, 00, 00),
@@ -133,12 +138,12 @@
 
             $('#countdown').countdown({
                 timestamp: ts,
-                callback: function (days, hours, minutes, seconds) { }
+                callback: function(days, hours, minutes, seconds) {}
             });
 
         });
     </script>
-    
+
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 

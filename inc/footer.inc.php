@@ -13,7 +13,7 @@
         </footer>
 
         
-        <script src="<?= BASE_PATH . 'assets/js/teaser-cesaire.js' ?>"></script>
+        <script src="<?= BASE_PATH . 'assets/js/compte-a-rebours.js' ?>"></script>
 
         <script>
             const redirectToHomePage = () => {

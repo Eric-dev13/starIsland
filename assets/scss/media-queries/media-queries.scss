@@ -6,7 +6,7 @@
 
 @media (min-width: 576px) {
 
-    .container-avatar-resizable {
+    .container-resizable-avatar {
         width: 20%;
     }
 
@@ -56,7 +56,7 @@
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 
-    .container-avatar-resizable {
+    .container-resizable-avatar {
         width: 14%;
     }
 
@@ -79,7 +79,7 @@
         font: 35px/1.5 'Iceland', cursive;
     }
 
-    .container-avatar-resizable {
+    .container-resizable-avatar {
         width: 11%;
     }
 }

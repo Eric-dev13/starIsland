@@ -30,38 +30,26 @@ require_once '../inc/header.inc.php'; ?>
 
         <div class="d-flex align-items-center flex-wrap my-5">
             <?php
-            for ($i = 1; $i < 10; $i++) { ?>
-                <div class="container-avatar-resizable">
-                    <div class="text-white">
-                        <div class="avatar">
-                            <img src="<?= BASE_PATH . 'assets/img/personnage/perso-1.png' ?>" alt="" class="img-fluid">
-                        </div>
-                        <small>Ceci est ma place!</small>
-                    </div>
+            for ($i = 1; $i < 7; $i++) { ?>
+                <div class="container-resizable-avatar">
+                    <img src="<?= BASE_PATH . 'assets/img/personnage/perso-1.png' ?>" alt="">
+                    <small>Ceci est ma place!</small>
                 </div>
-                <div class="container-avatar-resizable">
+                <div class="container-resizable-avatar">
                     <div class="avatar-hidden"></div>
                 </div>
-                <div class="container-avatar-resizable">
-                    <div class="text-white">
-                        <div class="avatar">
-                            <img src="<?= BASE_PATH . 'assets/img/personnage/perso-2.png' ?>" alt="" class="img-fluid">
-                        </div>
-                        <small>Ceci est ma place!</small>
-                    </div>
+                <div class="container-resizable-avatar">
+                    <img src="<?= BASE_PATH . 'assets/img/personnage/perso-2.png' ?>" alt="">
+                    <small>Ceci est ma place!</small>
                 </div>
-                <div class="container-avatar-resizable">
+                <div class="container-resizable-avatar">
                     <div class="avatar-hidden"></div>
                 </div>
-                <div class="container-avatar-resizable">
-                    <div class="text-white">
-                        <div class="avatar">
-                            <img src="<?= BASE_PATH . 'assets/img/personnage/perso-3.png' ?>" alt="" class="img-fluid">
-                        </div>
-                        <small>Ceci est ma place!</small>
-                    </div>
+                <div class="container-resizable-avatar">
+                    <img src="<?= BASE_PATH . 'assets/img/personnage/perso-3.png' ?>" alt="">
+                    <small>Ceci est ma place!</small>
                 </div>
-                <div class="container-avatar-resizable">
+                <div class="container-resizable-avatar">
                     <div class="avatar-hidden"></div>
                 </div>
             <?php

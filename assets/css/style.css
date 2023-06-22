@@ -12181,16 +12181,15 @@ section.serveur {
   background-size: cover;
 }
 
-.container-avatar-resizable {
-  border: 1px solid blue;
+.container-resizable-avatar {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
   width: 33%;
 }
-
-.avatar {
-  border: 1px solid red;
+.container-resizable-avatar img {
   background-color: #000000;
   height: 100px;
   width: 100px;
@@ -12198,8 +12197,10 @@ section.serveur {
   border: 2px solid #EA4C6F;
   overflow: hidden;
 }
-
-.avatar-hidden {
+.container-resizable-avatar small, .container-resizable-avatar .small {
+  text-align: center;
+}
+.container-resizable-avatar .avatar-hidden {
   height: 100px;
   width: 100px;
 }
@@ -12231,7 +12232,7 @@ section.event {
 /* *******                                 ******* */
 /* *********************************************** */
 @media (min-width: 576px) {
-  .container-avatar-resizable {
+  .container-resizable-avatar {
     width: 20%;
   }
   /* ******* RESAUX SOCIAUX ******* */
@@ -12268,7 +12269,7 @@ section.event {
 }
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  .container-avatar-resizable {
+  .container-resizable-avatar {
     width: 14%;
   }
   section.homePage.bloc-2 .left {
@@ -12283,7 +12284,7 @@ section.event {
   .countdownHolder {
     font: 35px/1.5 "Iceland", cursive;
   }
-  .container-avatar-resizable {
+  .container-resizable-avatar {
     width: 11%;
   }
 }
