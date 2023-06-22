@@ -89,6 +89,7 @@ p{
 /* *******        COMPTE A REBOURS         ******* */
 /* *******                                 ******* */
 /* *********************************************** */
+
 .countdownHolder {
     margin: 0;
     white-space: nowrap;
@@ -119,8 +120,8 @@ p{
     /* COULEUR ET OMBRAGE DES SEPARATEURS */
     /* background-color: rgba(255, 255, 255, 0.5); */
     /* background-color: #33ff00; */
-    background-color: #b74961;
-    /* background-color: rgb(255, 234, 0); */
+    /* background-color: #b74961; */
+    background-color: rgb(255, 234, 0);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
 
     border-radius: 50%;
@@ -145,17 +146,17 @@ p{
     box-shadow: 5px 5px 7px rgba(0, 255, 38, 0.2); */
 
     /* COULEUR ARRIERE FOND ET D'OMBRAGES DES CHIFFRES */
-    /* background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     color:rgb(255, 234, 0);
-    text-shadow: 0 0 10px rgba(255, 234, 0, 1);
-    box-shadow: 2px 3px 10px rgba(255, 234, 0, 0.3); */
+    /* text-shadow: 0 0 10px rgba(255, 234, 0, 1); */
+    box-shadow: 2px 3px 10px rgba(255, 234, 0, 0.3);
 
      
     /* COULEUR ARRIERE FOND ET D'OMBRAGES DES CHIFFRES */
-    background-color: rgba(234, 76, 111,0.4);
+    /* background-color: rgba(234, 76, 111,0.4);
     color: #ffffff;
     text-shadow: 0 0 10px rgba(255, 255, 255, 1);
-    box-shadow: 3px 3px 4px rgba(234, 76, 111, 0.3);
+    box-shadow: 3px 3px 4px rgba(234, 76, 111, 0.3); */
 
     /* Original */
     /* background-color:#444;

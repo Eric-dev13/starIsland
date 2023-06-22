@@ -26,8 +26,7 @@
             <h1 class="w-100 text-center pt-4 pl-2">Bienvenue sur star'Island</h1>
         </div>
 
-        <div
-            class="flex-grow-1 d-flex justify-content-center justify-content-lg-start align-items-start align-items-lg-end ml-lg-5">
+        <div class="flex-grow-1 d-flex justify-content-center justify-content-lg-start align-items-start align-items-lg-end ml-lg-5">
             <div id="countdown" class="countdownHolder text-center">
                 <span class="countDays">
                     <span class="position">

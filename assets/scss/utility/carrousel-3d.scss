@@ -1,0 +1,115 @@
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******        CARROUSEL 3D             ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+
+:root {
+    --translate-size-w: 250px;
+    --translate-size-h: 300px;
+  }
+  
+  .rc-container__carousel {
+    margin: 0 auto;
+    width: var(--translate-size-w);
+    height: var(--translate-size-h);
+    position: relative;
+    perspective: 1000px;
+  }
+  
+  .rc-carousel {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+  }
+  
+  .rc-carousel .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    /* background: #000; */
+    /* width: 250px;
+      height: auto; */
+    /* line-height: 200px;
+      font-size: 5em;
+      text-align: center; */
+    /* color: #FFF; */
+    opacity: 0.95;
+    border-radius: 10px;
+  }
+  
+  .rc-carousel .a {
+    transform: rotateY(0deg) translateZ(var(--translate-size-w));
+  }
+  
+  .rc-carousel .b {
+    transform: rotateY(60deg) translateZ(var(--translate-size-w));
+  }
+  
+  .rc-carousel .c {
+    transform: rotateY(120deg) translateZ(var(--translate-size-w));
+  }
+  
+  .rc-carousel .d {
+    transform: rotateY(180deg) translateZ(var(--translate-size-w));
+  }
+  
+  .rc-carousel .e {
+    transform: rotateY(240deg) translateZ(var(--translate-size-w));
+  }
+  
+  .rc-carousel .f {
+    transform: rotateY(300deg) translateZ(var(--translate-size-w));
+  }
+  
+  .rc-carousel .g {
+    transform: rotateY(360deg) translateZ(var(--translate-size-w));
+  }
+  
+  .carrousel__next:hover,
+  .carrousel__prev:hover {
+    color: #000;
+  }
+  
+  .carrousel__next:active,
+  .carrousel__prev:active {
+    top: 104px;
+    box-shadow: 0 1px 0 #999;
+  }
+  
+  .carrousel__next {
+    right: 4em;
+  }
+  
+  .carrousel__prev {
+    left: 4em;
+  }
+  
+  /* *********************************************** */
+  /* *******                                 ******* */
+  /* *******          MEDIA QUERIES          ******* */
+  /* *******                                 ******* */
+  /* *********************************************** */
+  @media (min-width: 576px) {
+    :root {
+      --translate-size-w: 300px;
+      --translate-size-h: 350px;
+    }
+  }
+  
+  /* Medium devices (tablets, 768px and up) */
+  @media (min-width: 768px) {}
+  
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) {}
+  
+  @media (min-width: 1200px) {}
+  
+  /* XX-Large devices (larger desktops, 1400px and up) */
+  @media (min-width: 1400px) {}

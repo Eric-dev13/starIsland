@@ -1,0 +1,35 @@
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******             SERVEUR             ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+
+section.serveur {
+    background-image: url('../img/fond-1.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.container-avatar-resizable {
+    border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+}
+
+.avatar {
+    border: 1px solid red;
+    background-color: #000000;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 2px solid $island;
+    overflow: hidden;
+}
+
+.avatar-hidden {
+    height: 100px;
+    width: 100px;
+}

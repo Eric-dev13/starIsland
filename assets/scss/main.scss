@@ -17,12 +17,16 @@ $island: #EA4C6F; // Ajouter des couleurs dans bootstrap / theme de bootstrap
 
 // 3. Inclure le reste des feuilles de style Bootstrap requises
 @import "./bootwatch/variables"; // variables bootwatch
+
 // @import "../bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/variables"; // variables bootstrap (dont theme-color)
+@import "../../node_modules/bootstrap/scss/variables-dark";
 
 
 // Ajoute un nom pour la nouvelle couleur 
-$custom-colors: ("island": $island);
+$custom-colors: (
+    "island": $island
+);
 // Ajoute la nouvelle couleur au theme existant.
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
@@ -32,181 +36,103 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "./bootwatch/bootswatch";
 
+
 /*******************************************************************************************************************/
 /*******************************************************************************************************************/
 /*******************************************************************************************************************/
+
+@font-face {
+    font-family: 'Iceland';
+    src: url('../font/Iceland-Regular.ttf') format('truetype');
+}
+
 
 body {
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
-    /* border: 1px solid red; */
 }
 
-section.homePage {
-    &.bloc-1 {
-        height: 90vh;
-        background-image: url('../img/fond7.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    &.bloc-2 {
-        height: 100vh;
-        background-image: url('../img/fond6.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-
-        /* border: 1px solid blue; */
-        .avis {
-            background-color: rgba(255, 255, 255, 0.7);
-            height: 110px;
-            width: 300px;
-        }
-
-        .left {
-            border-radius: 30px 30px 0 30px;
-        }
-
-        .right {
-            border-radius: 30px 30px 30px 0;
-        }
-    }
+.navbar {
+    font-family: 'Iceland';
+    font-size: 1.1em;
 }
 
-// Utils
-.text-shadow {
-    color: #ffffff;
-    text-shadow: #000000 1px 1px 0;
-}
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******        CARROUSEL 3D             ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+@import "./utility/carrousel-3d.scss";
 
-.circle {
-    z-index: 500;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    border: 5px solid white;
-    margin-right: 5px;
-    transition: ease-in-out 0.2s;
-}
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******        COMPTE A REBOURS         ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+@import "./utility/compte-a-rebours.scss";
 
-.circle:hover {
-    border-color: $island;
-}
-
-// box and effects shadows
-.strecth-layer-transparent {
-    position: absolute;
-    z-index: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.shadow-2 {
-    background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(234, 76, 110, 1) 0%, rgba(234, 76, 110, 0.5) 10%, rgba(234, 76, 110, 0.1)20%, rgba(234, 76, 110, 0) 80%, rgba(234, 76, 110, 0) 90%, rgba(0, 0, 0, 1) 100%);
-}
-
-.shadow-1 {
-    background: rgb(0, 0, 0);
-    background: linear-gradient(180deg, rgba(234, 76, 110, 1) 0%, rgba(234, 76, 110, 0.5) 10%, rgba(234, 76, 110, 0.1)20%, rgba(234, 76, 110, 0) 80%, rgba(234, 76, 110, 0) 90%, rgba(0, 0, 0, 1) 100%);
-}
-
-section.galeriePage {
-    height: 90vh;
-    background-image: url('../img/fond7.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
 /* *********************************************** */
 /* *******                                 ******* */
 /* *******         RESAUX SOCIAUX          ******* */
 /* *******                                 ******* */
 /* *********************************************** */
-.reseaux-sociaux {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content:space-evenly;
-    align-items: center;
-}
+@import "./utility/reseaux-sociaux.scss";
 
-.reseaux-sociaux a.reseaux img {
-    width: 100%;
-    height: 100%;
-}
 
-#discorde {
-    z-index: 500;
-    cursor: pointer;
-}
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******            HOMEPAGE             ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+@import "./pages/page-home.scss";
 
-#discorde img {
- width: 70px;
-}
+
 /* *********************************************** */
+/* *******                                 ******* */
+/* *******              UTILS              ******* */
+/* *******                                 ******* */
 /* *********************************************** */
+@import "./utility/utils.scss";
+
+
 /* *********************************************** */
+/* *******                                 ******* */
+/* *******            GALERIE              ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+@import "./pages/page-galerie.scss";
+
+
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******              VIP                ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+@import "./pages/page-vip.scss";
+
+
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******             SERVEUR             ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+@import "./pages/page-server.scss";
+
+
+
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******            EVENEMENTS           ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+@import "./pages/page-event.scss";
+
 
 /* *********************************************** */
 /* *******                                 ******* */
 /* *******          MEDIA QUERIES          ******* */
 /* *******                                 ******* */
 /* *********************************************** */
-@media (min-width: 576px) {
-
-    /* ******* RESAUX SOCIAUX ******* */
-    .reseaux-sociaux {
-        justify-content:center;
-    }
-
-    .reseaux-sociaux a {
-        position:absolute;
-        transition: ease-in-out .9s;
-        opacity: 0;
-    }
-
-    .reseaux-sociaux:hover a {
-        opacity: 1;
-    }
-
-    .reseaux-sociaux:hover #facebook {
-        transform: translateX(4em);
-    }
-
-    .reseaux-sociaux:hover #tiktok {
-        transform: translateX(7em);
-    }
-
-    .reseaux-sociaux:hover #twitter {
-        transform: translateX(-4em);
-    }
-
-    .reseaux-sociaux:hover #youtube {
-        transform: translateX(-7em);
-    }
-
-    .reseaux-sociaux:hover #instagram {
-        transform: translateX(10em);
-    }
-
-    .reseaux-sociaux:hover #twitch {
-        transform: translateX(-10em);
-    }
-    /* **************************** */
-}
-
-
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {}
-
-@media (min-width: 1200px) {}
-
-/* XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) {}
-
-
+@import "./media-queries/media-queries.scss";

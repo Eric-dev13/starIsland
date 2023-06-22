@@ -1,0 +1,27 @@
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******         RESAUX SOCIAUX          ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+
+.reseaux-sociaux {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.reseaux-sociaux a.reseaux img {
+    width: 100%;
+    height: 100%;
+}
+
+#discorde {
+    z-index: 500;
+    cursor: pointer;
+}
+
+#discorde img {
+    width: 70px;
+}

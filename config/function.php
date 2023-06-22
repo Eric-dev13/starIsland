@@ -8,7 +8,7 @@ function debug($data)
     echo '</pre>';
 }
 
-function execute(string $requete, array $data=[],$lastId=null)
+function execute(string $requete, array $data=[], $lastId=null)
 {
     // boucle pour echapper les caractères speciaux (pour neutraliser les balise <style> ou <script>) en entité html et de même supprimer les espaces éventuels en début de fin de chaine de caractère
     foreach ($data as $marqueur => $valeur){
@@ -43,30 +43,59 @@ function execute(string $requete, array $data=[],$lastId=null)
 }
 
 
-function password_strength_check($password, $min_len = 6, $max_len = 15, $req_digit = 1, $req_lower = 1, $req_upper = 1, $req_symbol = 1)
-{
+// function password_strength_check($password, $min_len = 6, $max_len = 15, $req_digit = 1, $req_lower = 1, $req_upper = 1, $req_symbol = 1)
+// {
+//     // Build regex string depending on requirements for the password
+//     $regex = '/^';
+//     if ($req_digit == 1) {
+//         $regex .= '(?=.\d)';
+//     }              // Match at least 1 digit
+//     if ($req_lower == 1) {
+//         $regex .= '(?=.[a-z])';
+//     }           // Match at least 1 lowercase letter
+//      if ($req_upper == 1) {
+//         $regex .= '(?=.[A-Z])';
+//     }          // Match at least 1 uppercase letter
+//     if ($req_symbol == 1) {
+//         $regex .= '(?=.[^a-zA-Z\d])';
+//     }    // Match at least 1 character that is none of the above
+//     $regex .= '.{' . $min_len . ',' . $max_len . '}$/';
 
+
+//     if (preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/", $password)) {
+//         return TRUE;
+//     } else {
+//         return FALSE;
+//     }
+// }
+
+function password_strength_check(string $password, int $min_len = 6, int $max_len = 15, bool $req_digit = true, bool $req_lower = true, bool $req_upper = true, bool $req_symbol = true)
+{
     // Build regex string depending on requirements for the password
     $regex = '/^';
-    if ($req_digit == 1) {
-        $regex .= '(?=.\d)';
-    }              // Match at least 1 digit
-    if ($req_lower == 1) {
-        $regex .= '(?=.[a-z])';
-    }           // Match at least 1 lowercase letter
-     if ($req_upper == 1) {
-        $regex .= '(?=.[A-Z])';
-    }          // Match at least 1 uppercase letter
-    if ($req_symbol == 1) {
-        $regex .= '(?=.[^a-zA-Z\d])';
-    }    // Match at least 1 character that is none of the above
+    if ($req_digit) {
+        // Vérifie si au moins 1 chiffre
+        $regex .= '(?=.*\d)';
+    }               
+    if ($req_lower) {
+        // Vérifie si au moins 1 lettre minuscule
+        $regex .= '(?=.*[a-z])';
+    }               
+    if ($req_upper) {
+        // Vérifie si au moins 1 lettre majuscule
+        $regex .= '(?=.*[A-Z])';
+    }               
+    if ($req_symbol) {
+        // $regex .= '(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]';
+        // Vérifie si au moins l'un des caractères spéciaux '@', '$', '!', '%', '*', '?', ou '&' est présent dans la chaîne de caractères.
+        $regex .= '(?=.*[@$!%*?&])';
+    }              
     $regex .= '.{' . $min_len . ',' . $max_len . '}$/';
 
-
-    if (preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/", $password)) {
-        return TRUE;
+    if (preg_match($regex, $password)){
+        return true;
     } else {
-        return FALSE;
+        return false;
     }
 }
 

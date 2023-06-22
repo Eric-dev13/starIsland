@@ -6,15 +6,14 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link href="../assets/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= BASE_PATH . 'assets/fontawesome-free/css/all.min.css' ?>" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="<?= BASE_PATH.'assets/css/style.css'; ?>">
-    <link rel="stylesheet" href="<?= BASE_PATH.'assets/css/rc-carousel.css'; ?>">
     <script src="<?= BASE_PATH.'assets/jquery/jquery.min.js'; ?>"></script>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark font">
             <div class="container-fluid">
                 <a class="navbar-brand" href="<?= BASE_PATH; ?>">
                 <img src="<?= BASE_PATH . 'assets/img/logo_starIsl.png' ?>" alt="logo" width="150px">
@@ -67,9 +66,8 @@
                 </div>
             </div>
         </nav>
-
     </header>
-    <main class="d-flex flex-column">
+    <main class="d-flex flex-column flex-grow-1">
         <?php if (isset($_SESSION['messages']) && !empty($_SESSION['messages'])) : ?>
             <?php foreach ($_SESSION['messages'] as $type => $messages) : ?>
                 <?php foreach ($messages as $key => $message) : ?>

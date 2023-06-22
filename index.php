@@ -12,13 +12,13 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
 }
 ?>
 
+
 <section class="position-relative homePage bloc-1">
     <div class="strecth-layer-transparent shadow-1"></div>
 
     <div class="position-absolute w-100 h-100">
-        <div class="d-flex flex-column justify-content-evenly align-items-center h-100">
+        <div class="container d-flex flex-column justify-content-evenly align-items-center h-100">
             <h1 class="text-center text-shadow">BIENVENUE SUR<br>STAR’ISLAND</h1>
-
             <div class="container-md page-1">
                 <p class="text-shadow my-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, cum culpa? Nisi unde
                     quasi culpa. Vitae, molestiae quisquam ea quo repellat eveniet consequuntur enim totam, deserunt ab
@@ -28,15 +28,6 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
 
             <div class="row d-none justify-content-center page-2">
                 <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-3 position-relative">
-
-                    <img src="<?= BASE_PATH . 'assets/img/carrousel/c.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="40%" style="left:-100px;">
-                    <img src="<?= BASE_PATH . 'assets/img/carrousel/d.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="60%" style="left:100px">
-                    <img src="<?= BASE_PATH . 'assets/img/carrousel/e.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="80%" style="left:300px;">
-
-                    <img src="<?= BASE_PATH . 'assets/img/carrousel/c.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="40%" style="right:-500px;">
-                    <img src="<?= BASE_PATH . 'assets/img/carrousel/d.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="60%" style="right:-430px;">
-                    <img src="<?= BASE_PATH . 'assets/img/carrousel/e.jpg' ?>" class="position-absolute top-50 translate-middle rounded" alt="..." width="80%" style="right:-420px;">
-
                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -99,41 +90,117 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
 
             <div class="reseaux-sociaux">
                 <a id="facebook" class="reseaux" href="https://www.facebook.com/StarIslandfr-108004258577047">
-                    <img src="assets/img/reseaux/logo_facebook.png" alt="facebook">
+                    <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_facebook.png' ?>" alt="facebook">
                 </a>
                 <a id="tiktok" class="reseaux" href="https://www.tiktok.com/@star.island?lang=fr">
-                    <img src="assets/img/reseaux/Logo_tiktok.png" alt="tiktok">
+                    <img src="<?= BASE_PATH . 'assets/img/reseaux/Logo_tiktok.png' ?>" alt="tiktok">
                 </a>
                 <a id="twitter" class="reseaux" href="https://twitter.com/StarIslandfr">
-                    <img src="assets/img/reseaux/logo_twitter.png" alt="twitter">
+                    <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_twitter.png' ?>" alt="twitter">
                 </a>
                 <div id="discorde" class="reseaux">
-                    <img src="assets/img/reseaux/icons8-discorde.png" alt="discorde">
+                    <img src="<?= BASE_PATH . 'assets/img/reseaux/icons8-discorde.png' ?>" alt="discorde">
                 </div>
                 <a id="youtube" class="reseaux" href="https://www.youtube.com/channel/UCI7G6fNN-17g1_tOVMKRCpQ">
-                    <img src="assets/img/reseaux/logo_youtube.png" alt="youtube">
+                    <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_youtube.png' ?>" alt="youtube">
                 </a>
                 <a id="twitch" class="reseaux" href="#">
-                    <img src="assets/img/reseaux/logo_twitch.png" alt="logo_twitch">
+                    <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_twitch.png' ?>" alt="logo_twitch">
                 </a>
                 <a id="instagram" class="reseaux" href="https://www.instagram.com/starisland.fr/">
-                    <img src="assets/img/reseaux/logo_Instagram.png" alt="instagram">
+                    <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_Instagram.png' ?>" alt="instagram">
                 </a>
             </div>
         </div>
     </div>
-
 </section>
 
 <section class="position-relative homePage bloc-2">
     <div class="strecth-layer-transparent shadow-2"></div>
 
     <div class="container mt-5">
+        <!-- <div class="row mb-3">
+            <div class="col-12 col-md-6 d-flex justify-content-center mb-3">
+                <div class="avis left d-flex align-items-center border border-dark">
+                    <img src="<?= BASE_PATH . 'assets/img/Ellipse_58.png' ?>" alt="" class="ms-3" width=80>
+                    <div class="ps-2">
+                        <div class="d-flex justify-content-around  mt-2">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile.png' ?>" alt="">
+                        </div>
+                        <div class="mt-2 text-black">
+                            Super serveur GTA RP <br>
+                            Publié le 15/05/2023
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+                <div class="avis right d-flex align-items-center border border-dark">
+                    <img src="<?= BASE_PATH . 'assets/img/Ellipse_56.png' ?>" alt="" class="ms-3" width=80>
+                    <div class="ps-2">
+                        <div class="d-flex justify-content-around mt-2">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile.png' ?>" alt="">
+                        </div>
+                        <div class="mt-2 text-black">
+                            Super serveur GTA RP <br>
+                            Publié le 15/05/2023
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6 d-flex justify-content-center mb-3">
+                <div class="avis left d-flex align-items-center border border-dark">
+                    <img src="<?= BASE_PATH . 'assets/img/Ellipse_57.png' ?>" alt="" class="ms-3" width=80>
+                    <div class="ps-2">
+                        <div class="d-flex justify-content-around  mt-2">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile.png' ?>" alt="">
+                        </div>
+                        <div class="mt-2 text-black">
+                            Super serveur GTA RP <br>
+                            Publié le 15/05/2023
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+                <div class="avis right d-flex align-items-center border border-dark">
+                    <img src="<?= BASE_PATH . 'assets/img/Ellipse_59.png' ?>" alt="" class="ms-3" width=80>
+                    <div class="ps-2">
+                        <div class="d-flex justify-content-around  mt-2">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
+                            <img src="<?= BASE_PATH . 'assets/img/etoile.png' ?>" alt="">
+                        </div>
+                        <div class="mt-2 text-black">
+                            Super serveur GTA RP <br>
+                            Publié le 15/05/2023
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
         <div class="d-flex justify-content-center justify-content-md-start mt-2 mt-lg-0">
-            <div class="avis left d-flex align-items-center border border-dark">
-                <img src="<?= BASE_PATH . 'assets/img/Ellipse_58.png' ?>" alt="" class="ms-3" width=80>
+            <div class="avis left d-flex align-items-center justify-content-center border border-dark py-2">
+                <img src="<?= BASE_PATH . 'assets/img/Ellipse_58.png' ?>" alt="" width=80>
                 <div class="ps-2">
-                    <div class="d-flex justify-content-around  mt-2">
+                    <div class="d-flex justify-content-around mt-2">
                         <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
                         <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
                         <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
@@ -148,7 +215,7 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             </div>
         </div>
         <div class="d-flex justify-content-center justify-content-md-end mt-2 mt-lg-0">
-            <div class="avis right d-flex align-items-center border border-dark">
+            <div class="avis right d-flex align-items-center justify-content-center border border-dark py-2">
                 <img src="<?= BASE_PATH . 'assets/img/Ellipse_56.png' ?>" alt="" class="ms-3" width=80>
                 <div class="ps-2">
                     <div class="d-flex justify-content-around mt-2">
@@ -166,7 +233,7 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             </div>
         </div>
         <div class="d-flex justify-content-center justify-content-md-start mt-2 mt-lg-0">
-            <div class="avis left d-flex align-items-center border border-dark">
+            <div class="avis left d-flex align-items-center justify-content-center border border-dark py-2">
                 <img src="<?= BASE_PATH . 'assets/img/Ellipse_57.png' ?>" alt="" class="ms-3" width=80>
                 <div class="ps-2">
                     <div class="d-flex justify-content-around  mt-2">
@@ -184,7 +251,7 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             </div>
         </div>
         <div class="d-flex justify-content-center justify-content-md-end mt-2 mt-lg-0">
-            <div class="avis right d-flex align-items-center border border-dark">
+            <div class="avis right d-flex align-items-center justify-content-center border border-dark py-2">
                 <img src="<?= BASE_PATH . 'assets/img/Ellipse_59.png' ?>" alt="" class="ms-3" width=80>
                 <div class="ps-2">
                     <div class="d-flex justify-content-around  mt-2">
@@ -202,7 +269,7 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             </div>
         </div>
 
-        <div class="d-flex flex-column border bg-white bg-opacity-25 mt-4 px-5 rounded">
+        <div class="d-flex flex-column border bg-white bg-opacity-25 px-5 my-5 rounded">
             <h4 class="text-center py-3">Votre avis nous intéresse</h4>
             <div class="d-flex justify-content-around mb-3 px-5">
                 <img src="<?= BASE_PATH . 'assets/img/etoile-1.png' ?>" alt="">
@@ -222,6 +289,7 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
 <?php require_once 'inc/footer.inc.php'; ?>
 
 <script>
+    // Boutons de défilement de bloc de page
     const slideX = [{
             transform: `translateX(500px) rotateZ(180deg) scale(0)`
         },
