@@ -1,0 +1,68 @@
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******             SERVEUR             ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+
+section.team {
+    background-image: url('../img/fond-1.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.container-resizable-avatar {
+    // border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+
+    .group-link {
+        // border: 1px solid red;
+        position: relative;
+    }
+
+    .link {
+        // border: 1px solid red;
+        transition: ease-in-out .9s;
+        position: absolute;
+        top: 0;
+        left: 25px;
+        opacity: 0;
+    }
+
+    .group-link:hover .link {
+        transform: translateY(100px);
+        opacity: 1;
+    }
+
+    img.avatar {
+        background-color: #000000;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        border: 2px solid $island;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    h5 {
+        text-transform: none;
+        color: white;
+    }
+
+    small {
+        color: white;
+        text-align: center;
+    }
+
+    .avatar-hidden {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+
+

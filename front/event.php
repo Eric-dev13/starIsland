@@ -81,5 +81,27 @@ require_once '../inc/header.inc.php'; ?>
     </div>
 </section>
 
+<script src="<?= BASE_PATH . 'assets/js/compte-a-rebours.js' ?>"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // COMPTE A REBOURS POUR TEASER ET SERVEUR
+        $(function() {
+            var note = $('#note'),
+                ts = new Date(2023, 05, 30, 00, 00, 00),
+                newYear = true;
+
+            if ((new Date()) > ts) {
+                //redirectToHomePage();
+                // ts = (new Date()).getTime() + 10 * 24 * 60 * 60 * 1000;
+                // newYear = false;
+            }
+
+            $('#countdown').countdown({
+                timestamp: ts,
+                callback: function(days, hours, minutes, seconds) {}
+            });
+        });
+    });
+</script>
 
 <?php require_once '../inc/footer.inc.php'; ?>

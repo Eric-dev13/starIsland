@@ -26,10 +26,27 @@ section.homePage {
     }
 
     &.bloc-1 {
-        height: 90vh;
+        min-height: 90vh;
         background-image: url('../img/fond7.jpg');
         background-repeat: no-repeat;
         background-size: cover;
+
+        .page-1, .page-2, .page-3 {
+            // border:1px solid blue;
+            height: 350px;
+
+            @media (min-width: 576px) {
+                height: 450px;
+            }
+
+            @media (min-width: 768px) {
+                height: 450px;
+            }
+        }
+
+        .comment {
+            width: 400px;
+        }
     }
 
     &.bloc-2 {

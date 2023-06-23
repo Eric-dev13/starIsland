@@ -118,7 +118,19 @@ function admin()
     }else{
         return false;
     }
-
 }
 
+function adminExist() {
+    try {
+        $admin = execute("SELECT COUNT(*) FROM user")->fetch(PDO::FETCH_BOTH);
+        if(  $admin[0] > 0) {
+            return true;
+        }
+        return false;
+    } catch (\Throwable $th) {
+        throw $th;
+    }
+    
+    
 
+}

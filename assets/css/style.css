@@ -12084,10 +12084,26 @@ section.homePage .shadow-1 {
   background: linear-gradient(180deg, rgb(234, 76, 110) 0%, rgba(234, 76, 110, 0.5) 10%, rgba(234, 76, 110, 0.1) 20%, rgba(234, 76, 110, 0) 80%, rgba(234, 76, 110, 0) 90%, rgb(0, 0, 0) 100%);
 }
 section.homePage.bloc-1 {
-  height: 90vh;
+  min-height: 90vh;
   background-image: url("../img/fond7.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+section.homePage.bloc-1 .page-1, section.homePage.bloc-1 .page-2, section.homePage.bloc-1 .page-3 {
+  height: 350px;
+}
+@media (min-width: 576px) {
+  section.homePage.bloc-1 .page-1, section.homePage.bloc-1 .page-2, section.homePage.bloc-1 .page-3 {
+    height: 450px;
+  }
+}
+@media (min-width: 768px) {
+  section.homePage.bloc-1 .page-1, section.homePage.bloc-1 .page-2, section.homePage.bloc-1 .page-3 {
+    height: 450px;
+  }
+}
+section.homePage.bloc-1 .comment {
+  width: 400px;
 }
 section.homePage.bloc-2 {
   background-image: url("../img/fond6.jpg");
@@ -12166,7 +12182,7 @@ section.vip {
 
 /* *********************************************** */
 /* *******                                 ******* */
-/* *******             SERVEUR             ******* */
+/* *******             TEAM             ******* */
 /* *******                                 ******* */
 /* *********************************************** */
 /* *********************************************** */
@@ -12174,7 +12190,7 @@ section.vip {
 /* *******             SERVEUR             ******* */
 /* *******                                 ******* */
 /* *********************************************** */
-section.serveur {
+section.team {
   background-image: url("../img/fond-1.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -12186,18 +12202,37 @@ section.serveur {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
   width: 33%;
 }
-.container-resizable-avatar img {
+.container-resizable-avatar .group-link {
+  position: relative;
+}
+.container-resizable-avatar .link {
+  transition: ease-in-out 0.9s;
+  position: absolute;
+  top: 0;
+  left: 25px;
+  opacity: 0;
+}
+.container-resizable-avatar .group-link:hover .link {
+  transform: translateY(100px);
+  opacity: 1;
+}
+.container-resizable-avatar img.avatar {
   background-color: #000000;
   height: 100px;
   width: 100px;
   border-radius: 50%;
   border: 2px solid #EA4C6F;
   overflow: hidden;
+  cursor: pointer;
+}
+.container-resizable-avatar h5, .container-resizable-avatar .h5 {
+  text-transform: none;
+  color: white;
 }
 .container-resizable-avatar small, .container-resizable-avatar .small {
+  color: white;
   text-align: center;
 }
 .container-resizable-avatar .avatar-hidden {

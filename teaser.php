@@ -144,7 +144,7 @@ require_once 'config/function.php';
         });
     </script>
 
-    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= BASE_PATH . 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' ?>"></script>
 </body>
 
 </html>

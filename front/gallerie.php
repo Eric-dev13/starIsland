@@ -26,7 +26,7 @@ require_once '../inc/header.inc.php'; ?>
         </div>
     </div>
 
-    <div class="reseaux-sociaux mb-5">
+    <div class="reseaux-sociaux my-5">
         <a id="facebook" class="reseaux" href="https://www.facebook.com/StarIslandfr-108004258577047">
             <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_facebook.png' ?>" alt="facebook">
         </a>
@@ -51,7 +51,7 @@ require_once '../inc/header.inc.php'; ?>
     </div>
 </section>
 
-<?php require_once '../inc/footer.inc.php'; ?>
-<script>
+<!-- CAROUSEL DE LA PAGE GALERIE -->
+<script src="<?= BASE_PATH . 'assets/js/carrousel-3d.js' ?>"></script>
 
-</script>
+<?php require_once '../inc/footer.inc.php'; ?>

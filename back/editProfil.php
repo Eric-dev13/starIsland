@@ -13,9 +13,7 @@ require_once '../inc/header.inc.php';
 
 if (isset($_GET['a']) && $_GET['a']=='edit' && isset($_GET['i'])){
     $user=execute("SELECT * FROM user WHERE id=:id", array(
-        ':id'=>$_GET['i']
-
-    ))->fetch(PDO::FETCH_ASSOC);
+        ':id'=>$_GET['i']))->fetch(PDO::FETCH_ASSOC);
 
 
 

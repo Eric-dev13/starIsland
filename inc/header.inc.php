@@ -25,7 +25,7 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item my-auto">
                             <a class="nav-link" href="<?= BASE_PATH; ?>">
-                                <img src="<?= BASE_PATH . 'assets/img/Vector.png' ?>" alt="home" width="30">
+                                <img src="<?= BASE_PATH . 'assets/img/icon/home.png' ?>" alt="home" width="30">
                                 <span class="visually-hidden">(current)</span>
                             </a>
                         </li>
@@ -36,10 +36,10 @@
                             <a class="nav-link" href="<?= BASE_PATH.'front/vip.php'; ?>">DEVENIR VIP</a>
                         </li>
                         <li class="nav-item my-auto">
-                            <a class="nav-link" href="<?= BASE_PATH.'front/serveur.php'; ?>">SERVEUR</a>
+                            <a class="nav-link" href="<?= BASE_PATH.'front/team.php'; ?>">TEAM</a>
                         </li>
 
-                        <?php if (admin()) : ?>
+                        <?php if (connect()) : ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ADMIN</a>
                                 <div class="dropdown-menu">
@@ -52,15 +52,17 @@
                     </ul>
 
                     <div class="navbar-nav d-flex flex-column me-auto">
-                        <a class="nav-link" href="<?= BASE_PATH.'front/tuto.php'; ?>"><img src="<?= BASE_PATH . 'assets/img/btn-1.png' ?>" alt="" width="27" class="me-2">Tutoriel</a>
-                        <a class="nav-link" href="<?= BASE_PATH.'front/event.php'; ?>"><img src="<?= BASE_PATH . 'assets/img/btn-2.png' ?>" alt="" width="27" class="me-2">Evènements</a>
+                        <a class="nav-link" href="<?= BASE_PATH.'front/tuto.php'; ?>"><img src="<?= BASE_PATH . 'assets/img/icon/btn-1.png' ?>" alt="" width="27" class="me-2">Tutoriel</a>
+                        <a class="nav-link" href="<?= BASE_PATH.'front/event.php'; ?>"><img src="<?= BASE_PATH . 'assets/img/icon/btn-2.png' ?>" alt="" width="27" class="me-2">Evènements</a>
                     </div>
 
                     <?php if (connect()) : ?>
                         <a href="<?= BASE_PATH . '?a=dis'; ?>" class="btn btn-primary">Déconnexion</a>
                     <?php else :           ?>
                         <a href="<?= BASE_PATH . 'security/login.php'; ?>" class="btn btn-primary">Connexion</a>
-                        <a href="<?= BASE_PATH . 'security/register.php'; ?>" class="btn btn-success">Inscription</a>
+                        <?php  if (!adminExist()) { ?>
+                            <a href="<?= BASE_PATH . 'security/register.php'; ?>" class="btn btn-success">Inscription</a>
+                        <?php } ?>
                     <?php endif; ?>
 
                 </div>

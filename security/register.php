@@ -62,45 +62,43 @@ if (!empty($_POST)) {
     //         $error=true;
     //     }
 
-}  // fin contrôle de formulaire
+    // condition de traitement du formulaire (si il n'y a pas d'erreur)
 
-// condition de traitement du formulaire (si il n'y a pas d'erreur)
+    if (!$error) {
+        // // on renomme la photo
+        // $picture_bdd = 'upload/' . uniqid() . date_format(new DateTime(), 'd_m_Y_H_i_s') . $_FILES['picture_profil']['name'];
+        // // on la copie dans le dossier d'upload
+        // copy($_FILES['picture_profil']['tmp_name'], '../assets/' . $picture_bdd);
 
-if (!$error) {
-    // on renomme la photo
-    $picture_bdd = 'upload/' . uniqid() . date_format(new DateTime(), 'd_m_Y_H_i_s') . $_FILES['picture_profil']['name'];
-    // on la copie dans le dossier d'upload
-    copy($_FILES['picture_profil']['tmp_name'], '../assets/' . $picture_bdd);
+        // on hash le mot de passe
+        $mdp = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    // on hash le mot de passe
-    $mdp = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        // on lance l'insertion
+        $result = execute("INSERT INTO user (email_user, password_user) VALUES (:email, :password)", array(
+            ':email' => $_POST['email'],
+            ':password' => $mdp
+        ), true);
 
-    // on lance l'insertion
-    $result = execute("INSERT INTO user (email_user, password_user) VALUES (:email, :password)", array(
-        ':email' => $_POST['email'],
-        ':password' => $mdp
-    ), true);
+        // execute("INSERT INTO user (nickname, email, password, picture_profil, role) VALUES (:nickname, :email, :password, :picture_profil, :role)", array(
+        //     ':nickname' => $_POST['nickname'],
+        //     ':email' => $_POST['email'],
+        //     ':password' => $mdp,
+        //     ':picture_profil' => $picture_bdd,
+        //     ':role' => 'ROLE_USER'
+        // ), true);
 
-    // execute("INSERT INTO user (nickname, email, password, picture_profil, role) VALUES (:nickname, :email, :password, :picture_profil, :role)", array(
-    //     ':nickname' => $_POST['nickname'],
-    //     ':email' => $_POST['email'],
-    //     ':password' => $mdp,
-    //     ':picture_profil' => $picture_bdd,
-    //     ':role' => 'ROLE_USER'
-    // ), true);
+        // Modification de la méthode password_strength_check
+        // $result=execute("INSERT INTO user (nickname, email, password,picture_profil, role) VALUES (:nickname, :email, :password,:picture_profil, :role)", array(
+        //       ':nickname'=>$_POST['nickname'],
+        //       ':email'=>$_POST['email'],
+        //       ':password'=>$mdp,
+        //       ':picture_profil'=>$picture_bdd,
+        //       ':role'=>'ROLE_USER'
 
-    // Modification de la méthode password_strength_check
-    // $result=execute("INSERT INTO user (nickname, email, password,picture_profil, role) VALUES (:nickname, :email, :password,:picture_profil, :role)", array(
-    //       ':nickname'=>$_POST['nickname'],
-    //       ':email'=>$_POST['email'],
-    //       ':password'=>$mdp,
-    //       ':picture_profil'=>$picture_bdd,
-    //       ':role'=>'ROLE_USER'
+        // ), 'ggg');
 
-    // ), 'ggg');
-
-} // fin !empty($_POST)
-
+    }
+}
 
 ?>
 
@@ -121,15 +119,11 @@ if (!$error) {
 </form>
 
 
-
-
-
 <script>
-    let loadFile = function() {
-        let image = document.getElementById('image');
-
-        image.src = URL.createObjectURL(event.target.files[0]);
-    }
+    // let loadFile = function() {
+    //     let image = document.getElementById('image');
+    //     image.src = URL.createObjectURL(event.target.files[0]);
+    // }
 </script>
 
 <?php require_once '../inc/footer.inc.php'; ?>
