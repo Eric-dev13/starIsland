@@ -16,7 +16,7 @@ if (!empty($_POST)) {
             $user = $user->fetch(PDO::FETCH_ASSOC);
             if (password_verify($_POST['password'], $user['password_user'])) {
                 $_SESSION['user'] = $user;
-                // $_SESSION['messages']['success'][] = "Bienvenue $user[email_user]!!";
+                $_SESSION['messages']['success'][] = "Bienvenue $user[email_user]!!";
                 header('location:../');
                 exit();
             } else {

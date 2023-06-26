@@ -25,16 +25,23 @@ section.team {
     }
 
     .link {
-        // border: 1px solid red;
-        transition: ease-in-out .9s;
         position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 0 0 50px 50px;
+        padding: 0 5px 10px 5px;
+        // border: 1px solid red;
+        // background-color: rgba(255, 255, 255, 0.5);
+        transition: ease-in-out .9s;
         top: 0;
-        left: 25px;
+        left: 22px;
         opacity: 0;
+        transform: translateY(100px);
     }
 
     .group-link:hover .link {
-        transform: translateY(100px);
+        // transform: translateY(100px);
         opacity: 1;
     }
 
@@ -63,6 +70,3 @@ section.team {
         width: 100px;
     }
 }
-
-
-

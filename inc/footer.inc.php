@@ -7,12 +7,35 @@
                 </div>
             </div>
             <div>
-                <img src="<?= BASE_PATH . 'assets/img/PEGI18 1.png' ?>" alt="" class="me-2">
-                <img src="<?= BASE_PATH . 'assets/img/gtalogo 1.png' ?>" alt="" class="">
+                <img src="<?= BASE_PATH . 'assets/img/icon/PEGI18.png' ?>" alt="" class="me-2">
+                <img src="<?= BASE_PATH . 'assets/img/icon/gta5.png' ?>" alt="" class="">
             </div>
         </footer>
 
+
         <!-- JS BOOTSTRAP -->
         <script src="<?= BASE_PATH . 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' ?>"></script>
-    </body>
-</html>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Message d'alerte affiché et a masquer progressivement
+                const alertCard = document.getElementById('alertCard');
+                if (alertCard !== null) {
+                    // Définissez le délai en millisecondes (par exemple, 5000 ms pour 5 secondes)
+                    const delai = 4000;
+
+                    // Fonction pour masquer la carte
+                    function masquerCarte() {
+                        alertCard.style.transition = "opacity ease-in 0.5s";
+                        alertCard.style.opacity = "0";
+                    }
+
+                    // Démarrez le délai avec la fonction setTimeout
+                    setTimeout(masquerCarte, delai);
+                }
+            });
+        </script>
+
+        </body>
+
+        </html>

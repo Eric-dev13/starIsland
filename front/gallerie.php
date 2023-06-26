@@ -1,6 +1,11 @@
 <?php
 require_once '../config/function.php';
-require_once '../inc/header.inc.php'; ?>
+require_once '../inc/header.inc.php';
+
+// Requête pour recupèrer 6 images aléatoire pour animer la galerie
+
+// Recuperer liens pour les reseaux sociaux si necessaire
+?>
 
 <section class="galeriePage flex-grow-1 d-flex flex-column">
     <h1 class="text-center text-shadow my-5">Gallerie</h1>
@@ -10,6 +15,12 @@ require_once '../inc/header.inc.php'; ?>
             <div class="d-flex flex-column justify-content-between align-items-center">
                 <div class="rc-container__carousel mb-3">
                     <div class="rc-carousel">
+                        <?php 
+                        // Requete en base pour récupèrer 6 images aléatoirement.                 
+                        // foreach ($variable as $key => $value) {
+                        //     # code...
+                        // }
+                        ?>
                         <div class="item a"><img src="<?= BASE_PATH . 'assets/img/carrousel/b.jpg' ?>" class="d-block w-100" alt="..."></div>
                         <div class="item b"><img src="<?= BASE_PATH . 'assets/img/carrousel/c.jpg' ?>" class="d-block w-100" alt="..."></div>
                         <div class="item c"><img src="<?= BASE_PATH . 'assets/img/carrousel/d.jpg' ?>" class="d-block w-100" alt="..."></div>
@@ -52,6 +63,33 @@ require_once '../inc/header.inc.php'; ?>
 </section>
 
 <!-- CAROUSEL DE LA PAGE GALERIE -->
-<script src="<?= BASE_PATH . 'assets/js/carrousel-3d.js' ?>"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        var carousel = $(".rc-carousel"),
+            currdeg = 0;
+
+        $(".carrousel__next").on("click", {
+            d: "n"
+        }, rotate);
+        $(".carrousel__prev").on("click", {
+            d: "p"
+        }, rotate);
+
+        function rotate(e) {
+            if (e.data.d == "n") {
+                currdeg = currdeg - 60;
+            }
+            if (e.data.d == "p") {
+                currdeg = currdeg + 60;
+            }
+            carousel.css({
+                "-webkit-transform": "rotateY(" + currdeg + "deg)",
+                "-moz-transform": "rotateY(" + currdeg + "deg)",
+                "-o-transform": "rotateY(" + currdeg + "deg)",
+                "transform": "rotateY(" + currdeg + "deg)"
+            });
+        }
+    });
+</script>
 
 <?php require_once '../inc/footer.inc.php'; ?>

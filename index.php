@@ -4,25 +4,48 @@
 require_once 'config/function.php';
 require_once 'inc/header.inc.php';
 
+
 if (isset($_GET['a']) && $_GET['a'] == 'dis') {
     unset($_SESSION['user']);
     $_SESSION['messages']['info'][] = 'A bientôt !!';
     header('location:./');
     exit();
 }
+
+// validation des formulaires
+// isSubmitted() == !empty($_POST)
+if (!empty($_POST)) {
+    $error = false;
+
+    var_dump($_POST);
+
+    // si pas de value pour la note alors note est 0
+    if (empty($_POST['top-server_rating'])) {
+        $rating = 0;
+    } 
+
+    // VALIDATOR : si pas de value pour les commentaires alors on remonte une erreur
+    if(empty($_POST['top-server_comment'])){
+        $topServerComment = 'Commentaire obligatoire ?';
+        $error = true;
+    }
+
+    if (!$error) {
+        // request
+    }
+}
 ?>
 
 
-
 <section class="position-relative homePage bloc-1">
-    <!-- <div class="strecth-layer-transparent shadow-1"></div> -->
+    <div class="strecth-layer-transparent shadow-1"></div>
 
-    <div class="container">
-        <h1 class="text-center text-shadow pt-5 z-1">BIENVENUE SUR<br>STAR’ISLAND</h1>
+    <div class="container position-relative">
+        <h1 class="text-center text-shadow pt-5">BIENVENUE SUR<br>STAR’ISLAND</h1>
 
         <!-- bloc 1 - Présentation  -->
         <div class="row align-items-center px-3 px-md-5 page-1">
-            <p class=" fs-3 text-shadow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, cum culpa? Nisi unde
+            <p class="fs-3 text-shadow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, cum culpa? Nisi unde
                 quasi culpa. Vitae, molestiae quisquam ea quo repellat eveniet consequuntur enim totam, deserunt ab
                 reprehenderit modi dignissimos?
             </p>
@@ -49,6 +72,7 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
                         <div class="carousel-item">
                             <img src="<?= BASE_PATH . 'assets/img/carrousel/d.jpg' ?>" class="d-block w-100" alt="...">
                         </div>
+
                         <div class="carousel-item">
                             <img src="<?= BASE_PATH . 'assets/img/carrousel/e.jpg' ?>" class="d-block w-100" alt="...">
                         </div>
@@ -68,21 +92,34 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             </div>
         </div>
 
-        <!-- bloc 3 - Bloc note et commentaires  -->
-        <div class="row d-none align-items-center justify-content-center page-3">
-            <div class="comment d-flex flex-column bg-white bg-opacity-50 rounded p-3">
-                <h4 class="fw-bold text-center pb-3">Star'Island</h4>
-                <div class="d-flex justify-content-around mb-3">
-                    <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                    <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                    <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                    <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                    <img src="<?= BASE_PATH . 'assets/img/icon/etoile.png' ?>" alt="">
+        <!-- bloc 3 - Bloc note et commentaires  --><!-- action="<?= BASE_PATH . 'back/topServer.php'  ?>" -->
+        <form class="row d-none align-items-center justify-content-center page-3"  method="post" enctype="multipart/form-data">
+            <div class="top-server d-flex flex-column bg-light bg-opacity-25 rounded p-3">
+                <div class="d-flex justify-content-evenly align-items-center">
+                    <div class="top-server--color d-flex flex-column align-items-center">
+                        <div class="d-flex">
+                            <span>T</span>
+                            <img src="<?= BASE_PATH . 'assets/img/icon/topserveur.png' ?>" alt="top-server" width="50">
+                            <span>P</span>
+                        </div>
+                        <P>serveur</P>
+                    </div>
+                    <h4 class="fw-bold text-center pb-3">Star'Island</h4>
                 </div>
-                <textarea name="" id="" cols="10" rows="5" class="mb-3 bg-white bg-opacity-25">Commentaires</textarea>
-                <a href="#" class="btn btn-light mb-3">Publier</a>
+
+                <div class="d-flex justify-content-around mb-1 bg-primary bg-opacity-25 p-1">
+                    <i class="fas fa-star fa-2x top-server__star"></i>
+                    <i class="fas fa-star fa-2x top-server__star"></i>
+                    <i class="fas fa-star fa-2x top-server__star"></i>
+                    <i class="fas fa-star fa-2x top-server__star"></i>
+                    <i class="fas fa-star fa-2x top-server__star"></i>
+                </div>
+                <textarea name="top-server_comment" id="top-server__comment" cols="10" rows="5" class="bg-white bg-opacity-25" placeholder="Commentaires"></textarea>
+                <small class="bg-primary text-danger mb-3"><?= $topServerComment ?? ""; ?></small>
+                <input type="hidden" name="top-server_rating" id="top-server--note">
+                <button type="submit" class="btn btn-light mb-3">Publier</button>
             </div>
-        </div>
+        </form>
 
         <!-- Bouton de navigation pour les 3 blocs -->
         <div class="d-flex justify-content-center my-5">
@@ -116,25 +153,24 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             </a>
         </div>
     </div>
-
 </section>
 
 
 <section class="position-relative homePage bloc-2">
+
     <div class="strecth-layer-transparent shadow-2"></div>
 
-    <div class="container mt-5">
-
+    <div class="container mt-5 position-relative">
         <div class="d-flex justify-content-center justify-content-md-start mt-2 mt-lg-0">
             <div class="avis left d-flex align-items-center justify-content-center border border-dark py-2">
                 <img src="<?= BASE_PATH . 'assets/img/Ellipse_58.png' ?>" alt="" width=80>
                 <div class="ps-2">
                     <div class="d-flex justify-content-around mt-2">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile.png' ?>" alt="">
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
                     </div>
                     <div class="mt-2 text-black">
                         Super serveur GTA RP <br>
@@ -148,11 +184,11 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
                 <img src="<?= BASE_PATH . 'assets/img/Ellipse_56.png' ?>" alt="" class="ms-3" width=80>
                 <div class="ps-2">
                     <div class="d-flex justify-content-around mt-2">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile.png' ?>" alt="">
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
                     </div>
                     <div class="mt-2 text-black">
                         Super serveur GTA RP <br>
@@ -166,11 +202,11 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
                 <img src="<?= BASE_PATH . 'assets/img/Ellipse_57.png' ?>" alt="" class="ms-3" width=80>
                 <div class="ps-2">
                     <div class="d-flex justify-content-around mt-2">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile.png' ?>" alt="">
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
                     </div>
                     <div class="mt-2 text-black">
                         Super serveur GTA RP <br>
@@ -183,12 +219,12 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             <div class="avis right d-flex align-items-center justify-content-center border border-dark py-2">
                 <img src="<?= BASE_PATH . 'assets/img/Ellipse_59.png' ?>" alt="" class="ms-3" width=80>
                 <div class="ps-2">
-                    <div class="d-flex justify-content-around  mt-2">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                        <img src="<?= BASE_PATH . 'assets/img/icon/etoile.png' ?>" alt="">
+                    <div class="d-flex justify-content-around mt-2">
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
+                        <i class="fas fa-star text-dark fa-2x"></i>
                     </div>
                     <div class="mt-2 text-black">
                         Super serveur GTA RP <br>
@@ -198,23 +234,65 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             </div>
         </div>
 
-        <div class="d-flex flex-column border bg-white bg-opacity-25 px-5 my-5 rounded">
+        <form class="d-flex flex-column border bg-white bg-opacity-25 px-5 my-5 rounded" method="post" enctype="multipart/form-data">
             <h4 class="text-center py-3">Votre avis nous intéresse</h4>
             <div class="d-flex justify-content-around mb-3 px-5">
-                <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                <img src="<?= BASE_PATH . 'assets/img/icon/etoile-1.png' ?>" alt="">
-                <img src="<?= BASE_PATH . 'assets/img/icon/etoile.png' ?>" alt="">
+                <i class="fas fa-star fa-3x star"></i>
+                <i class="fas fa-star fa-3x star"></i>
+                <i class="fas fa-star fa-3x star"></i>
+                <i class="fas fa-star fa-3x star"></i>
+                <i class="fas fa-star fa-3x star"></i>
             </div>
-            <textarea name="" id="" cols="10" rows="5" class="mb-3 bg-white bg-opacity-25">Commentaires</textarea>
-            <a href="#" class="btn btn-light mb-3">Publier</a>
-        </div>
+            <textarea name="comment_text" id="avis_comment" cols="10" rows="5" class="mb-3 bg-white bg-opacity-25" placeholder="Commentaires"></textarea>
+            <input type="hidden" name="avis-note" id="avis--note">
+            <button type="submit" class="btn btn-light mb-3">Publier</button>
+        </form>
     </div>
 </section>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+
+        // Gestion des étoiles dans "top server"
+        const starsOne = document.querySelectorAll(".fas.fa-star.top-server__star");
+        for (let index = 0; index < starsOne.length; index++) {
+            starsOne[index].classList.add('text-dark');
+
+            starsOne[index].addEventListener('click', () => {
+                for (let i = 0; i < starsOne.length; i++) {
+                    if (i <= index) {
+                        starsOne[i].classList.remove('text-dark');
+                        starsOne[i].classList.add('text-sun');
+                        document.getElementById('top-server--note').value = i + 1;
+                    } else {
+                        starsOne[i].classList.remove('text-sun');
+                        starsOne[i].classList.add('text-dark');
+                    }
+                }
+            });
+        }
+
+        // Gestion des étoiles dans "votre avis nous interesse"
+        const stars = document.querySelectorAll(".fas.fa-star.star");
+        for (let index = 0; index < stars.length; index++) {
+            stars[index].classList.add('text-dark');
+
+            stars[index].addEventListener('click', () => {
+                for (let i = 0; i < stars.length; i++) {
+                    if (i <= index) {
+                        stars[i].classList.remove('text-dark');
+                        stars[i].classList.add('text-sun');
+                        document.getElementById('avis--note').value = i + 1;
+                    } else {
+                        stars[i].classList.remove('text-sun');
+                        stars[i].classList.add('text-dark');
+                    }
+                }
+            });
+        }
+
+
         // Boutons de défilement de bloc de page
         const slideX = [{
                 transform: `translateX(200px) rotateZ(180deg) scale(0)`
@@ -231,6 +309,8 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
             easing: "cubic-bezier(0.6, 0.04, 0.98, 0.335)"
         };
 
+
+        // Affiche et masque les 3 blocs de la première section.
         const circle_1 = document.querySelectorAll('.circle-1');
         for (let index = 0; index < circle_1.length; index++) {
             const element = circle_1[index];
