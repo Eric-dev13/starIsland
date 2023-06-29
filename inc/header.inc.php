@@ -43,8 +43,6 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ADMIN</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="<?= BASE_PATH . 'back/userList.php'; ?>">Gestion utilisateur</a>
-                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="<?= BASE_PATH . 'back/'; ?>">Accès Back-office</a>
                                 </div>
                             </li>
@@ -77,12 +75,10 @@
                     <div class="alert alert-<?= $type; ?> position-absolute top-0 start-50 translate-middle z-1 text-center rounded px-5" id="alertCard">
                         <p><?= $message; ?></p>
                     </div>
-
             <?php unset($_SESSION['messages'][$type][$key]);
                 endforeach;
             endforeach;
             ?>
-            
         <?php
         endif;
         ?>

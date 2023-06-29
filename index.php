@@ -4,6 +4,13 @@
 require_once 'config/function.php';
 require_once 'inc/header.inc.php';
 
+// récupère le sous titre de la page d'accueil
+$req ="SELECT c.description_content FROM content c INNER JOIN page p ON c.id_page = p.id_page where p.title_page = :title_page and c.title_content = :title_content";
+$homeDescription = execute($req, [
+    ':title_page'=>'home', 
+    ':title_content'=>'description'
+    ])->fetch(PDO::FETCH_ASSOC);
+
 
 if (isset($_GET['a']) && $_GET['a'] == 'dis') {
     unset($_SESSION['user']);
@@ -19,16 +26,26 @@ if (!empty($_POST)) {
 
     var_dump($_POST);
 
-    // si pas de value pour la note alors note est 0
-    if (empty($_POST['top-server_rating'])) {
+    // AVIS NOTE si pas de value pour la note alors note est 0
+    if (empty($_POST['avis_rating'])) {
         $rating = 0;
     } 
 
-    // VALIDATOR : si pas de value pour les commentaires alors on remonte une erreur
+    //
+    if(empty($POST['avis_comment'])){
+        $avisComment = 'Commentaire obligatoire !';
+    }
+
+    // REDIRECT VERS L'API TOP SERVER
     if(empty($_POST['top-server_comment'])){
-        $topServerComment = 'Commentaire obligatoire ?';
+        $topServerComment = 'Commentaire obligatoire !';
         $error = true;
     }
+
+    // AVIS NOTE si pas de value pour la note alors note est 0
+    if (empty($_POST['top-server_rating'])) {
+        $rating = 0;
+    } 
 
     if (!$error) {
         // request
@@ -45,9 +62,7 @@ if (!empty($_POST)) {
 
         <!-- bloc 1 - Présentation  -->
         <div class="row align-items-center px-3 px-md-5 page-1">
-            <p class="fs-3 text-shadow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, cum culpa? Nisi unde
-                quasi culpa. Vitae, molestiae quisquam ea quo repellat eveniet consequuntur enim totam, deserunt ab
-                reprehenderit modi dignissimos?
+            <p class="fs-3 text-shadow"><?= $homeDescription["description_content"] ?>
             </p>
         </div>
 
@@ -93,7 +108,7 @@ if (!empty($_POST)) {
         </div>
 
         <!-- bloc 3 - Bloc note et commentaires  --><!-- action="<?= BASE_PATH . 'back/topServer.php'  ?>" -->
-        <form class="row d-none align-items-center justify-content-center page-3"  method="post" enctype="multipart/form-data">
+        <form action="" class="row d-none align-items-center justify-content-center page-3"  method="post" enctype="multipart/form-data">
             <div class="top-server d-flex flex-column bg-light bg-opacity-25 rounded p-3">
                 <div class="d-flex justify-content-evenly align-items-center">
                     <div class="top-server--color d-flex flex-column align-items-center">
@@ -107,16 +122,16 @@ if (!empty($_POST)) {
                     <h4 class="fw-bold text-center pb-3">Star'Island</h4>
                 </div>
 
-                <div class="d-flex justify-content-around mb-1 bg-primary bg-opacity-25 p-1">
+                <div class="d-flex justify-content-around mb-1 p-1">
                     <i class="fas fa-star fa-2x top-server__star"></i>
                     <i class="fas fa-star fa-2x top-server__star"></i>
                     <i class="fas fa-star fa-2x top-server__star"></i>
                     <i class="fas fa-star fa-2x top-server__star"></i>
                     <i class="fas fa-star fa-2x top-server__star"></i>
                 </div>
-                <textarea name="top-server_comment" id="top-server__comment" cols="10" rows="5" class="bg-white bg-opacity-25" placeholder="Commentaires"></textarea>
-                <small class="bg-primary text-danger mb-3"><?= $topServerComment ?? ""; ?></small>
-                <input type="hidden" name="top-server_rating" id="top-server--note">
+                <textarea name="top-server_comment" id="top-server__comment" cols="10" rows="5" class="bg-white bg-opacity-25" placeholder="Commentaires" required></textarea>
+                <small class="bg-white bg-opacity-75 text-danger p-2 mb-3"><?= $topServerComment ?? ""; ?></small>
+                <input type="hidden" name="top-server_rating" id="top-server_rating">
                 <button type="submit" class="btn btn-light mb-3">Publier</button>
             </div>
         </form>
@@ -243,8 +258,9 @@ if (!empty($_POST)) {
                 <i class="fas fa-star fa-3x star"></i>
                 <i class="fas fa-star fa-3x star"></i>
             </div>
-            <textarea name="comment_text" id="avis_comment" cols="10" rows="5" class="mb-3 bg-white bg-opacity-25" placeholder="Commentaires"></textarea>
-            <input type="hidden" name="avis-note" id="avis--note">
+            <textarea name="avis_comment" id="avis_comment" cols="10" rows="5" class="bg-white bg-opacity-25" placeholder="Commentaires" required></textarea>
+            <small class="bg-white bg-opacity-75 text-danger p-2 mb-3"><?= $avisComment ?? ""; ?></small>
+            <input type="hidden" name="avis_rating" id="avis_rating">
             <button type="submit" class="btn btn-light mb-3">Publier</button>
         </form>
     </div>
@@ -264,7 +280,7 @@ if (!empty($_POST)) {
                     if (i <= index) {
                         starsOne[i].classList.remove('text-dark');
                         starsOne[i].classList.add('text-sun');
-                        document.getElementById('top-server--note').value = i + 1;
+                        document.getElementById('top-server_rating').value = i + 1;
                     } else {
                         starsOne[i].classList.remove('text-sun');
                         starsOne[i].classList.add('text-dark');
@@ -283,7 +299,7 @@ if (!empty($_POST)) {
                     if (i <= index) {
                         stars[i].classList.remove('text-dark');
                         stars[i].classList.add('text-sun');
-                        document.getElementById('avis--note').value = i + 1;
+                        document.getElementById('avis_rating').value = i + 1;
                     } else {
                         stars[i].classList.remove('text-sun');
                         stars[i].classList.add('text-dark');

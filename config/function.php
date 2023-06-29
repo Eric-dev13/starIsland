@@ -36,10 +36,6 @@ function execute(string $requete, array $data=[], $lastId=null)
 
         return  false;
     }
-
-
-
-
 }
 
 
@@ -130,7 +126,15 @@ function adminExist() {
     } catch (\Throwable $th) {
         throw $th;
     }
-    
-    
 
+}
+
+// Retourne la valeur d'une colonne d'un enregistrement
+function getProperty(array $nameTable, string $namePropertySearch, string $namePropertyId, string $id)
+{
+    foreach ($nameTable as $key => $item) {
+        if ($item[$namePropertyId] == $id) {
+            return $item[$namePropertySearch];
+        }
+    }
 }

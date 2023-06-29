@@ -4,17 +4,6 @@ require_once '../inc/header.inc.php';
 if (!empty($_POST)) {
     $error = false;
 
-    // // début de controle du formulaire
-    // if (empty($_POST['nickname'])) {
-    //    $nickname='Le pseudo est obligatoire';
-    //    $error=true;
-    // }else{
-    //     if (strlen($_POST['nickname']) <3 || strlen($_POST['nickname']) >10 ){
-    //         $nickname='Le pseudo doit être compris entre 3 et 10 caractères';
-    //         $error=true;
-    //     }
-    // }
-
     if (empty($_POST['email'])) {
         $email = 'Email obligatoire';
         $error = true;
@@ -25,7 +14,6 @@ if (!empty($_POST)) {
 
         if ($user->rowCount() == 0) {
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-
                 $email = 'Format invalide';
                 $error = true;
             }
@@ -39,37 +27,14 @@ if (!empty($_POST)) {
         $password = 'Mot de passe obligatoire';
         $error = true;
     } else {
-        // if (!password_strength_check($_POST['password'])){ // Modification de la méthode password_strength_check
-        if (!password_strength_check($_POST['password'], 5, 20, true, false, false, false)) {
+        if (!password_strength_check($_POST['password'], 5, 20, true, true, true, true)) {
             $password = 'Votre mot de passe doit contenir entre 6 et 15 caractères dont au minimum une minuscule, une majuscule, un caractère numérique et un caractère spécial';
             $error = true;
         }
     }
 
-    // if (empty($_FILES['picture_profil']['name'])){
-    //       $picture='Photo de profil obligatoire';
-    //       $error=true;
-
-    // }else{
-    //     $picture="";
-    //     $formats=['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/webp'];
-    //     if (!in_array($_FILES['picture_profil']['type'],$formats )){
-    //         $picture.="Les formats autorisés sont: 'image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/webp'<br>";
-    //         $error=true;
-    //     }
-    //     if ($_FILES['picture_profil']['size'] > 2000000){
-    //         $picture.="Taille maximale autorisée de 2M";
-    //         $error=true;
-    //     }
-
-    // condition de traitement du formulaire (si il n'y a pas d'erreur)
 
     if (!$error) {
-        // // on renomme la photo
-        // $picture_bdd = 'upload/' . uniqid() . date_format(new DateTime(), 'd_m_Y_H_i_s') . $_FILES['picture_profil']['name'];
-        // // on la copie dans le dossier d'upload
-        // copy($_FILES['picture_profil']['tmp_name'], '../assets/' . $picture_bdd);
-
         // on hash le mot de passe
         $mdp = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
@@ -78,24 +43,6 @@ if (!empty($_POST)) {
             ':email' => $_POST['email'],
             ':password' => $mdp
         ), true);
-
-        // execute("INSERT INTO user (nickname, email, password, picture_profil, role) VALUES (:nickname, :email, :password, :picture_profil, :role)", array(
-        //     ':nickname' => $_POST['nickname'],
-        //     ':email' => $_POST['email'],
-        //     ':password' => $mdp,
-        //     ':picture_profil' => $picture_bdd,
-        //     ':role' => 'ROLE_USER'
-        // ), true);
-
-        // Modification de la méthode password_strength_check
-        // $result=execute("INSERT INTO user (nickname, email, password,picture_profil, role) VALUES (:nickname, :email, :password,:picture_profil, :role)", array(
-        //       ':nickname'=>$_POST['nickname'],
-        //       ':email'=>$_POST['email'],
-        //       ':password'=>$mdp,
-        //       ':picture_profil'=>$picture_bdd,
-        //       ':role'=>'ROLE_USER'
-
-        // ), 'ggg');
 
     }
 }

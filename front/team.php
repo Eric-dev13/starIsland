@@ -34,7 +34,6 @@ require_once '../inc/header.inc.php';
         <div class="d-flex align-items-center justify-content-center flex-wrap my-5">
             <?php 
             for ($i = 1; $i <= 18; $i++) { ?>
-
                 <div class="container-resizable-avatar">
                     <h5>Nom</h5>
                     <small>Rôle</small>

@@ -1,4 +1,6 @@
-<?php require_once '../config/function.php';
+<?php 
+require_once '../config/function.php';
+require_once '../inc/backheader.inc.php'; 
 
 if (!admin()){
 
@@ -11,13 +13,11 @@ require_once '../inc/header.inc.php';
 
 
 
-if (isset($_GET['a']) && $_GET['a']=='edit' && isset($_GET['i'])){
+if (!empty($_GET) && isset($_GET['a']) && $_GET['a']=='edit' && isset($_GET['i'])){
     $user=execute("SELECT * FROM user WHERE id=:id", array(
         ':id'=>$_GET['i']))->fetch(PDO::FETCH_ASSOC);
-
-
-
 }
+
 if (!empty($_POST)) {
     $error=false;
 
@@ -82,18 +82,6 @@ if (!empty($_POST)) {
         ));
         header('location:./userList.php');
         exit();
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
