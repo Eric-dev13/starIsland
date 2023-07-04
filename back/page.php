@@ -13,10 +13,10 @@ if (!empty($_POST)) {
         $error = true;
     }
 
-    if (empty($_POST['url_page'])) {
-        $pages_error = 'Veuillez saisir une URL !';
-        $error = true;
-    }
+    // if (empty($_POST['url_page'])) {
+    //     $pages_error = 'Veuillez saisir une URL !';
+    //     $error = true;
+    // }
 
     if (!$error) {
         // Modification une page

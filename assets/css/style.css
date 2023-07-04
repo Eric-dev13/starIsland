@@ -12194,11 +12194,21 @@ section.homePage.bloc-2 {
 }
 section.homePage.bloc-2 .avis {
   background-color: rgba(255, 255, 255, 0.7);
-  width: 400px;
 }
 section.homePage.bloc-2 .left,
 section.homePage.bloc-2 .right {
   border-radius: 30px;
+}
+
+/* *********************************************** */
+/* *******                                 ******* */
+/* *******            ALL COMMENT          ******* */
+/* *******                                 ******* */
+/* *********************************************** */
+section.allComment {
+  background-image: url("../img/fd_Index-1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* *********************************************** */

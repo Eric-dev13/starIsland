@@ -19,6 +19,5 @@ const CONFIG=[
 
 ];
 
-const BASE_PATH='
-';
+const BASE_PATH='/starIsland/';
 

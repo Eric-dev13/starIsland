@@ -1,15 +1,12 @@
 <!-- INDEX -->
 
+<?php 
+ 
+?>
+
 <?php
 require_once 'config/function.php';
 require_once 'inc/header.inc.php';
-
-// récupère le sous titre de la page d'accueil
-$req ="SELECT c.description_content FROM content c INNER JOIN page p ON c.id_page = p.id_page where p.title_page = :title_page and c.title_content = :title_content";
-$homeDescription = execute($req, [
-    ':title_page'=>'home', 
-    ':title_content'=>'description'
-    ])->fetch(PDO::FETCH_ASSOC);
 
 
 if (isset($_GET['a']) && $_GET['a'] == 'dis') {
@@ -20,37 +17,76 @@ if (isset($_GET['a']) && $_GET['a'] == 'dis') {
 }
 
 // validation des formulaires
-// isSubmitted() == !empty($_POST)
 if (!empty($_POST)) {
-    $error = false;
-
-    var_dump($_POST);
+    $avisError = false;
+    $topServerError = false;
 
     // AVIS NOTE si pas de value pour la note alors note est 0
-    if (empty($_POST['avis_rating'])) {
+    if (empty($_POST['rating_comment'])) {
         $rating = 0;
-    } 
+    }
 
-    //
-    if(empty($POST['avis_comment'])){
+    if (empty($_POST['comment_text'])) {
+        $avisError = true;
         $avisComment = 'Commentaire obligatoire !';
     }
 
+    if (empty($_POST['nickname_comment'])) {
+        $avisError = true;
+        $avisPseudo = 'Pseudo obligatoire !';
+    }
+
+
     // REDIRECT VERS L'API TOP SERVER
-    if(empty($_POST['top-server_comment'])){
+    if (empty($_POST['top-server_comment'])) {
         $topServerComment = 'Commentaire obligatoire !';
-        $error = true;
+        $topServerError = true;
     }
 
     // AVIS NOTE si pas de value pour la note alors note est 0
     if (empty($_POST['top-server_rating'])) {
         $rating = 0;
-    } 
+    }
 
-    if (!$error) {
-        // request
+    if (!$avisError) {
+        // Ajouter un contenu
+        $success = execute("INSERT INTO comment (rating_comment , comment_text, publish_date_comment, nickname_comment ) VALUES (:rating_comment , :comment_text, :publish_date_comment, :nickname_comment)", array(
+            ':rating_comment' => $_POST['rating_comment'],
+            ':comment_text' => $_POST['comment_text'],
+            ':publish_date_comment' => date("Y-m-d H:i:s"),
+            ':nickname_comment' => $_POST['nickname_comment'],
+            // ':id_media' => $_POST['id_media'],
+        ));
+
+        if ($success) {
+            $_SESSION['messages']['success'][] = 'Nouveau contenu ajouté.';
+        } else {
+            $_SESSION['messages']['danger'][] = 'Problème de traitement';
+        }
+
+        header('location:./index.php');
+        exit();
+    }
+
+    if (!$topServerError) {
     }
 }
+
+// récupère le sous titre de la page d'accueil
+$req = "SELECT c.description_content FROM content c INNER JOIN page p ON c.id_page = p.id_page where p.title_page = :title_page and c.title_content = :title_content";
+$homeDescription = execute($req, [
+    ':title_page' => 'home',
+    ':title_content' => 'description'
+])->fetch(PDO::FETCH_ASSOC);
+
+// récupère les 4 derniers commentaires publier et validés par l'admin
+$comments = execute("SELECT * FROM comment WHERE comment.publish = 1 ORDER BY id_comment DESC LIMIT 4")->fetchAll(PDO::FETCH_ASSOC);
+
+// Recupere la liste des avatars
+$avatars = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type where mt.title_media_type = :avatars",[
+    ':avatars' => 'avatars'
+])->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -108,7 +144,7 @@ if (!empty($_POST)) {
         </div>
 
         <!-- bloc 3 - Bloc note et commentaires  --><!-- action="<?= BASE_PATH . 'back/topServer.php'  ?>" -->
-        <form action="" class="row d-none align-items-center justify-content-center page-3"  method="post" enctype="multipart/form-data">
+        <form action="" class="row d-none align-items-center justify-content-center page-3" method="post" enctype="multipart/form-data">
             <div class="top-server d-flex flex-column bg-light bg-opacity-25 rounded p-3">
                 <div class="d-flex justify-content-evenly align-items-center">
                     <div class="top-server--color d-flex flex-column align-items-center">
@@ -176,93 +212,64 @@ if (!empty($_POST)) {
     <div class="strecth-layer-transparent shadow-2"></div>
 
     <div class="container mt-5 position-relative">
-        <div class="d-flex justify-content-center justify-content-md-start mt-2 mt-lg-0">
-            <div class="avis left d-flex align-items-center justify-content-center border border-dark py-2">
-                <img src="<?= BASE_PATH . 'assets/img/Ellipse_58.png' ?>" alt="" width=80>
-                <div class="ps-2">
-                    <div class="d-flex justify-content-around mt-2">
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                    </div>
-                    <div class="mt-2 text-black">
-                        Super serveur GTA RP <br>
-                        Publié le 15/05/2023
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center justify-content-md-end mt-2 mt-lg-0">
-            <div class="avis right d-flex align-items-center justify-content-center border border-dark py-2">
-                <img src="<?= BASE_PATH . 'assets/img/Ellipse_56.png' ?>" alt="" class="ms-3" width=80>
-                <div class="ps-2">
-                    <div class="d-flex justify-content-around mt-2">
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                    </div>
-                    <div class="mt-2 text-black">
-                        Super serveur GTA RP <br>
-                        Publié le 15/05/2023
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center justify-content-md-start mt-2 mt-lg-0">
-            <div class="avis left d-flex align-items-center justify-content-center border border-dark py-2">
-                <img src="<?= BASE_PATH . 'assets/img/Ellipse_57.png' ?>" alt="" class="ms-3" width=80>
-                <div class="ps-2">
-                    <div class="d-flex justify-content-around mt-2">
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                    </div>
-                    <div class="mt-2 text-black">
-                        Super serveur GTA RP <br>
-                        Publié le 15/05/2023
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center justify-content-md-end mt-2 mt-lg-0">
-            <div class="avis right d-flex align-items-center justify-content-center border border-dark py-2">
-                <img src="<?= BASE_PATH . 'assets/img/Ellipse_59.png' ?>" alt="" class="ms-3" width=80>
-                <div class="ps-2">
-                    <div class="d-flex justify-content-around mt-2">
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                        <i class="fas fa-star text-dark fa-2x"></i>
-                    </div>
-                    <div class="mt-2 text-black">
-                        Super serveur GTA RP <br>
-                        Publié le 15/05/2023
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <form class="d-flex flex-column border bg-white bg-opacity-25 px-5 my-5 rounded" method="post" enctype="multipart/form-data">
-            <h4 class="text-center py-3">Votre avis nous intéresse</h4>
-            <div class="d-flex justify-content-around mb-3 px-5">
-                <i class="fas fa-star fa-3x star"></i>
-                <i class="fas fa-star fa-3x star"></i>
-                <i class="fas fa-star fa-3x star"></i>
-                <i class="fas fa-star fa-3x star"></i>
-                <i class="fas fa-star fa-3x star"></i>
-            </div>
-            <textarea name="avis_comment" id="avis_comment" cols="10" rows="5" class="bg-white bg-opacity-25" placeholder="Commentaires" required></textarea>
-            <small class="bg-white bg-opacity-75 text-danger p-2 mb-3"><?= $avisComment ?? ""; ?></small>
-            <input type="hidden" name="avis_rating" id="avis_rating">
-            <button type="submit" class="btn btn-light mb-3">Publier</button>
-        </form>
+            <?php
+            foreach ($comments as $key => $comment) {
+            ?>
+                <div class="row d-flex justify-content-center <?php if ($key % 2) {
+                                                                echo "justify-content-md-start";
+                                                            } else {
+                                                                echo "justify-content-md-end";
+                                                            } ?> mb-3 p-2">
+                    <div class="col-12 col-md-10 col-lg-8 col-xl-6 bg-light bg-opacity-50 <?php if ($key % 2) {
+                                            echo "left";
+                                        } else {
+                                            echo "right";
+                                        } ?> d-flex align-items-center justify-content-center border border-dark p-2">
+                        <?php $randomizeAvatar = rand(0, count($avatars)-1); ?>             
+                        <img src="<?= BASE_PATH.'assets/upload/avatars/'.$avatars[$randomizeAvatar]['title_media'] ?>" alt="<?= $avatars[$randomizeAvatar]['name_media'] ?>" width=80 class="rounded-circle">
+                        <div class="ps-2">
+                            <div class="d-flex justify-content-around p-2 mt-2">
+                                <?php 
+                                for ($i = 1; $i <= 5; $i++) {
+                                    if ($i <= $comment['rating_comment']) {
+                                        echo "<i class='fas fa-star text-sun fa-2x'></i>";
+                                    } else {
+                                        echo "<i class='fas fa-star text-dark fa-2x'></i>";
+                                    }
+                                }
+                                 ?>
+                            </div>
+                            <div class="mt-2 text-black">
+                                <p><?= $comment['comment_text'] ?></p>
+                                <small class="fw-bold">Publié le <?= $comment['publish_date_comment'] ?></small>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    <?php } ?>
+
+    <a href="<?= BASE_PATH . 'front/allComment.php' ?>"><h3 class="text-center text-light">Voir tous les commentaires</h3></a>
+    
+    <hr>
+
+    <form class="d-flex flex-column border bg-white bg-opacity-25 px-5 my-5 rounded" method="post" enctype="multipart/form-data">
+        <h4 class="text-center py-3">Votre avis nous intéresse</h4>
+        <div class="d-flex justify-content-around mb-3 px-5">
+            <i class="fas fa-star fa-3x star-avis"></i>
+            <i class="fas fa-star fa-3x star-avis"></i>
+            <i class="fas fa-star fa-3x star-avis"></i>
+            <i class="fas fa-star fa-3x star-avis"></i>
+            <i class="fas fa-star fa-3x star-avis"></i>
+        </div>
+        <input type="text" name="nickname_comment" class="form-control" id="nickname_comment" placeholder="Pseudo">
+        <small class="bg-white bg-opacity-75 text-danger p-2 mb-3"><?= $avisPseudo ?? ""; ?></small>
+        <textarea name="comment_text" id="comment_text" cols="10" rows="5" class="bg-white bg-opacity-25" placeholder="Commentaires"></textarea>
+        <small class="bg-white bg-opacity-75 text-danger p-2 mb-3"><?= $avisComment ?? ""; ?></small>
+        <input type="hidden" name="rating_comment" id="rating_comment">
+        <button type="submit" class="btn btn-light mb-3">Publier</button>
+    </form>
     </div>
 </section>
 
@@ -290,7 +297,7 @@ if (!empty($_POST)) {
         }
 
         // Gestion des étoiles dans "votre avis nous interesse"
-        const stars = document.querySelectorAll(".fas.fa-star.star");
+        const stars = document.querySelectorAll(".fas.fa-star.star-avis");
         for (let index = 0; index < stars.length; index++) {
             stars[index].classList.add('text-dark');
 
@@ -299,7 +306,7 @@ if (!empty($_POST)) {
                     if (i <= index) {
                         stars[i].classList.remove('text-dark');
                         stars[i].classList.add('text-sun');
-                        document.getElementById('avis_rating').value = i + 1;
+                        document.getElementById('rating_comment').value = i + 1;
                     } else {
                         stars[i].classList.remove('text-sun');
                         stars[i].classList.add('text-dark');

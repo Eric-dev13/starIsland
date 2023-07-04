@@ -129,12 +129,3 @@ function adminExist() {
 
 }
 
-// Retourne la valeur d'une colonne d'un enregistrement
-function getProperty(array $nameTable, string $namePropertySearch, string $namePropertyId, string $id)
-{
-    foreach ($nameTable as $key => $item) {
-        if ($item[$namePropertyId] == $id) {
-            return $item[$namePropertySearch];
-        }
-    }
-}

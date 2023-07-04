@@ -13,8 +13,6 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-
-
 <script src="../assets/jquery/jquery.min.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/jquery-easing/jquery.easing.min.js"></script>

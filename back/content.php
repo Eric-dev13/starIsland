@@ -56,7 +56,8 @@ if (!empty($_POST)) {
 $pages = execute("SELECT * FROM page")->fetchAll(PDO::FETCH_ASSOC);
 
 // récupère les contenus
-$contenus = execute("SELECT * FROM content")->fetchAll(PDO::FETCH_ASSOC);
+// $contenus = execute("SELECT * FROM content")->fetchAll(PDO::FETCH_ASSOC);
+$contenus = execute("SELECT * FROM content c LEFT JOIN page p ON c.id_page = p.id_page")->fetchAll(PDO::FETCH_ASSOC);
 
 
 if (!empty($_GET)) {
@@ -69,7 +70,7 @@ if (!empty($_GET)) {
 
     // Suppression d'un contenu
     if (isset($_GET['a']) && $_GET['a'] == 'del' && isset($_GET['i'])) {
-        execute("DELETE FROM content WHERE id_content=:id_content", array(
+        $success = execute("DELETE FROM content WHERE id_content=:id_content", array(
             ':id_content' => $_GET['i']
         ));
 
@@ -125,7 +126,6 @@ require_once '../inc/backheader.inc.php';
                         <small class="text-danger">*</small>
                         <label for="id_page">Selection la page</label>
                         <select class="form-select" aria-label="Default select example" name="id_page" id="id_page">
-                            <!-- <option selected></option> -->
                             <?php
                             foreach ($pages as $key => $page) { ?>
                                 <option value="<?= $page['id_page'] ?>" <?php if(isset($contentById) && $contentById['id_page'] == $page['id_page']){ echo ' selected';} ?> > <?= $page['title_page'] ?></option>
@@ -176,7 +176,7 @@ require_once '../inc/backheader.inc.php';
                                 <th scope="row"><?= $key ?></th>
                                 <td><?= $contenu['title_content'] ?></td>
                                 <td><?= $contenu['description_content'] ?></td>
-                                <td><?= getProperty($pages, 'title_page', 'id_page', $contenu['id_page'] ) ?></td>
+                                <td><?= $contenu['title_page'] ?></td>
                                 <td class="d-flex">
                                     <a href="<?= BASE_PATH . 'back/content.php?a=edit&i=' . $contenu['id_content']; ?>" class="btn btn-outline-success me-2">
                                         <i class="far fa-edit"></i>

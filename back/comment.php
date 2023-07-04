@@ -1,7 +1,7 @@
 <?php
 require_once '../config/function.php';
 
-if (!empty($_POST)) { 
+if (!empty($_POST)) {
     $error = false;
 
     if (empty($_POST['nickname_comment'])) {
@@ -42,7 +42,7 @@ if (!empty($_POST)) {
             exit();
         } else {
             // Ajouter un contenu
-            $success = execute("INSERT INTO comment (rating_comment , comment_text, publish_date_comment, nickname_comment, id_media, id_comment ) VALUES (:rating_comment , :comment_text, :publish_date_comment, :nickname_comment, :id_media, :id_comment)", array(
+            $success = execute("INSERT INTO comment (rating_comment , comment_text, publish_date_comment, nickname_comment, id_media) VALUES (:rating_comment , :comment_text, :publish_date_comment, :nickname_comment, :id_media)", array(
                 ':rating_comment' => $_POST['rating_comment'],
                 ':comment_text' => $_POST['comment_text'],
                 ':publish_date_comment' => $_POST['publish_date_comment'],
@@ -63,9 +63,6 @@ if (!empty($_POST)) {
     }
 }
 
-// recupère la liste des type de médias
-$medias = execute("SELECT * FROM media")->fetchAll(PDO::FETCH_ASSOC);
-
 
 if (!empty($_GET)) {
     // Recupère un contenu pour la gestion de l'édition
@@ -77,8 +74,39 @@ if (!empty($_GET)) {
 
     // Suppression d'un contenu
     if (isset($_GET['a']) && $_GET['a'] == 'del' && isset($_GET['i'])) {
-        execute("DELETE FROM comment WHERE id_comment =:id_comment ", array(
-            ':id_comment ' => $_GET['i']
+        $success = execute("DELETE FROM comment WHERE id_comment=:id_comment", array(
+            ':id_comment' => $_GET['i']
+        ));
+
+        if ($success) {
+            $_SESSION['messages']['success'][] = 'Commentaires supprimé';
+        } else {
+            $_SESSION['messages']['danger'][] = 'Problème de traitement, veuillez réessayer';
+        }
+
+        header('location:./comment.php');
+        exit();
+    }
+
+    // Publier / partager
+    if (isset($_GET['a']) && $_GET['a'] == 'publish' && isset($_GET['i'])) {
+        $success = execute("UPDATE comment SET publish= NOT publish WHERE id_comment =:id_comment", array(
+            ':id_comment' => $_GET['i']
+        ));
+        if ($success) {
+            $_SESSION['messages']['success'][] = 'Inverser';
+        } else {
+            $_SESSION['messages']['danger'][] = 'Problème de traitement';
+        }
+
+        header('location:./comment.php');
+        exit();
+    }
+
+    // Suppression d'un contenu
+    if (isset($_GET['a']) && $_GET['a'] == 'del' && isset($_GET['i'])) {
+        $success = execute("DELETE FROM comment WHERE id_comment=:id_comment", array(
+            ':id_comment' => $_GET['i']
         ));
 
         if ($success) {
@@ -92,107 +120,79 @@ if (!empty($_GET)) {
     }
 }
 
+// recupère la liste des type de médias
+$medias = execute("SELECT * FROM media")->fetchAll(PDO::FETCH_ASSOC);
+
+// recupère les commentaires
+$comments = execute("SELECT * FROM comment c LEFT JOIN media m ON c.id_media=m.id_media")->fetchAll(PDO::FETCH_ASSOC);
+
 // CHARGEMENT DU HEADER 
 require_once '../inc/backheader.inc.php';
 ?>
 
 <div class="container">
-    <h1 class="text-center mb-5">Gestion du contenu textuel</h1>
+    <h1 class="text-center mb-5">Gestion des commentaires</h1>
 
     <!-- Formulaire pour ajouter du contenu texte -->
     <div class="row justify-content-center mb-3">
-        <div class="col-12 col-lg-4 p-3">
-            <div class="bg-light shadow rounded p-3">
-                <div class="d-flex mb-3">
-                    <?php if (isset($commentById) && !empty($commentById)) { ?>
-                        <i class="far fa-edit text-info fa-2x me-2"></i>
-                        <h4>Editer ce commentaire</h4>
-                    <?php } else { ?>
-                        <i class="far fa-plus-square text-success fa-2x me-2"></i>
-                        <h4>Nouveau commentaire</h4>
-                    <?php } ?>
-                </div>
-
-                <form action="" method="post">
-                    <div class="mb-3">
-                        <small class="text-danger">*</small>
-                        <label for="comment_text" class="form-label">Commentaire</label>
-                        <input type="text" name="comment_text" class="form-control" id="comment_text" value="<?= $contentById['comment_text'] ?? '' ?>">
-                        <small class="text-danger"><?= $title_error  ?? ""; ?></small>
-                    </div>
-
-                    <div class="mb-3">
-                        <small class="text-danger">*</small>
-                        <label for="" class="form-label">Notation</label>
-                        <input type="text" name="comment_text" class="form-control" id="comment_text" value="<?= $contentById['comment_text'] ?? '' ?>">
-                        <textarea name="rating_comment" class="form-control" id="rating_comment" rows="3"><?= $contentById['rating_comment'] ?? '' ?></textarea>
-                        <small class="text-danger"><?= $description_error  ?? ""; ?></small>
-                        <input name="id_comment " value="<?= $contentById['id_comment '] ?? '' ?>" type="hidden">
-                    </div>
-
-                    <div class="mb-3">
-                        <small class="text-danger">*</small>
-                        <label for="id_page">Selectionnez le media</label>
-                        <select class="form-select" aria-label="Default select example" name="id_media" id="id_media">
-                            <!-- <option selected></option> -->
-                            <?php
-                            foreach ($pages as $key => $page) { ?>
-                                <option value="<?= $page['id_page'] ?>" <?php if(isset($contentById) && $contentById['id_page'] == $page['id_page']){ echo ' selected';} ?> > <?= $page['title_page'] ?></option>
-                            <?php
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-                    <div class="d-flex">
-                        <?php if (isset($contentById) && !empty($contentById)) { ?>
-                            <button type="submit" class="btn btn-outline-success me-2">Editer</button>
-                            <a class="btn btn-outline-secondary" href="<?= BASE_PATH . 'back/content.php' ?>">
-                                Annuler
-                            </a>
-                        <?php } else { ?>
-                            <button type="submit" class="btn btn-outline-primary">Ajouter</button>
-                        <?php } ?>
-                    </div>
-                </form>
-            </div>
-        </div>
-
         <!-- LISTE MEDIA EN TABLEAU -->
-        <div class="col-12 col-lg-8 p-3">
+        <div class="col-12 col-lg-10 p-3">
             <div class="bg-light shadow rounded p-3">
 
                 <div class="d-flex mb-3">
                     <i class="fas fa-scroll fa-2x text-success me-2"></i>
-                    <h4 class="mb-3">Contenu</h4>
+                    <h4 class="mb-3">Commentaires</h4>
                 </div>
 
                 <table class="table table-dark table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Titre</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Page du contenu</th>
+                            <th scope="col">Date d'édition</th>
+                            <th scope="col">Pseudo</th>
+                            <th scope="col">Commentaires</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Média</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         // requete pour retourner les types de média
-                        foreach ($contenus as $key => $contenu) { ?>
+                        foreach ($comments as $key => $comment) { ?>
                             <tr>
                                 <th scope="row"><?= $key ?></th>
-                                <td><?= $contenu['title_content'] ?></td>
-                                <td><?= $contenu['description_content'] ?></td>
-                                <td><?= getProperty($pages, 'title_page', 'id_page', $contenu['id_page'] ) ?></td>
-                                <td class="d-flex">
-                                    <a href="<?= BASE_PATH . 'back/content.php?a=edit&i=' . $contenu['id_content']; ?>" class="btn btn-outline-success me-2">
-                                        <i class="far fa-edit"></i>
-                                    </a>
+                                <td><?= $comment['publish_date_comment'] ?></td>
+                                <td><?= $comment['nickname_comment'] ?></td>
+                                <td><?= $comment['comment_text'] ?></td>
+                                <td>
+                                    <div class="d-flex justify-content-around p-2 mt-2">
+                                        <?php
+                                        for ($i = 1; $i <= 5; $i++) {
+                                            if ($i <= $comment['rating_comment']) {
+                                                echo "<i class='fas fa-star text-warning'></i>";
+                                            } else {
+                                                echo "<i class='fas fa-star text-dark'></i>";
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                </td>
+                                <td><?= $comment['title_media'] ?></td>
+                                <td>
+                                    <?php
+                                    if (!$comment['publish']) { ?>
+                                        <a href="<?= BASE_PATH . 'back/comment.php?a=publish&i=' . $comment['id_comment']; ?>" class="btn btn-outline-success mb-2" title="Rendre visible ce commentaire">
+                                            <i class="fas fa-thumbs-up"></i>
+                                        </a>
+                                    <?php } else { ?>
+                                        <a href="<?= BASE_PATH . 'back/comment.php?a=publish&i=' . $comment['id_comment']; ?>" class="btn btn-outline-info mb-2" title="Masquer ce commentaire">
+                                            <i class="fas fa-thumbs-down"></i>
+                                        </a>
+                                    <?php } ?>
 
-                                    <a href="<?= BASE_PATH . 'back/content.php?a=del&i=' . $contenu['id_content']; ?>" class="btn btn-outline-danger">
-                                        <i class="fas fa-trash-alt fa-1x"></i>
+                                    <a href="<?= BASE_PATH . 'back/comment.php?a=del&i=' . $comment['id_comment']; ?>" class="btn btn-outline-danger" title="Supprimer">
+                                        <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -204,5 +204,6 @@ require_once '../inc/backheader.inc.php';
         </div>
     </div>
 </div>
+
 
 <?php require_once '../inc/backfooter.inc.php'; ?>

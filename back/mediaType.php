@@ -33,6 +33,11 @@ if (!empty($_POST)) {
                 ':title_media_type' => $_POST['title_media_type']));
 
             if($success) {
+                // Création du dossier s'il n'exite pas avec le nom du type de média.
+                $chemin_dossier = '../assets/upload/' . $_POST['title_media_type']; 
+                if (!file_exists($chemin_dossier)){ 
+                    mkdir ($chemin_dossier, 0777, true);
+                }
                 $_SESSION['messages']['success'][] = 'Nouveau type de média ajouté.';
             } else {
                 $_SESSION['messages']['danger'][] = 'Problème de traitement';
@@ -121,7 +126,7 @@ require_once '../inc/backheader.inc.php';
 
         <!-- LISTE MEDIA EN TABLEAU -->
         <div class="col-12 col-lg-6 p-3">
-            <div class="shadow p-3">
+            <div class="bg-light shadow p-3">
                 <div class="d-flex mb-3">
                     <i class="fas fa-scroll fa-2x text-success me-2"></i>
                     <h4 class="mb-3">Types de médias</h4>

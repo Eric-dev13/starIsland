@@ -1,3 +1,10 @@
+<?php 
+// Redirection vers login pour les utilisateurs non authentifié  
+if (!connect()){
+    header('location:../security/login.php');
+    exit();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,8 +38,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav  text-white sidebar sidebar-dark accordion" id="accordionSidebar" style="
-    background-color: #000000;">
+        <ul class="navbar-nav  text-white sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #000000;">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= BASE_PATH . 'back/'; ?>">
@@ -101,6 +107,24 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item">
+                <a class="nav-link collapsed" href="<?= BASE_PATH . 'back/team.php' ?>">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Team</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="<?= BASE_PATH . 'back/event.php' ?>">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Evènements</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
                 <a class="nav-link collapsed dropdown-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Gestion des pages</span>
@@ -122,7 +146,6 @@
                 </div>
             </li>
 
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -141,34 +164,27 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light  topbar mb-4 static-top shadow" style="
-    background-color: #000000;">
-
+                <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background-color: #000000;">
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
                     <!-- Topbar Search -->
-
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link " href="<?= BASE_PATH; ?>" role="button">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Voir le site</span>
                                 <img class="img-profile rounded-circle" src="">
                             </a>
-
                         </li>
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
-                <div class="container position-relative">
 
-                <!-- AFFICHAGE DES ERREURS -->
-                <?php if (isset($_SESSION['messages']) && !empty($_SESSION['messages'])) : ?>
+                <div class="container position-relative">
+                    <!-- AFFICHAGE DES ERREURS -->
+                    <?php if (isset($_SESSION['messages']) && !empty($_SESSION['messages'])) : ?>
                         <?php foreach ($_SESSION['messages'] as $type => $messages) : ?>
                             <?php foreach ($messages as $key => $message) : ?>
                                 <div class="alert alert-<?= $type; ?> position-absolute top-0 start-50 translate-middle z-1 text-center rounded px-5" id="alertCard">
@@ -181,12 +197,8 @@
                     <?php
                     endif;
                     ?>
-
-
                 </div>
 
 
                 <div class="container-fluid">
-
-                    
                     <!-- Page Heading -->
