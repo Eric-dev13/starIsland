@@ -36,6 +36,11 @@ if (!empty($_POST)) {
                 ':id_media' => $_POST['id_media']
             ))->fetch(PDO::FETCH_ASSOC);
 
+            // Recupere le titre du média type
+            $formTitleMediaType = execute("SELECT title_media_type FROM media_type where id_media_type = :id_media_type", [
+                ':id_media_type' => $_POST['id_media_type']
+            ])->fetch(PDO::FETCH_ASSOC);
+
             // Upload du fichier
             if (!empty($_FILES['title_media']['name'])) {
                 $fichier = $_FILES['title_media'];
@@ -58,13 +63,8 @@ if (!empty($_POST)) {
                     $error = true;
                 }
 
-                // Recupere le titre du média type
-                $titleMediaType = execute("SELECT title_media_type FROM media_type where id_media_type = :id_media_type", [
-                    ':id_media_type' => $_POST['id_media_type']
-                ])->fetch(PDO::FETCH_ASSOC);
-
                 // Vérifie si le dossier existe on créer un dossier
-                $chemin_dossier = '../assets/upload/' . $titleMediaType['title_media_type'];
+                $chemin_dossier = '../assets/upload/' . $formTitleMediaType['title_media_type'];
                 if (!file_exists($chemin_dossier)) {
                     mkdir($chemin_dossier, 0777, true);
                 }
@@ -76,7 +76,7 @@ if (!empty($_POST)) {
                 unlink('../assets/upload/' . $getMediaForUpdate['title_media_type'] . '/' . $getMediaForUpdate['title_media']);
             }
 
-            // si on change le type de média file vers texte on doit supprimer l'image
+            // si on change le type de média file vers text on doit supprimer l'image
             $formTypeMedia = execute("SELECT type_media_type FROM media_type where id_media_type = :id_media_type", [
                 ':id_media_type' => $_POST['id_media_type']
             ])->fetch(PDO::FETCH_ASSOC);
@@ -86,9 +86,34 @@ if (!empty($_POST)) {
                 unlink('../assets/upload/' . $getMediaForUpdate['title_media_type'] . '/' . $getMediaForUpdate['title_media']);
             }
 
+            
+            // title_media path pour le fichier, titre pour alt 3 possibilité : new path, liens, old path
+            $newTitleMedia = null;
+            // si un fichier a été telecharger
+            if(!empty($_FILES['title_media']['name'])){
+                // ajout le path
+                $newTitleMedia = $destination;
+            } else {
+                // Sinon on verifie si c'est un lien
+                if(isset($_POST['title_media'])) {
+                    $newTitleMedia = $_POST['title_media'];
+                } else {
+                    // on conserve l'ancien path du fichier
+                    $newTitleMedia = $getMediaForUpdate['title_media'];
+
+                    // on deplace le fichier dans le bon dossier si changement du type de média
+                    if($_POST['id_media_type'] !=  $getMediaForUpdate['id_media_type']){
+                        $dossierSource = '../assets/upload/' . $getMediaForUpdate['title_media_type'] . '/' . $getMediaForUpdate['title_media'];
+                        $dossierDestination =  '../assets/upload/' . $formTitleMediaType['title_media_type'] . '/' . $getMediaForUpdate['title_media'];
+                        copy($dossierSource, $dossierDestination);
+                        unlink('../assets/upload/' . $getMediaForUpdate['title_media_type'] . '/' . $getMediaForUpdate['title_media']);
+                    }
+                }
+            }
+
             // Update Table
             $success = execute("UPDATE media SET title_media = :title_media, name_media = :name_media, id_page = :id_page, id_media_type= :id_media_type WHERE id_media=:id_media", array(
-                ':title_media' => isset($_FILES['title_media']) ? $destination : $_POST['title_media'],
+                ':title_media' => $newTitleMedia,
                 ':name_media' => $_POST['name_media'],
                 ':id_page' => $_POST['id_page'],
                 ':id_media_type' => $_POST['id_media_type'],
