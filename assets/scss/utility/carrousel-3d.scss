@@ -33,42 +33,35 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    /* background: #000; */
-    /* width: 250px;
-      height: auto; */
-    /* line-height: 200px;
-      font-size: 5em;
-      text-align: center; */
-    /* color: #FFF; */
     opacity: 0.95;
     border-radius: 10px;
   }
   
-  .rc-carousel .a {
+  .rc-carousel .a, .rc-carousel .c0 {
     transform: rotateY(0deg) translateZ(var(--translate-size-w));
   }
   
-  .rc-carousel .b {
+  .rc-carousel .b, .rc-carousel .c1 {
     transform: rotateY(60deg) translateZ(var(--translate-size-w));
   }
   
-  .rc-carousel .c {
+  .rc-carousel .c, .rc-carousel .c2 {
     transform: rotateY(120deg) translateZ(var(--translate-size-w));
   }
   
-  .rc-carousel .d {
+  .rc-carousel .d, .rc-carousel .c3 {
     transform: rotateY(180deg) translateZ(var(--translate-size-w));
   }
   
-  .rc-carousel .e {
+  .rc-carousel .e, .rc-carousel .c4 {
     transform: rotateY(240deg) translateZ(var(--translate-size-w));
   }
   
-  .rc-carousel .f {
+  .rc-carousel .f, .rc-carousel .c5 {
     transform: rotateY(300deg) translateZ(var(--translate-size-w));
   }
   
-  .rc-carousel .g {
+  .rc-carousel .g, .rc-carousel .c6 {
     transform: rotateY(360deg) translateZ(var(--translate-size-w));
   }
   

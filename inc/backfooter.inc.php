@@ -18,7 +18,7 @@
 <script src="../assets/jquery-easing/jquery.easing.min.js"></script>
 <script src="../assets/js/sb-admin-2.min.js"></script>
 <!-- JS BOOTSTRAP -->
-<script src="<?= BASE_PATH . 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' ?>"></script>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {

@@ -1,13 +1,8 @@
 <!-- INDEX -->
 
-<?php 
- 
-?>
-
 <?php
 require_once 'config/function.php';
 require_once 'inc/header.inc.php';
-
 
 if (isset($_GET['a']) && $_GET['a'] == 'dis') {
     unset($_SESSION['user']);
@@ -87,6 +82,12 @@ $avatars = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media
     ':avatars' => 'avatars'
 ])->fetchAll(PDO::FETCH_ASSOC);
 
+// carrousel
+$pathCarrousel = BASE_PATH . 'assets/upload/carrouselHome/';
+$carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type where mt.title_media_type = :carrouselHome",[
+    ':carrouselHome' => 'carrouselHome'
+])->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -107,29 +108,16 @@ $avatars = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-3 position-relative">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 4"></button>
+                    <?php foreach ($carousel as $key => $image) { ?>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $key ?>" <?php if($key == 0) echo "class='active'"; ?> ></button>
+                    <?php } ?>
                     </div>
                     <div class="carousel-inner rounded">
-                        <div class="carousel-item active">
-                            <img src="<?= BASE_PATH . 'assets/img/carrousel/b.jpg' ?>" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="<?= BASE_PATH . 'assets/img/carrousel/c.jpg' ?>" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="<?= BASE_PATH . 'assets/img/carrousel/d.jpg' ?>" class="d-block w-100" alt="...">
-                        </div>
-
-                        <div class="carousel-item">
-                            <img src="<?= BASE_PATH . 'assets/img/carrousel/e.jpg' ?>" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="<?= BASE_PATH . 'assets/img/carrousel/f.jpg' ?>" class="d-block w-100" alt="...">
-                        </div>
+                        <?php foreach ($carousel as $key => $image) { ?>
+                            <div class="carousel-item <?php if($key == 0 ) echo ' active'; ?>">
+                                <img src="<?= $pathCarrousel . $image['title_media'] ?>" class="d-block w-100" alt="<?= $image['name_media'] ?>">
+                            </div>
+                        <?php } ?>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

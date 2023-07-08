@@ -66,11 +66,11 @@ if (!empty($_POST)) {
 
 if (!empty($_GET)) {
     // Recupère un contenu pour la gestion de l'édition
-    if (isset($_GET['a']) && $_GET['a'] == 'edit' && isset($_GET['i'])) {
-        $contentById = execute("SELECT * FROM comment WHERE id_comment =:id_comment ", array(
-            ':id_comment ' => $_GET['i']
-        ))->fetch(PDO::FETCH_ASSOC);
-    }
+    // if (isset($_GET['a']) && $_GET['a'] == 'edit' && isset($_GET['i'])) {
+    //     $contentById = execute("SELECT * FROM comment WHERE id_comment =:id_comment ", array(
+    //         ':id_comment ' => $_GET['i']
+    //     ))->fetch(PDO::FETCH_ASSOC);
+    // }
 
     // Suppression d'un contenu
     if (isset($_GET['a']) && $_GET['a'] == 'del' && isset($_GET['i'])) {

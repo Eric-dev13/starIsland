@@ -3,8 +3,10 @@ require_once '../config/function.php';
 require_once '../inc/header.inc.php';
 
 // Requête pour recupèrer 6 images aléatoire pour animer la galerie
-
-// Recuperer liens pour les reseaux sociaux si necessaire
+$pathGallerie = BASE_PATH . 'assets/upload/gallerie/';
+$gallerie = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type where mt.title_media_type = :title_media_type LIMIT 0,6",[
+    ':title_media_type' => 'gallerie'
+])->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <section class="galeriePage flex-grow-1 d-flex flex-column">
@@ -17,16 +19,9 @@ require_once '../inc/header.inc.php';
                     <div class="rc-carousel">
                         <?php 
                         // Requete en base pour récupèrer 6 images aléatoirement.                 
-                        // foreach ($variable as $key => $value) {
-                        //     # code...
-                        // }
-                        ?>
-                        <div class="item a"><img src="<?= BASE_PATH . 'assets/img/carrousel/b.jpg' ?>" class="d-block w-100" alt="..."></div>
-                        <div class="item b"><img src="<?= BASE_PATH . 'assets/img/carrousel/c.jpg' ?>" class="d-block w-100" alt="..."></div>
-                        <div class="item c"><img src="<?= BASE_PATH . 'assets/img/carrousel/d.jpg' ?>" class="d-block w-100" alt="..."></div>
-                        <div class="item d"><img src="<?= BASE_PATH . 'assets/img/carrousel/e.jpg' ?>" class="d-block w-100" alt="..."></div>
-                        <div class="item e"><img src="<?= BASE_PATH . 'assets/img/carrousel/f.jpg' ?>" class="d-block w-100" alt="..."></div>
-                        <div class="item f"><img src="<?= BASE_PATH . 'assets/img/carrousel/d.jpg' ?>" class="d-block w-100" alt="..."></div>
+                        foreach ($gallerie as $key => $image) { ?>
+                            <div class="item c<?= $key ?>"><img src="<?= $pathGallerie . $image['title_media'] ?>" class="d-block w-100" alt="<?= $image['name_media'] ?>"></div>
+                        <?php }?>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between w-100 ">

@@ -1,6 +1,13 @@
 <?php
 require_once '../config/function.php';
-require_once '../inc/header.inc.php'; ?>
+require_once '../inc/header.inc.php'; 
+
+
+$vips = execute("SELECT * FROM page p INNER JOIN content c ON p.id_page=c.id_page WHERE p.title_page = :title_page",[
+    ':title_page' => 'vip'
+])->fetchAll(PDO::FETCH_ASSOC);
+debug($vips);
+?>
 
 
 <section class="vip">

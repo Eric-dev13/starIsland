@@ -57,7 +57,7 @@ if (!empty($_POST)) {
 $pages = execute("SELECT * FROM page")->fetchAll(PDO::FETCH_ASSOC);
 
 if (!empty($_GET)) {
-    // Recupère une page pour la gestion de l'édition
+    // EDITER LE PAGE - Requête pour récupèrer les données de la PAGE et l'afficher dans le formulaire
     if (isset($_GET['a']) && $_GET['a'] == 'edit' && isset($_GET['i'])) {
         $pageById = execute("SELECT * FROM page WHERE id_page=:id", array(
             ':id' => $_GET['i']
@@ -155,14 +155,16 @@ require_once '../inc/backheader.inc.php';
                                 <th scope="row"><?= $key ?></th>
                                 <td><?= $value['title_page'] ?></td>
                                 <td><?= $value['url_page'] ?></td>
-                                <td class="d-flex">
-                                    <a href="<?= BASE_PATH . 'back/page.php?a=edit&i=' . $value['id_page']; ?>" class="btn btn-outline-success me-2">
-                                        <i class="far fa-edit"></i>
-                                    </a>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="<?= BASE_PATH . 'back/page.php?a=edit&i=' . $value['id_page']; ?>" class="btn btn-outline-success me-2">
+                                            <i class="far fa-edit"></i>
+                                        </a>
 
-                                    <a href="<?= BASE_PATH . 'back/page.php?a=del&i=' . $value['id_page']; ?>" class="btn btn-outline-danger">
-                                        <i class="fas fa-trash-alt fa-1x"></i>
-                                    </a>
+                                        <a href="<?= BASE_PATH . 'back/page.php?a=del&i=' . $value['id_page']; ?>" class="btn btn-outline-danger">
+                                            <i class="fas fa-trash-alt fa-1x"></i>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php }

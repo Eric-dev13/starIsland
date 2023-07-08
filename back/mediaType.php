@@ -11,14 +11,14 @@ if (!empty($_POST)) {
     }
 
     if (!$error) {
-        // Modification un type de média
+        // Modifier un type de média
         if (!empty($_POST['id_media_type'])) {
             $success = execute("UPDATE media_type SET title_media_type = :title_media_type WHERE id_media_type=:id", array(
                 ':title_media_type' => $_POST['title_media_type'],
                 ':id' => $_POST['id_media_type']
             ));
 
-            if($success) {
+            if ($success) {
                 $_SESSION['messages']['success'][] = 'Le type de média a été modifé.';
             } else {
                 $_SESSION['messages']['danger'][] = 'Problème de traitement';
@@ -26,17 +26,20 @@ if (!empty($_POST)) {
 
             header('location:./mediaType.php');
             exit();
-
         } else {
             // Ajouter un type de média
-            $success = execute("INSERT INTO media_type (title_media_type) VALUES (:title_media_type)", array(
-                ':title_media_type' => $_POST['title_media_type']));
+            $success = execute("INSERT INTO media_type (title_media_type, type_media_type) VALUES (:title_media_type, :type_media_type)", array(
+                ':title_media_type' => $_POST['title_media_type'],
+                ':type_media_type' => $_POST['type_media_type']
+            ));
 
-            if($success) {
-                // Création du dossier s'il n'exite pas avec le nom du type de média.
-                $chemin_dossier = '../assets/upload/' . $_POST['title_media_type']; 
-                if (!file_exists($chemin_dossier)){ 
-                    mkdir ($chemin_dossier, 0777, true);
+            if ($success) {
+                // Création du dossier pour stocker les fichiers pour les types de média "file"
+                if ($_POST['type_media_type'] == "file") {
+                    $chemin_dossier = '../assets/upload/' . $_POST['title_media_type'];
+                    if (!file_exists($chemin_dossier)) {
+                        mkdir($chemin_dossier, 0777, true);
+                    }
                 }
                 $_SESSION['messages']['success'][] = 'Nouveau type de média ajouté.';
             } else {
@@ -53,7 +56,7 @@ if (!empty($_POST)) {
 $listMediaType = execute("SELECT * FROM media_type")->fetchAll(PDO::FETCH_ASSOC);
 
 if (!empty($_GET)) {
-    // Recupère un type de média pour la gestion de l'édition
+    // EDITER LE MEDIA TYPE - Requête pour récupèrer les données du MEDIA TYPE et l'afficher dans le formulaire
     if (isset($_GET['a']) && $_GET['a'] == 'edit' && isset($_GET['i'])) {
         $mediaById = execute("SELECT * FROM media_type WHERE id_media_type=:id", array(
             ':id' => $_GET['i']
@@ -66,7 +69,7 @@ if (!empty($_GET)) {
             ':id' => $_GET['i']
         ));
 
-        if($success) {
+        if ($success) {
             $_SESSION['messages']['success'][] = 'Type supprimé';
         } else {
             $_SESSION['messages']['danger'][] = 'Problème de traitement, veuillez réessayer';
@@ -110,6 +113,15 @@ require_once '../inc/backheader.inc.php';
                         <input name="id_media_type" value="<?= $mediaById['id_media_type'] ?? '' ?>" type="hidden">
                     </div>
 
+                    <div class="mb-3">
+                        <small class="text-danger">*</small>
+                        <label for="mediaType" class="form-label">Type de média</label>
+                        <select class="form-select" name="type_media_type">
+                            <option selected value="text">Texte (ex: liens HTTP)</option>
+                            <option value="file">Fichier (ex: image, avatar ... )</option>
+                        </select>
+                    </div>
+
                     <div class="d-flex">
                         <?php if (isset($mediaById) && !empty($mediaById)) { ?>
                             <button type="submit" class="btn btn-outline-success me-2">Editer</button>
@@ -137,6 +149,7 @@ require_once '../inc/backheader.inc.php';
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nom du média</th>
+                            <th scope="col">Type du média</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -147,14 +160,17 @@ require_once '../inc/backheader.inc.php';
                             <tr>
                                 <th scope="row"><?= $key ?></th>
                                 <td><?= $value['title_media_type'] ?></td>
-                                <td class="d-flex">
-                                    <a href="<?= BASE_PATH . 'back/mediatype.php?a=edit&i=' . $value['id_media_type']; ?>" class="btn btn-outline-success me-2">
-                                        <i class="far fa-edit"></i>
-                                    </a>
+                                <td><?= $value['type_media_type'] ?></td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="<?= BASE_PATH . 'back/mediatype.php?a=edit&i=' . $value['id_media_type']; ?>" class="btn btn-outline-success me-2">
+                                            <i class="far fa-edit"></i>
+                                        </a>
 
-                                    <a href="<?= BASE_PATH . 'back/mediatype.php?a=del&i=' . $value['id_media_type']; ?>" class="btn btn-outline-danger">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>
+                                        <a href="<?= BASE_PATH . 'back/mediatype.php?a=del&i=' . $value['id_media_type']; ?>" class="btn btn-outline-danger">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php }

@@ -61,7 +61,7 @@ $contenus = execute("SELECT * FROM content c LEFT JOIN page p ON c.id_page = p.i
 
 
 if (!empty($_GET)) {
-    // Recupère un contenu pour la gestion de l'édition
+    // // EDITER LE CONTENU - Requête pour récupèrer les données du content et l'afficher dans le formulaire
     if (isset($_GET['a']) && $_GET['a'] == 'edit' && isset($_GET['i'])) {
         $contentById = execute("SELECT * FROM content WHERE id_content=:id_content", array(
             ':id_content' => $_GET['i']
@@ -128,7 +128,9 @@ require_once '../inc/backheader.inc.php';
                         <select class="form-select" aria-label="Default select example" name="id_page" id="id_page">
                             <?php
                             foreach ($pages as $key => $page) { ?>
-                                <option value="<?= $page['id_page'] ?>" <?php if(isset($contentById) && $contentById['id_page'] == $page['id_page']){ echo ' selected';} ?> > <?= $page['title_page'] ?></option>
+                                <option value="<?= $page['id_page'] ?>" <?php if (isset($contentById) && $contentById['id_page'] == $page['id_page']) {
+                                                                            echo ' selected';
+                                                                        } ?>> <?= $page['title_page'] ?></option>
                             <?php
                             }
                             ?>
@@ -177,14 +179,16 @@ require_once '../inc/backheader.inc.php';
                                 <td><?= $contenu['title_content'] ?></td>
                                 <td><?= $contenu['description_content'] ?></td>
                                 <td><?= $contenu['title_page'] ?></td>
-                                <td class="d-flex">
-                                    <a href="<?= BASE_PATH . 'back/content.php?a=edit&i=' . $contenu['id_content']; ?>" class="btn btn-outline-success me-2">
-                                        <i class="far fa-edit"></i>
-                                    </a>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="<?= BASE_PATH . 'back/content.php?a=edit&i=' . $contenu['id_content']; ?>" class="btn btn-outline-success me-2">
+                                            <i class="far fa-edit"></i>
+                                        </a>
 
-                                    <a href="<?= BASE_PATH . 'back/content.php?a=del&i=' . $contenu['id_content']; ?>" class="btn btn-outline-danger">
-                                        <i class="fas fa-trash-alt fa-1x"></i>
-                                    </a>
+                                        <a href="<?= BASE_PATH . 'back/content.php?a=del&i=' . $contenu['id_content']; ?>" class="btn btn-outline-danger">
+                                            <i class="fas fa-trash-alt fa-1x"></i>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php }

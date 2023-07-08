@@ -32,13 +32,7 @@ if (!empty($_POST)) {
         }
     }
 
-
-
-
-
-
     if (!empty($_FILES['editPicture']['name'])){
-
         $picture="";
         $formats=['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/webp'];
         if (!in_array($_FILES['editPicture']['type'],$formats )){
@@ -84,10 +78,7 @@ if (!empty($_POST)) {
         exit();
     }
 
-
-
-}// fin !empty($_POST)
-
+}
 
 ?>
 
