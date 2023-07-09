@@ -12311,6 +12311,7 @@ section.team {
   position: relative;
 }
 .container-resizable-avatar .link {
+  z-index: 500;
   position: absolute;
   display: flex;
   flex-direction: column;

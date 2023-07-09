@@ -246,7 +246,7 @@ require_once '../inc/backheader.inc.php';
 
     <!-- Formulaire pour ajouter du contenu texte -->
     <div class="row justify-content-center mb-3">
-        <div class="col-12 p-3">
+        <div class="col-12 col-md-6 p-3">
             <div class="bg-light shadow rounded p-3">
                 <div class="d-flex mb-3">
                     <?php if (isset($mediaById) && !empty($mediaById)) { ?>
@@ -398,7 +398,7 @@ require_once '../inc/backheader.inc.php';
             return `
             <div class="mb-3">
                 <small class="text-danger">*</small>
-                <label for="name_media" class="form-label">Saisir le pseudo pour la team</label>
+                <label for="name_media" class="form-label">Saisir un nom</label>
                 <input  type="text" name="name_media" class="form-control" id="name_media" value="<?= $mediaById['name_media'] ?? '' ?>">
                 <small class="text-danger"><?= $name_error  ?? ""; ?></small>
                 <input name="id_media" value="<?= $mediaById['id_media'] ?? '' ?>" type="hidden">

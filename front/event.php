@@ -1,13 +1,25 @@
 <?php
 require_once '../config/function.php';
-require_once '../inc/header.inc.php'; ?>
+require_once '../inc/header.inc.php'; 
+
+// OBTENIR LA LISTE DES EVENTS
+$event = execute("SELECT * FROM event e LEFT JOIN event_content ec ON e.id_event=ec.id_event 
+                                        LEFT JOIN content c ON ec.id_content=c.id_content 
+                                        INNER JOIN event_media ev ON e.id_event=ev.id_event 
+                                        INNER JOIN media m ON ev.id_media=m.id_media 
+                                        INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type
+                                        WHERE activate =:activate",[
+    'activate' => 1
+])->fetch(PDO::FETCH_ASSOC);
+// debug($event);
+?>
 
 
 <section class="event flex-grow-1 d-flex">
     <div class="container flex-grow-1 d-flex flex-column justify-content-between">
         <div class="row flex-grow-1 justify-content-center align-items-center mt-5">
             <div class="d-none d-sm-block mt-5 col-sm-10 col-md-6 mt-md-0">
-                <img src="<?= BASE_PATH . 'assets/img/casino.jpg' ?>" alt="" class="img-fluid rounded">
+                <img src="<?= BASE_PATH . 'assets/upload/'.$event['title_media_type'].'/'.$event['title_media'] ?>" alt="<?= $event['name_media'] ?>" class="img-fluid rounded">
             </div>
             <div class="col-11 col-sm-10 col-md-6 bg-light bg-opacity-25 p-3">
                 <p class="h2 text-center text-light">TIME REMAINING</p>
@@ -50,12 +62,12 @@ require_once '../inc/header.inc.php'; ?>
                         </span>
                     </div>
                 </div>
-                <h2 class="text-light">Titre</h2>
-                <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur aliquid dolore eos voluptates illo. Autem deleniti, doloribus corporis magni rem excepturi eum blanditiis pariatur inventore quasi neque ducimus consequuntur beatae.</p>
+                <h2 class="text-light"><?= $event['title_content'] ?></h2>
+                <p class="text-light"><?= $event['description_content'] ?></p>
             </div>
         </div>
 
-        <div class="reseaux-sociaux mb-5">
+        <div class="reseaux-sociaux my-5">
             <a id="facebook" class="reseaux" href="https://www.facebook.com/StarIslandfr-108004258577047">
                 <img src="<?= BASE_PATH . 'assets/img/reseaux/logo_facebook.png' ?>" alt="facebook">
             </a>
@@ -87,7 +99,7 @@ require_once '../inc/header.inc.php'; ?>
         // COMPTE A REBOURS POUR TEASER ET SERVEUR
         $(function() {
             var note = $('#note'),
-                ts = new Date(2023, 05, 30, 00, 00, 00),
+                ts = new Date(2023, 07, 30, 00, 00, 00),
                 newYear = true;
 
             if ((new Date()) > ts) {

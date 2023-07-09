@@ -177,9 +177,6 @@ if (!empty($_GET)) {
         exit();
     }
 
-    // Modifie un média
-    if (isset($_GET['a']) && $_GET['a'] == 'updatemedia' && isset($_GET['i'])) {
-    }
 }
 
 // OBTENIR LA LISTE DES TEAMS 
@@ -191,8 +188,8 @@ require_once '../inc/backheader.inc.php';
 
 <div class="container">
     <h1 class="text-center mb-5">Gestion de l'équipe</h1>
-    <div class="row mb-5">
-        <div class="col-12 border mb-3 p-3" style="background-color: #869f7136;">
+    <div class="row justify-content-center mb-5">
+        <div class="col-12 col-md-6 border mb-3 p-3" style="background-color: #869f7136;">
             <form method="post" enctype="multipart/form-data">
                 <div class="d-flex mb-3">
                     <?php if (isset($teamById) && !empty($teamById)) { ?>
@@ -292,6 +289,9 @@ require_once '../inc/backheader.inc.php';
                                     <?php foreach ($medias as $media) : ?>
                                         <div class="d-flex align-items-center border mb-1">
                                             <div class="mx-2">
+                                                <a href="<?= BASE_PATH . 'back/media.php?a=edit&i=' . $media['id_media']; ?>" class="btn btn-outline-success me-2">
+                                                    <i class="far fa-edit"></i>
+                                                </a>
                                                 <a href="<?= BASE_PATH . 'back/team.php?a=delmedia&i=' . $media['id_media']; ?>" class="btn btn-outline-danger">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </a>
@@ -335,10 +335,6 @@ require_once '../inc/backheader.inc.php';
 
                                 <td>
                                     <div class="d-flex">
-                                        <!-- <a href="<?= BASE_PATH . 'back/team.php?a=edit&i=' . $team['id_team']; ?>" class="btn btn-outline-success me-2">
-                                            <i class="far fa-edit"></i>
-                                        </a> -->
-
                                         <a href="<?= BASE_PATH . 'back/team.php?a=del&i=' . $team['id_team']; ?>" class="btn btn-outline-danger">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>

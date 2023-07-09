@@ -2,11 +2,11 @@
 require_once '../config/function.php';
 require_once '../inc/header.inc.php';
 
-// Requête pour recupèrer 6 images aléatoire pour animer la galerie
-$pathGallerie = BASE_PATH . 'assets/upload/gallerie/';
-$gallerie = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type where mt.title_media_type = :title_media_type LIMIT 0,6",[
-    ':title_media_type' => 'gallerie'
+// Recupere les images de la galerie
+$galerieImages = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type =mt.id_media_type WHERE id_page =:id_page",[
+    'id_page' => $currentPage['id_page']
 ])->fetchAll(PDO::FETCH_ASSOC);
+// debug($galerieImages);
 ?>
 
 <section class="galeriePage flex-grow-1 d-flex flex-column">
@@ -19,8 +19,8 @@ $gallerie = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_medi
                     <div class="rc-carousel">
                         <?php 
                         // Requete en base pour récupèrer 6 images aléatoirement.                 
-                        foreach ($gallerie as $key => $image) { ?>
-                            <div class="item c<?= $key ?>"><img src="<?= $pathGallerie . $image['title_media'] ?>" class="d-block w-100" alt="<?= $image['name_media'] ?>"></div>
+                        foreach ($galerieImages as $key => $galerieImage) { ?>
+                            <div class="item c<?= $key ?>"><img src="<?= BASE_PATH.'assets/upload/'.$galerieImage['title_media_type'] . '/' . $galerieImage['title_media'] ?>" class="d-block w-100" alt="<?= $galerieImage['name_media'] ?>"></div>
                         <?php }?>
                     </div>
                 </div>

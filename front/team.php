@@ -2,7 +2,27 @@
 require_once '../config/function.php';
 require_once '../inc/header.inc.php';
 
-// Requete envoyé avec la catégorie et retourner les avatars, nom, rôle, liens
+if (!empty($_GET)) {
+    if (isset($_GET['r']) && !empty($_GET['r'])) {
+        if ($_GET['r'] == 'Tous') {
+            $teams = execute("SELECT * FROM team")->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $teams = execute("SELECT * FROM team WHERE role_team = :role_team ", [
+                ':role_team' => $_GET['r']
+            ])->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+} else {
+    $teams = execute("SELECT * FROM team")->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function active(string $name) {
+    if ( isset($_GET['r']) && $_GET['r'] == $name){
+        return 'active';
+    }
+    return '';
+}
+
 ?>
 
 
@@ -10,48 +30,60 @@ require_once '../inc/header.inc.php';
     <h1 class="text-center text-white my-5">L'équipe</h1>
     <div class="container">
         <div class="d-flex justify-content-center btn-teams">
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1">
-                <label class="btn btn-outline-light text-island rounded-start-4" for="btnradio1">Tous</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2">
-                <label class="btn btn-outline-light text-island" for="btnradio2">Admins</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3">
-                <label class="btn btn-outline-light text-island" for="btnradio3">Staff/Modos</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" checked>
-                <label class="btn btn-outline-light text-island" for="btnradio4">Développeurs</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio5">
-                <label class="btn btn-outline-light text-island" for="btnradio5">Mappers</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio6">
-                <label class="btn btn-outline-light text-island rounded-end-4" for="btnradio6">Helpers</label>
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <a href="<?= BASE_PATH . 'front/team.php?r=Tous'; ?>">
+                    <button type="button" class="<?php if ( !isset($_GET['r']) || $_GET['r'] == 'Tous'){echo 'active';} ?> btn btn-outline-light">Tous</button>
+                </a>
+                <a href="<?= BASE_PATH . 'front/team.php?r=Admins'; ?>">
+                    <button type="button" class="<?= active('Admins') ?> btn btn-outline-light">Admins</button>
+                </a>
+                <a href="<?= BASE_PATH . 'front/team.php?r=Staff/Modos'; ?>">
+                    <button type="button" class="<?= active('Staff/Modos') ?> btn btn-outline-light">Staff/Modos</button>
+                </a>
+                <a href="<?= BASE_PATH . 'front/team.php?r=Développeurs'; ?>">
+                    <button type="button" class="<?= active('Développeurs') ?> btn btn-outline-light">Développeurs</button>
+                </a>
+                <a href="<?= BASE_PATH . 'front/team.php?r=Mappers'; ?>">
+                    <button type="button" class="<?= active('Mappers') ?> btn btn-outline-light">Mappers</button>
+                </a>
+                <a href="<?= BASE_PATH . 'front/team.php?r=Helpers'; ?>">
+                    <button type="button" class="<?= active('Helpers') ?> btn btn-outline-light">Helpers</button>
+                </a>
             </div>
         </div>
 
         <div class="d-flex align-items-center justify-content-center flex-wrap my-5">
-            <?php 
-            for ($i = 1; $i <= 18; $i++) { ?>
+            <!-- Requete pour retourner les types de média -->
+            <?php foreach ($teams as $key => $team) { ?>
                 <div class="container-resizable-avatar">
-                    <h5>Nom</h5>
-                    <small>Rôle</small>
+                    <h5><?= $team['nickname_team'] ?></h5>
+                    <small><?= $team['role_team'] ?></small>
+                    <?php
+                    $medias = execute("SELECT m.*, mt.* FROM team_media tm INNER JOIN media m ON tm.id_media=m.id_media INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type WHERE tm.id_team=:id_team", array(
+                        ':id_team' => $team['id_team']
+                    ))->fetchAll(PDO::FETCH_ASSOC);
+                    $pathImage = null;
+                    $alt = null;
+                    $links = [];
+                    foreach ($medias as $key => $media) {
+                        if ($media['type_media_type'] == 'file') {
+                            $pathImage = '../assets/upload/' . $media['title_media_type'] . '/' . $media['title_media'];
+                            $alt = $media['name_media'];
+                        } else {
+                            $links[] = $media['title_media'];
+                        }
+                    } ?>
                     <div class="group-link">
                         <div class="link">
                             <?php
-                            $maxLink = rand(0, 3);
-                            for ($e = 0; $e < $maxLink; $e++) {
-                            ?>
-                                <a href="test/<?= $maxLink ?>"><img src="<?= BASE_PATH . 'assets/img/icon/linkedin.png' ?>" alt="github" width=50></a>
-                            <?php
-                            }
-                            ?>
+                            foreach ($links as $link) { ?>
+                                <a href="<?= $link ?>" target="_blank" ><img src="<?= BASE_PATH . 'assets/img/icon/link.png' ?>" alt="github" width=50></a>
+                            <?php } ?>
                         </div>
-                        <img src="<?= BASE_PATH . 'assets/img/personnage/perso-1.png' ?>" alt="" class="avatar">
+                        <img src="<?= $pathImage ?>" alt="<?= $alt ?>" class="avatar">
                     </div>
                 </div>
-                
+
                 <div class="container-resizable-avatar">
                     <div class="avatar-hidden"></div>
                 </div>
@@ -89,7 +121,7 @@ require_once '../inc/header.inc.php';
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        
+
     });
 </script>
 

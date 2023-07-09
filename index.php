@@ -67,14 +67,26 @@ if (!empty($_POST)) {
     }
 }
 
-// récupère le sous titre de la page d'accueil
-$req = "SELECT c.description_content FROM content c INNER JOIN page p ON c.id_page = p.id_page where p.title_page = :title_page and c.title_content = :title_content";
-$homeDescription = execute($req, [
-    ':title_page' => 'home',
+
+/*
+$currentPage[id_page] => 2
+$currentPage[title_page] => home
+$currentPage[url_page] => /starIsland/
+*/
+
+// TITRE DE LA PAGE
+$titre = execute("SELECT * FROM content c INNER JOIN page p ON c.id_page = p.id_page WHERE c.id_page=:id_page AND c.title_content = :title_content" ,[
+    ':id_page' => $currentPage['id_page'],
+    ':title_content' => 'titre'
+])->fetch(PDO::FETCH_ASSOC);
+
+// SOUS TITRE
+$soustitre = execute("SELECT * FROM content c INNER JOIN page p ON c.id_page = p.id_page WHERE c.id_page=:id_page AND c.title_content = :title_content" ,[
+    ':id_page' => $currentPage['id_page'],
     ':title_content' => 'description'
 ])->fetch(PDO::FETCH_ASSOC);
 
-// récupère les 4 derniers commentaires publier et validés par l'admin
+// COMMENTAIRES récupère les 4 derniers publier et validés par l'admin
 $comments = execute("SELECT * FROM comment WHERE comment.publish = 1 ORDER BY id_comment DESC LIMIT 4")->fetchAll(PDO::FETCH_ASSOC);
 
 // Recupere la liste des avatars
@@ -82,7 +94,9 @@ $avatars = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media
     ':avatars' => 'avatars'
 ])->fetchAll(PDO::FETCH_ASSOC);
 
-// carrousel
+// CARROUSEL
+
+
 $pathCarrousel = BASE_PATH . 'assets/upload/carrouselHome/';
 $carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type where mt.title_media_type = :carrouselHome",[
     ':carrouselHome' => 'carrouselHome'
@@ -95,11 +109,11 @@ $carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_medi
     <div class="strecth-layer-transparent shadow-1"></div>
 
     <div class="container position-relative">
-        <h1 class="text-center text-shadow pt-5">BIENVENUE SUR<br>STAR’ISLAND</h1>
+        <h1 class="text-center text-shadow pt-5"><?= $titre['description_content'] ?></h1>
 
         <!-- bloc 1 - Présentation  -->
         <div class="row align-items-center px-3 px-md-5 page-1">
-            <p class="fs-3 text-shadow"><?= $homeDescription["description_content"] ?>
+            <p class="fs-3 text-shadow"><?= $soustitre['description_content'] ?>
             </p>
         </div>
 

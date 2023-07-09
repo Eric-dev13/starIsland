@@ -25,6 +25,7 @@ section.team {
     }
 
     .link {
+        z-index: 500;
         position: absolute;
         display: flex;
         flex-direction: column;

@@ -111,12 +111,23 @@ if (!empty($_POST)) {
 }
 
 if (!empty($_GET)) {
-    /* 
-    $_GET['i'] = retourne id_event
-    A partir id_event supprime event_content(id_event_content) puis content(id_content)
-    A partir id_event supprime event_media(id_event_media) puis media(id_media)
-    supprime event (id_event)
-    */
+    if (isset($_GET['a']) && $_GET['a'] == 'activate' && isset($_GET['i'])) {
+        execute("UPDATE event SET activate=:activate", array(
+            ':activate' => 0
+        ));
+        $success = execute("UPDATE event SET activate=:activate WHERE id_event =:id_event", array(
+            ':id_event' => $_GET['i'],
+            ':activate' => 1
+        ));
+        if ($success) {
+            $_SESSION['messages']['success'][] = 'Inverser';
+        } else {
+            $_SESSION['messages']['danger'][] = 'Problème de traitement';
+        }
+
+        header('location:./event.php');
+        exit();
+    }
 
     // EDITER LES EVENTS - Requête pour récupèrer les données des events et l'afficher dans le formulaire
     if (isset($_GET['a']) && $_GET['a'] == 'edit' && isset($_GET['i'])) {
@@ -154,13 +165,13 @@ if (!empty($_GET)) {
         ));
 
         // Supprime l'enregistrement de la table event (id_event)
-        execute("DELETE FROM event WHERE id_event=:id_event", array(
+        $success = execute("DELETE FROM event WHERE id_event=:id_event", array(
             ':id_event' => $eventToDelete['id_event']
         ));
 
         // Supprime le fichier
-        if($eventToDelete['type_media_type'] == 'file') {
-            unlink('../assets/upload/'.$eventToDelete['title_media_type'].'/'. $eventToDelete['title_media']);
+        if ($eventToDelete['type_media_type'] == 'file') {
+            unlink('../assets/upload/' . $eventToDelete['title_media_type'] . '/' . $eventToDelete['title_media']);
         }
 
 
@@ -177,8 +188,7 @@ if (!empty($_GET)) {
 }
 
 // OBTENIR LA LISTE DES EVENTS
-$events = execute("SELECT * FROM event e INNER JOIN event_content ec ON e.id_event=ec.id_event INNER JOIN content c ON ec.id_content=c.id_content INNER JOIN event_media ev ON e.id_event=ev.id_event INNER JOIN media m ON ev.id_media=m.id_media")->fetchAll(PDO::FETCH_ASSOC);
-
+$events = execute("SELECT * FROM event e LEFT JOIN event_content ec ON e.id_event=ec.id_event LEFT JOIN content c ON ec.id_content=c.id_content INNER JOIN event_media ev ON e.id_event=ev.id_event INNER JOIN media m ON ev.id_media=m.id_media")->fetchAll(PDO::FETCH_ASSOC);
 
 // CHARGEMENT DU HEADER 
 require_once '../inc/backheader.inc.php';
@@ -267,6 +277,7 @@ require_once '../inc/backheader.inc.php';
                 <i class="fas fa-scroll fa-2x text-success me-2"></i>
                 <h4 class="mb-3">Evènement</h4>
             </div>
+            <p>Sélectionnez l'évènement a mettre en avant</p>
 
             <div class="table-responsive">
                 <table class="table table-dark table-striped">
@@ -285,9 +296,9 @@ require_once '../inc/backheader.inc.php';
                         // requete pour retourner les types de média
                         foreach ($events as $key => $event) { ?>
                             <tr>
-                                <td><?= $event['start_date_event'] ?></th>
-                                <td><?= $event['end_date_event'] ?></th>
-                                <td><?= $event['title_content'] ?></th>
+                                <td><?= $event['start_date_event'] ?></td>
+                                <td><?= $event['end_date_event'] ?></td>
+                                <td><?= $event['title_content'] ?></td>
                                 <td>
                                     <small><?= $event['title_media'] ?></small><br>
                                     <img src="<?= BASE_PATH . 'assets/upload/avatarEvent/' . $event['title_media'] ?>" alt="<?= $event['title_media'] ?>" width="100">
@@ -298,6 +309,17 @@ require_once '../inc/backheader.inc.php';
                                         <!-- <a href="<?= BASE_PATH . 'back/event.php?a=edit&i=' . $event['id_event']; ?>" class="btn btn-outline-success me-2">
                                             <i class="far fa-edit"></i>
                                         </a> -->
+                                        <?php
+                                        if ($event['activate']) { ?>
+                                            <a href="<?= BASE_PATH . 'back/event.php?a=activate&i=' . $event['id_event']; ?>" class="btn btn-outline-info me-2" title="Désactiver cet évenement">
+                                                <i class="fas fa-thumbs-down"></i>
+                                            </a>
+                                        <?php } else { ?>
+                                            <a href="<?= BASE_PATH . 'back/event.php?a=activate&i=' . $event['id_event']; ?>" class="btn btn-outline-success me-2" title="Activer cet évenement">
+                                                <i class="fas fa-thumbs-up"></i>
+                                            </a>
+
+                                        <?php } ?>
 
                                         <a href="<?= BASE_PATH . 'back/event.php?a=del&i=' . $event['id_event']; ?>" class="btn btn-outline-danger">
                                             <i class="fas fa-trash-alt"></i>
