@@ -99,6 +99,7 @@ $event = execute("SELECT * FROM event e LEFT JOIN event_content ec ON e.id_event
         // COMPTE A REBOURS POUR TEASER ET SERVEUR
         $(function() {
             var note = $('#note'),
+            test: <?php $event[''] ?>
                 ts = new Date(2023, 07, 30, 00, 00, 00),
                 newYear = true;
 

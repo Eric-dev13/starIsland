@@ -398,7 +398,7 @@ require_once '../inc/backheader.inc.php';
             return `
             <div class="mb-3">
                 <small class="text-danger">*</small>
-                <label for="name_media" class="form-label">Saisir un nom</label>
+                <label for="name_media" class="form-label">Saisir un nom pour le lien (ex: Discord)</label>
                 <input  type="text" name="name_media" class="form-control" id="name_media" value="<?= $mediaById['name_media'] ?? '' ?>">
                 <small class="text-danger"><?= $name_error  ?? ""; ?></small>
                 <input name="id_media" value="<?= $mediaById['id_media'] ?? '' ?>" type="hidden">
@@ -421,12 +421,6 @@ require_once '../inc/backheader.inc.php';
             } else {
                 detailMedia.innerHTML = mediaFile();
             }
-
-            // if (selectBoxMediaType.options[selectBoxMediaType.selectedIndex].text == 'liens') {
-            //     detailMedia.innerHTML = mediaText();
-            // } else {
-            //     detailMedia.innerHTML = mediaFile();
-            // }
         }
 
         generateHtmlMediaType();

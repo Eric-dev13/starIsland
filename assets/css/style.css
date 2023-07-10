@@ -12306,6 +12306,7 @@ section.team {
   justify-content: center;
   align-items: center;
   width: 33%;
+  padding-bottom: 70px;
 }
 .container-resizable-avatar .group-link {
   position: relative;

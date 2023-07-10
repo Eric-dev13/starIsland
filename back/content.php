@@ -1,6 +1,7 @@
 <?php
 require_once '../config/function.php';
 
+
 if (!empty($_POST)) {
     $error = false;
 
@@ -32,6 +33,7 @@ if (!empty($_POST)) {
 
             header('location:./content.php');
             exit();
+
         } else {
             // Ajouter un contenu
             $success = execute("INSERT INTO content (title_content , description_content, id_page ) VALUES (:title_content, :description_content, :id_page)", array(
@@ -51,14 +53,6 @@ if (!empty($_POST)) {
         }
     }
 }
-
-// récupère les pages
-$pages = execute("SELECT * FROM page")->fetchAll(PDO::FETCH_ASSOC);
-
-// récupère les contenus
-// $contenus = execute("SELECT * FROM content")->fetchAll(PDO::FETCH_ASSOC);
-$contenus = execute("SELECT * FROM content c LEFT JOIN page p ON c.id_page = p.id_page")->fetchAll(PDO::FETCH_ASSOC);
-
 
 if (!empty($_GET)) {
     // // EDITER LE CONTENU - Requête pour récupèrer les données du content et l'afficher dans le formulaire
@@ -84,6 +78,15 @@ if (!empty($_GET)) {
         exit();
     }
 }
+
+
+// récupère les pages
+$pages = execute("SELECT * FROM page")->fetchAll(PDO::FETCH_ASSOC);
+
+// récupère les contenus
+// $contenus = execute("SELECT * FROM content")->fetchAll(PDO::FETCH_ASSOC);
+$contenus = execute("SELECT * FROM content c LEFT JOIN page p ON c.id_page = p.id_page")->fetchAll(PDO::FETCH_ASSOC);
+
 
 // CHARGEMENT DU HEADER 
 require_once '../inc/backheader.inc.php';

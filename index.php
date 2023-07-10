@@ -4,11 +4,13 @@
 require_once 'config/function.php';
 require_once 'inc/header.inc.php';
 
-if (isset($_GET['a']) && $_GET['a'] == 'dis') {
-    unset($_SESSION['user']);
-    $_SESSION['messages']['info'][] = 'A bientôt !!';
-    header('location:./');
-    exit();
+if (!empty($_GET)) {
+    if (isset($_GET['a']) && $_GET['a'] == 'dis') {
+        unset($_SESSION['user']);
+        $_SESSION['messages']['info'][] = 'A bientôt !!';
+        header('location:./');
+        exit();
+    }
 }
 
 // validation des formulaires
@@ -75,13 +77,13 @@ $currentPage[url_page] => /starIsland/
 */
 
 // TITRE DE LA PAGE
-$titre = execute("SELECT * FROM content c INNER JOIN page p ON c.id_page = p.id_page WHERE c.id_page=:id_page AND c.title_content = :title_content" ,[
+$titre = execute("SELECT * FROM content c INNER JOIN page p ON c.id_page = p.id_page WHERE c.id_page=:id_page AND c.title_content = :title_content", [
     ':id_page' => $currentPage['id_page'],
     ':title_content' => 'titre'
 ])->fetch(PDO::FETCH_ASSOC);
 
 // SOUS TITRE
-$soustitre = execute("SELECT * FROM content c INNER JOIN page p ON c.id_page = p.id_page WHERE c.id_page=:id_page AND c.title_content = :title_content" ,[
+$soustitre = execute("SELECT * FROM content c INNER JOIN page p ON c.id_page = p.id_page WHERE c.id_page=:id_page AND c.title_content = :title_content", [
     ':id_page' => $currentPage['id_page'],
     ':title_content' => 'description'
 ])->fetch(PDO::FETCH_ASSOC);
@@ -90,16 +92,15 @@ $soustitre = execute("SELECT * FROM content c INNER JOIN page p ON c.id_page = p
 $comments = execute("SELECT * FROM comment WHERE comment.publish = 1 ORDER BY id_comment DESC LIMIT 4")->fetchAll(PDO::FETCH_ASSOC);
 
 // Recupere la liste des avatars
-$avatars = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type where mt.title_media_type = :avatars",[
+$avatars = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type where mt.title_media_type = :avatars", [
     ':avatars' => 'avatars'
 ])->fetchAll(PDO::FETCH_ASSOC);
 
-// CARROUSEL
 
-
-$pathCarrousel = BASE_PATH . 'assets/upload/carrouselHome/';
-$carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type where mt.title_media_type = :carrouselHome",[
-    ':carrouselHome' => 'carrouselHome'
+// Recupere les images du carousel
+$carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type =mt.id_media_type WHERE id_page =:id_page AND  mt.title_media_type =:title_media_type",[
+    'id_page' => $currentPage['id_page'],
+    ':title_media_type' => 'carrouselHome'
 ])->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -122,14 +123,14 @@ $carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_medi
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-3 position-relative">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                    <?php foreach ($carousel as $key => $image) { ?>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $key ?>" <?php if($key == 0) echo "class='active'"; ?> ></button>
-                    <?php } ?>
+                        <?php foreach ($carousel as $key => $image) { ?>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $key ?>" <?php if ($key == 0) echo "class='active'"; ?>></button>
+                        <?php } ?>
                     </div>
                     <div class="carousel-inner rounded">
                         <?php foreach ($carousel as $key => $image) { ?>
-                            <div class="carousel-item <?php if($key == 0 ) echo ' active'; ?>">
-                                <img src="<?= $pathCarrousel . $image['title_media'] ?>" class="d-block w-100" alt="<?= $image['name_media'] ?>">
+                            <div class="carousel-item <?php if ($key == 0) echo ' active'; ?>">
+                                <img src="<?= BASE_PATH . 'assets/upload/'.$image['title_media_type'].'/'.$image['title_media'] ?>" class="d-block w-100" alt="<?= $image['name_media'] ?>">
                             </div>
                         <?php } ?>
                     </div>
@@ -215,63 +216,65 @@ $carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_medi
 
     <div class="container mt-5 position-relative">
 
-            <?php
-            foreach ($comments as $key => $comment) {
-            ?>
-                <div class="row d-flex justify-content-center <?php if ($key % 2) {
+        <?php
+        foreach ($comments as $key => $comment) {
+        ?>
+            <div class="row d-flex justify-content-center <?php if ($key % 2) {
                                                                 echo "justify-content-md-start";
                                                             } else {
                                                                 echo "justify-content-md-end";
                                                             } ?> mb-3 p-2">
-                    <div class="col-12 col-md-10 col-lg-8 col-xl-6 bg-light bg-opacity-50 <?php if ($key % 2) {
-                                            echo "left";
-                                        } else {
-                                            echo "right";
-                                        } ?> d-flex align-items-center justify-content-center border border-dark p-2">
-                        <?php $randomizeAvatar = rand(0, count($avatars)-1); ?>             
-                        <img src="<?= BASE_PATH.'assets/upload/avatars/'.$avatars[$randomizeAvatar]['title_media'] ?>" alt="<?= $avatars[$randomizeAvatar]['name_media'] ?>" width=80 class="rounded-circle">
-                        <div class="ps-2">
-                            <div class="d-flex justify-content-around p-2 mt-2">
-                                <?php 
-                                for ($i = 1; $i <= 5; $i++) {
-                                    if ($i <= $comment['rating_comment']) {
-                                        echo "<i class='fas fa-star text-sun fa-2x'></i>";
-                                    } else {
-                                        echo "<i class='fas fa-star text-dark fa-2x'></i>";
-                                    }
+                <div class="col-12 col-md-10 col-lg-8 col-xl-6 bg-light bg-opacity-50 <?php if ($key % 2) {
+                                                                                            echo "left";
+                                                                                        } else {
+                                                                                            echo "right";
+                                                                                        } ?> d-flex align-items-center justify-content-center border border-dark p-2">
+                    <?php $randomizeAvatar = rand(0, count($avatars) - 1); ?>
+                    <img src="<?= BASE_PATH . 'assets/upload/avatars/' . $avatars[$randomizeAvatar]['title_media'] ?>" alt="<?= $avatars[$randomizeAvatar]['name_media'] ?>" width=80 class="rounded-circle">
+                    <div class="ps-2">
+                        <div class="d-flex justify-content-around p-2 mt-2">
+                            <?php
+                            for ($i = 1; $i <= 5; $i++) {
+                                if ($i <= $comment['rating_comment']) {
+                                    echo "<i class='fas fa-star text-sun fa-2x'></i>";
+                                } else {
+                                    echo "<i class='fas fa-star text-dark fa-2x'></i>";
                                 }
-                                 ?>
-                            </div>
-                            <div class="mt-2 text-black">
-                                <p><?= $comment['comment_text'] ?></p>
-                                <small class="fw-bold">Publié le <?= $comment['publish_date_comment'] ?></small>
-                                
-                            </div>
+                            }
+                            ?>
+                        </div>
+                        <div class="mt-2 text-black">
+                            <p><?= $comment['comment_text'] ?></p>
+                            <small class="fw-bold">Publié le <?= $comment['publish_date_comment'] ?></small>
+
                         </div>
                     </div>
                 </div>
-    <?php } ?>
+            </div>
+        <?php } ?>
 
-    <a href="<?= BASE_PATH . 'front/allComment.php' ?>"><h3 class="text-center text-light">Voir tous les commentaires</h3></a>
-    
-    <hr>
+        <a href="<?= BASE_PATH . 'front/allComment.php' ?>">
+            <h3 class="text-center text-light">Voir tous les commentaires</h3>
+        </a>
 
-    <form class="d-flex flex-column border bg-white bg-opacity-25 px-5 my-5 rounded" method="post" enctype="multipart/form-data">
-        <h4 class="text-center py-3">Votre avis nous intéresse</h4>
-        <div class="d-flex justify-content-around mb-3 px-5">
-            <i class="fas fa-star fa-3x star-avis"></i>
-            <i class="fas fa-star fa-3x star-avis"></i>
-            <i class="fas fa-star fa-3x star-avis"></i>
-            <i class="fas fa-star fa-3x star-avis"></i>
-            <i class="fas fa-star fa-3x star-avis"></i>
-        </div>
-        <input type="text" name="nickname_comment" class="form-control" id="nickname_comment" placeholder="Pseudo">
-        <small class="bg-white bg-opacity-75 text-danger p-2 mb-3"><?= $avisPseudo ?? ""; ?></small>
-        <textarea name="comment_text" id="comment_text" cols="10" rows="5" class="bg-white bg-opacity-25" placeholder="Commentaires"></textarea>
-        <small class="bg-white bg-opacity-75 text-danger p-2 mb-3"><?= $avisComment ?? ""; ?></small>
-        <input type="hidden" name="rating_comment" id="rating_comment">
-        <button type="submit" class="btn btn-light mb-3">Publier</button>
-    </form>
+        <hr>
+
+        <form class="d-flex flex-column border bg-white bg-opacity-25 px-5 my-5 rounded" method="post" enctype="multipart/form-data">
+            <h4 class="text-center py-3">Votre avis nous intéresse</h4>
+            <div class="d-flex justify-content-around mb-3 px-5">
+                <i class="fas fa-star fa-3x star-avis"></i>
+                <i class="fas fa-star fa-3x star-avis"></i>
+                <i class="fas fa-star fa-3x star-avis"></i>
+                <i class="fas fa-star fa-3x star-avis"></i>
+                <i class="fas fa-star fa-3x star-avis"></i>
+            </div>
+            <input type="text" name="nickname_comment" class="form-control" id="nickname_comment" placeholder="Pseudo">
+            <small class="bg-white bg-opacity-75 text-danger p-2 mb-3"><?= $avisPseudo ?? ""; ?></small>
+            <textarea name="comment_text" id="comment_text" cols="10" rows="5" class="bg-white bg-opacity-25" placeholder="Commentaires"></textarea>
+            <small class="bg-white bg-opacity-75 text-danger p-2 mb-3"><?= $avisComment ?? ""; ?></small>
+            <input type="hidden" name="rating_comment" id="rating_comment">
+            <button type="submit" class="btn btn-light mb-3">Publier</button>
+        </form>
     </div>
 </section>
 
