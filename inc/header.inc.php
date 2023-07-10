@@ -42,7 +42,7 @@ $currentPage =  execute("SELECT * FROM page WHERE page.url_page=:url_page",[
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark font">
             <div class="container-fluid">
                 <a class="navbar-brand" href="<?= BASE_PATH; ?>">
-                    <img src="<?= BASE_PATH . 'assets/img/logo_starIsl.png' ?>" alt="logo" width="150">
+                    <img src="<?= BASE_PATH . 'assets/img/icon/logo_starIsl.png' ?>" alt="logo" width="150">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
