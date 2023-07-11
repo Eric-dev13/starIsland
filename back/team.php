@@ -205,13 +205,6 @@ if (!empty($_GET)) {
     }
 }
 
-// function getRole(string $role) {
-//     if (isset($teamById) && $teamById['role_team'] == $role) {
-//         return 'selected';
-//     }
-//     return '';
-// }
-
 // OBTENIR LA LISTE DES TEAMS 
 $teams = execute("SELECT t.id_team,t.role_team, t.nickname_team FROM team t")->fetchAll(PDO::FETCH_ASSOC);
 
@@ -258,7 +251,7 @@ require_once '../inc/backheader.inc.php';
 
                 <!-- MASQUE LES MEDIAS EN MODE MODIFICATION DE LA TEAM -->
                 <?php 
-                 if(!isset($teamById) && !empty($teamById)) {
+                if(!isset($teamById)) {
                 ?>
                 <!-- AVATAR + ALT -->
                 <div class="border border-light p-3 mb-3">

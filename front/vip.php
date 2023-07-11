@@ -22,11 +22,11 @@ $vips = execute("SELECT * FROM content WHERE id_page=:id_page",[
 
                 <?php if ($key % 2 == 0) { ?>
                     <div class="d-none col-sm-5 col-lg-4 d-sm-flex flex-sm-column justify-content-sm-end">
-                        <img src="<?= BASE_PATH . 'assets/img/perso-2-bordure.png' ?>" class="img-fluid" alt="...">
+                        <img src="<?= BASE_PATH . 'assets/img/perso-2-bordure.png' ?>" class="img-fluid perso-01" alt="...">
                     </div>
                 <?php } else { ?>
                     <div class="d-none col-sm-5 col-lg-3 offset-lg-2 d-sm-flex flex-sm-column justify-content-sm-start">
-                        <img src="<?= BASE_PATH . 'assets/img/perso-1-bordure.png' ?>" class="img-fluid" alt="...">
+                        <img src="<?= BASE_PATH . 'assets/img/perso-1-bordure.png' ?>" class="img-fluid perso-02" alt="...">
                     </div>
                 <?php } ?>
             </div>

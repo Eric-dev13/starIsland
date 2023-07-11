@@ -86,23 +86,23 @@ if (!empty($_POST)) {
                 unlink('../assets/upload/' . $getMediaForUpdate['title_media_type'] . '/' . $getMediaForUpdate['title_media']);
             }
 
-            
+
             // title_media path pour le fichier, titre pour alt 3 possibilité : new path, liens, old path
             $newTitleMedia = null;
             // si un fichier a été telecharger
-            if(!empty($_FILES['title_media']['name'])){
+            if (!empty($_FILES['title_media']['name'])) {
                 // ajout le path
                 $newTitleMedia = $destination;
             } else {
                 // Sinon on verifie si c'est un lien
-                if(isset($_POST['title_media'])) {
+                if (isset($_POST['title_media'])) {
                     $newTitleMedia = $_POST['title_media'];
                 } else {
                     // on conserve l'ancien path du fichier
                     $newTitleMedia = $getMediaForUpdate['title_media'];
 
                     // on deplace le fichier dans le bon dossier si changement du type de média
-                    if($_POST['id_media_type'] !=  $getMediaForUpdate['id_media_type']){
+                    if ($_POST['id_media_type'] !=  $getMediaForUpdate['id_media_type']) {
                         $dossierSource = '../assets/upload/' . $getMediaForUpdate['title_media_type'] . '/' . $getMediaForUpdate['title_media'];
                         $dossierDestination =  '../assets/upload/' . $formTitleMediaType['title_media_type'] . '/' . $getMediaForUpdate['title_media'];
                         copy($dossierSource, $dossierDestination);
@@ -276,12 +276,10 @@ require_once '../inc/backheader.inc.php';
                     <div class="mb-3">
                         <small class="text-danger">*</small>
                         <label for="id_media_type">Selection du type de média</label>
-                        <select class="form-select" aria-label="Default select example" name="id_media_type" id="id_media_type" 
-                                >
+                        <select class="form-select" aria-label="Default select example" name="id_media_type" id="id_media_type">
                             <?php
                             foreach ($listMediaType as $key => $mediaType) { ?>
-                                <option data-type="<?= $mediaType['type_media_type'] ?>" 
-                                    value="<?= $mediaType['id_media_type'] ?>" <?php if (isset($mediaById) && $mediaById['id_media_type'] == $mediaType['id_media_type']) {
+                                <option data-type="<?= $mediaType['type_media_type'] ?>" value="<?= $mediaType['id_media_type'] ?>" <?php if (isset($mediaById) && $mediaById['id_media_type'] == $mediaType['id_media_type']) {
                                                                                                                                         echo ' selected';
                                                                                                                                     } ?>>
                                     <?= $mediaType['title_media_type'] ?></option>
@@ -313,6 +311,8 @@ require_once '../inc/backheader.inc.php';
                     <i class="fas fa-scroll fa-2x text-success me-2"></i>
                     <h4 class="mb-3">Contenu</h4>
                 </div>
+
+
 
                 <table class="table table-dark table-striped">
                     <thead>

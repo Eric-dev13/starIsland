@@ -3,7 +3,7 @@ require_once '../config/function.php';
 require_once '../inc/header.inc.php';
 
 // Recupere les images de la galerie
-$galerieImages = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type =mt.id_media_type WHERE id_page =:id_page",[
+$galerieImages = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type =mt.id_media_type WHERE id_page =:id_page LIMIT 6",[
     'id_page' => $currentPage['id_page']
 ])->fetchAll(PDO::FETCH_ASSOC);
 // debug($galerieImages);

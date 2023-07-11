@@ -125,6 +125,28 @@ if (!connect()){
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
+            <li class="nav-item">
+                <a class="nav-link collapsed dropdown-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Gestion des médias</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-bs-parent="#accordionSidebar">
+                    <div class="bg-white p-2 collapse-inner rounded">
+                        <a class="dropdown-item text-dark" href="#">Page d'accueil</a>
+                    </div>
+                </div>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-bs-parent="#accordionSidebar">
+                    <div class="bg-white p-2 collapse-inner rounded">
+                        <a class="dropdown-item text-dark" href="#">Modifer un média</a>
+                    </div>
+                </div>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-bs-parent="#accordionSidebar">
+                    <div class="bg-white p-2 collapse-inner rounded">
+                        <a class="dropdown-item text-dark" href="#">Supprimer un média</a>
+                    </div>
+                </div>
+            </li>
+
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -155,6 +177,7 @@ if (!connect()){
                         </li>
                     </ul>
                 </nav>
+
                 <!-- End of Topbar -->
 
                 <div class="container position-relative">

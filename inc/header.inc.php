@@ -17,11 +17,17 @@
 //                    ':url_page' => $_SERVER['REQUEST_URI']
 //                 ])->fetchAll(PDO::FETCH_ASSOC);
 
-
-$currentPage =  execute("SELECT * FROM page WHERE page.url_page=:url_page",[
+// Renvoie la page courrante
+$currentPage = execute("SELECT * FROM page WHERE page.url_page=:url_page",[
                    ':url_page' => $_SERVER['REQUEST_URI']
                 ])->fetch(PDO::FETCH_ASSOC);
-// debug($currentPage);
+
+// Reseaux sociaux
+$reseauxSociaux = execute("SELECT * FROM page p INNER JOIN media m ON p.id_page=m.id_page INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type WHERE p.title_page=:title_page AND mt.title_media_type=:title_media_type ",[
+    ':title_media_type' => 'reseauxSociaux',
+    ':title_page' => 'ALL'
+ ])->fetchAll(PDO::FETCH_ASSOC);
+// debug($reseauxSociaux);
 ?>
 
 <!doctype html>

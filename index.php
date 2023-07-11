@@ -230,7 +230,7 @@ $carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_medi
                                                                                             echo "right";
                                                                                         } ?> d-flex align-items-center justify-content-center border border-dark p-2">
                     <?php $randomizeAvatar = rand(0, count($avatars) - 1); ?>
-                    <img src="<?= BASE_PATH . 'assets/upload/avatars/' . $avatars[$randomizeAvatar]['title_media'] ?>" alt="<?= $avatars[$randomizeAvatar]['name_media'] ?>" width=80 class="rounded-circle">
+                    <img src="<?= BASE_PATH . 'assets/upload/'.$avatars[$randomizeAvatar]['title_media_type'].'/'.$avatars[$randomizeAvatar]['title_media'] ?>" alt="<?= $avatars[$randomizeAvatar]['name_media'] ?>" width=80 class="rounded-circle">
                     <div class="ps-2">
                         <div class="d-flex justify-content-around p-2 mt-2">
                             <?php
@@ -261,7 +261,7 @@ $carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_medi
 
         <form class="d-flex flex-column border bg-white bg-opacity-25 px-5 my-5 rounded" method="post" enctype="multipart/form-data">
             <h4 class="text-center py-3">Votre avis nous intéresse</h4>
-            <div class="d-flex justify-content-around mb-3 px-5">
+            <div class="d-flex justify-content-around mb-3 px-5 stars-container">
                 <i class="fas fa-star fa-3x star-avis"></i>
                 <i class="fas fa-star fa-3x star-avis"></i>
                 <i class="fas fa-star fa-3x star-avis"></i>
@@ -284,6 +284,7 @@ $carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_medi
 
         // Gestion des étoiles dans "top server"
         const starsOne = document.querySelectorAll(".fas.fa-star.top-server__star");
+
         for (let index = 0; index < starsOne.length; index++) {
             starsOne[index].classList.add('text-dark');
 
@@ -303,6 +304,7 @@ $carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_medi
 
         // Gestion des étoiles dans "votre avis nous interesse"
         const stars = document.querySelectorAll(".fas.fa-star.star-avis");
+
         for (let index = 0; index < stars.length; index++) {
             stars[index].classList.add('text-dark');
 

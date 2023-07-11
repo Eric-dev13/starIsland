@@ -57,6 +57,10 @@ if (!empty($_POST)) {
 
     if (!$error) {
         // AJOUT de la date de debut et de fin dans EVENT.
+        // $today = $_POST['end_date_event'];
+        // $previousMonth = date("Y-m-d H:i:s", strtotime("-1 month", strtotime($today)));
+        // echo $previousMonth;
+
         $lastIdEvent = execute("INSERT INTO event (start_date_event, end_date_event) VALUES (:start_date_event, :end_date_event)", array(
             ':start_date_event' => $_POST['start_date_event'],
             ':end_date_event' => $_POST['end_date_event']

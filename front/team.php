@@ -16,12 +16,18 @@ if (!empty($_GET)) {
     $teams = execute("SELECT * FROM team")->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function active(string $name) {
-    if ( isset($_GET['r']) && $_GET['r'] == $name){
+function active(string $name)
+{
+    if (isset($_GET['r']) && $_GET['r'] == $name) {
         return 'active';
     }
     return '';
 }
+
+// Recupere la liste des avatars
+$avatars = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type=mt.id_media_type where mt.title_media_type = :avatars", [
+    ':avatars' => 'avatars'
+])->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -32,7 +38,9 @@ function active(string $name) {
         <div class="d-flex justify-content-center btn-teams">
             <div class="d-flex flex-column flex-md-row" role="group">
                 <a href="<?= BASE_PATH . 'front/team.php?r=Tous'; ?>">
-                    <button type="button" class="<?php if ( !isset($_GET['r']) || $_GET['r'] == 'Tous'){echo 'active';} ?> btn btn-outline-light">Tous</button>
+                    <button type="button" class="<?php if (!isset($_GET['r']) || $_GET['r'] == 'Tous') {
+                                                        echo 'active';
+                                                    } ?> btn btn-outline-light">Tous</button>
                 </a>
                 <a href="<?= BASE_PATH . 'front/team.php?r=Admins'; ?>">
                     <button type="button" class="<?= active('Admins') ?> btn btn-outline-light">Admins</button>
@@ -70,15 +78,23 @@ function active(string $name) {
                             $pathImage = '../assets/upload/' . $media['title_media_type'] . '/' . $media['title_media'];
                             $alt = $media['name_media'];
                         } else {
-                            $links[] = [$media['name_media'] => $media['title_media']];
+                            $links[] = [$media['name_media'], $media['title_media']];
                         }
-                    } ?>
+                    }
+                    // Si vide alors randon avatar
+                    if (empty($pathImage)) {
+                        $randomizeAvatar = rand(0, count($avatars) - 1);
+                        $pathImage = BASE_PATH . 'assets/upload/' . $avatars[$randomizeAvatar]['title_media_type'] . '/' . $avatars[$randomizeAvatar]['title_media'];
+                    }
+
+                    ?>
+
                     <div class="group-link">
                         <div class="link">
                             <?php
                             foreach ($links as $link) { ?>
-                                <a href="<?= $link ?>" target="_blank">
-                                    <img src="<?= BASE_PATH . 'assets/img/icon/link.png' ?>"  title="<?= key($link) ?>"  width=50>
+                                <a href="<?= $link[1] ?>" target="_blank">
+                                    <img src="<?= BASE_PATH . 'assets/img/icon/link.png' ?>" title="<?= $link[0] ?>" width=50>
                                 </a>
                             <?php } ?>
                         </div>
@@ -124,15 +140,15 @@ function active(string $name) {
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Affiche les liens lors du click
-        // const avatars = document.querySelectorAll('.group-link');
-        
-        // for (let index = 0; index < avatars.length; index++) {
-        //     console.log('index: ', index);
-        //     const avatar = avatars[index];
-        //     avatar.addEventListener('click', () => {
-        //         avatar.querySelector('.link').style.opacity = "1";
-        //     });
-        // }
+        const avatars = document.querySelectorAll('.group-link');
+
+        for (let index = 0; index < avatars.length; index++) {
+            console.log('index: ', index);
+            const avatar = avatars[index];
+            avatar.addEventListener('click', () => {
+                avatar.querySelector('.link').style.opacity = "1";
+            });
+        }
     });
 </script>
 
