@@ -8,17 +8,17 @@ const CONFIG=[
     'db'=>[
         'HOST'=>'localhost',
         'PORT'=>'3306',
-        'NAME'=>'star_island',
-        'USER'=>'root',
-        'PWD'=>''
+        'NAME'=>'dece5725_eric_starIsland',
+        'USER'=>'dece5725_cezdigitevogue',
+        'PWD'=>'Cezevogue1986@'
 
     ],
     'app'=>[
         'name'=>'starIsland',
-        'projecturl'=>'http://localhost/starIsland'
+        'projecturl'=>'http://eric.cezdigit.com/'
     ]
 
 ];
 
-const BASE_PATH='/starIsland/';
+const BASE_PATH='/';
 
