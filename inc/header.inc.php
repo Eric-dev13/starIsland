@@ -1,25 +1,12 @@
 <?php 
-// debug($_SERVER['REQUEST_URI']);
-// $array = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-// $getAllPerPage =  execute("SELECT * FROM page p 
-//                 LEFT JOIN content c ON c.id_page=p.id_page  
-//                 LEFT JOIN media m ON m.id_page=p.id_page 
-//                 LEFT JOIN media_type mt ON mt.id_media_type=m.id_media_type 
-//                 LEFT JOIN team_media tm ON tm.id_media=m.id_media 
-//                 LEFT JOIN team t ON t.id_team=tm.id_team 
-//                 LEFT JOIN event_media em ON em.id_media=m.id_media 
-//                 LEFT JOIN event_content ec ON ec.id_content=c.id_content
-//                 LEFT JOIN event evtc ON evtc.id_event=ec.id_content
-//                 LEFT JOIN event evtm ON evtm.id_event=em.id_media
-//                 WHERE p.url_page=:url_page
-//                 ",
-//                 [
-//                    ':url_page' => $_SERVER['REQUEST_URI']
-//                 ])->fetchAll(PDO::FETCH_ASSOC);
+
+ $arrayActivePage = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+ array_splice($arrayActivePage, 0, 2);
+ $activePage = implode('/', $arrayActivePage);
 
 // Renvoie la page courrante
 $currentPage = execute("SELECT * FROM page WHERE page.url_page=:url_page",[
-                   ':url_page' => $_SERVER['REQUEST_URI']
+                   ':url_page' =>  $activePage
                 ])->fetch(PDO::FETCH_ASSOC);
 
 // Reseaux sociaux
@@ -27,7 +14,6 @@ $reseauxSociaux = execute("SELECT * FROM page p INNER JOIN media m ON p.id_page=
     ':title_media_type' => 'reseauxSociaux',
     ':title_page' => 'ALL'
  ])->fetchAll(PDO::FETCH_ASSOC);
-// debug($reseauxSociaux);
 ?>
 
 <!doctype html>

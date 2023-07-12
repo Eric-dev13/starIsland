@@ -77,6 +77,7 @@ function connect()
     }
 }
 
+
 function adminExist()
 {
     try {

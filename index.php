@@ -96,7 +96,6 @@ $avatars = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media
     ':avatars' => 'avatars'
 ])->fetchAll(PDO::FETCH_ASSOC);
 
-
 // Recupere les images du carousel
 $carousel = execute("SELECT * FROM media m INNER JOIN media_type mt ON m.id_media_type =mt.id_media_type WHERE id_page =:id_page AND  mt.title_media_type =:title_media_type",[
     'id_page' => $currentPage['id_page'],

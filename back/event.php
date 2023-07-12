@@ -71,7 +71,7 @@ if (!empty($_POST)) {
             'title_page' => 'evenement'
         ])->fetch(PDO::FETCH_ASSOC);
 
-        // Ajout titre, description, id page dans CONTENT .
+        // Ajout titre, description, id page dans CONTENT.
         $lastIdContent = execute("INSERT INTO content (title_content , description_content, id_page ) VALUES (:title_content, :description_content, :id_page)", array(
             ':title_content' => $_POST['title_content'],
             ':description_content' => $_POST['description_content'],
